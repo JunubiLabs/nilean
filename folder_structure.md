@@ -1,7 +1,11 @@
 ### **Folder Structure**
 ```
 lib/
-├── blocs/        
+├── blocs/
+│   ├── auth/
+│   │   ├── auth_bloc.dart
+│   │   ├── auth_event.dart
+│   │   ├── auth_state.dart
 │   ├── chat/
 │   │   ├── chat_bloc.dart
 │   │   ├── chat_event.dart
@@ -14,27 +18,28 @@ lib/
 │       ├── theme_bloc.dart
 │       ├── theme_event.dart
 │       ├── theme_state.dart
-├── models/      
+├── models/
 │   ├── chat_message.dart
 │   ├── news_article.dart
 ├── repositories/
+│   ├── auth_repository.dart
 │   ├── chat_repository.dart
 │   ├── news_repository.dart
-├── ui/          
-│   ├── pages/   
+├── ui/
+│   ├── pages/
 │   │   ├── splash_page.dart
 │   │   ├── home_page.dart
 │   │   ├── chat_page.dart
 │   │   ├── news_page.dart
 │   │   ├── settings_page.dart
-│   ├── widgets/         
+│   ├── widgets/
 │       ├── chat_bubble.dart
 │       ├── news_card.dart
 │       ├── custom_app_bar.dart
-├── utils/               
+├── utils/
 │   ├── constants.dart
 │   ├── theme.dart
 │   ├── helpers.dart
-├── main.dart            
-└── app.dart             
+├── main.dart
+└── app.dart
 ```
