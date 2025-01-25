@@ -12,7 +12,9 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    _checkAuthenticationStatus();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAuthenticationStatus();
+    });
   }
 
   Future<void> _checkAuthenticationStatus() async {
@@ -26,15 +28,17 @@ class _SplashPageState extends State<SplashPage> {
     User? currentUser = FirebaseAuth.instance.currentUser;
 
     if (currentUser != null) {
+      print('home');
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
+      print('auth');
       Navigator.of(context).pushReplacementNamed('/auth');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
