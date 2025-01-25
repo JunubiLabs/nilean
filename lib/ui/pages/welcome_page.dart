@@ -55,7 +55,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
               Text(
-                "Experience your Ai in your South Sudanese language. To continue, sign in or create an account.",
+                "Experience the power of Ai in your South Sudanese language. To continue, sign in or create an account.",
                 style: GoogleFonts.lato(
                   color: Colors.white,
                   fontSize: 16,

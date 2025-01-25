@@ -28,10 +28,8 @@ class _SplashPageState extends State<SplashPage> {
     User? currentUser = FirebaseAuth.instance.currentUser;
 
     if (currentUser != null) {
-      print('home');
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
-      print('auth');
       Navigator.of(context).pushReplacementNamed('/auth');
     }
   }
