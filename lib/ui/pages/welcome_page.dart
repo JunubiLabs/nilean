@@ -1,4 +1,6 @@
+import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 
@@ -30,6 +32,19 @@ class _WelcomePageState extends State<WelcomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                "buai",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'GizaStencil',
+                  letterSpacing: 1.5,
+                ),
+              ).animate().fadeIn(
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeIn,
+                  ),
               const Spacer(),
               Text(
                 "Let's get started!",
@@ -40,27 +55,17 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
               Text(
-                "Experience your Ai in your South Sudanese Mother Tongue. To continue, sign in or create an account.",
+                "Experience your Ai in your South Sudanese language. To continue, sign in or create an account.",
                 style: GoogleFonts.lato(
                   color: Colors.white,
                   fontSize: 16,
                 ),
               ),
               const SizedBox(height: 25),
-              TextButton(
+              AppButtons.authButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('/login');
                 },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,22 +82,18 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                   ],
                 ),
-              ),
+              )
+                  .animate()
+                  .slideY(
+                    begin: 0.5,
+                    duration: const Duration(milliseconds: 850),
+                  )
+                  .fade(),
               const SizedBox(height: 10),
-              TextButton(
+              AppButtons.authButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('/login');
                 },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,7 +110,14 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                   ],
                 ),
-              ),
+              )
+                  .animate()
+                  .slideY(
+                    begin: 0.5,
+                    duration: const Duration(milliseconds: 850),
+                    delay: const Duration(milliseconds: 200),
+                  )
+                  .fade(),
             ],
           ),
         ),
