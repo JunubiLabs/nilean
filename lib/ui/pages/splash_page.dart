@@ -18,10 +18,9 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> _checkAuthenticationStatus() async {
-    await Future.wait([
-      Future.delayed(Duration(seconds: 2)),
-      _navigateBasedOnAuthStatus(),
-    ]);
+    Future.delayed(Duration(seconds: 3)).then((x) {
+      _navigateBasedOnAuthStatus();
+    });
   }
 
   Future<void> _navigateBasedOnAuthStatus() async {

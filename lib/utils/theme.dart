@@ -1,0 +1,19 @@
+import 'package:flutter/material.dart';
+
+class AppThemes {
+  static ThemeData light = ThemeData(
+    scaffoldBackgroundColor: Colors.white,
+    colorScheme: ColorScheme.light(
+      primary: Colors.white,
+      secondary: Colors.black,
+    ),
+  );
+
+  static ThemeData dark = ThemeData(
+    scaffoldBackgroundColor: Colors.black,
+    colorScheme: ColorScheme.dark(
+      primary: Colors.black,
+      secondary: Colors.white,
+    ),
+  );
+}
