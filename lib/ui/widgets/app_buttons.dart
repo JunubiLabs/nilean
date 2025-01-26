@@ -26,19 +26,21 @@ class AppButtons {
     required VoidCallback onPressed,
     required BuildContext context,
   }) {
-    return IconButton(
-      onPressed: onPressed,
-      style: IconButton.styleFrom(
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
         alignment: Alignment.center,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        shape: RoundedRectangleBorder(
+        width: 30,
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(8),
-          side: BorderSide(),
+          border: Border.all(color: Colors.grey, width: 1),
         ),
-      ),
-      icon: const Icon(
-        IconsaxPlusLinear.arrow_left_1,
-        size: 20,
+        child: const Icon(
+          IconsaxPlusLinear.arrow_left,
+          size: 20,
+        ),
       ),
     );
   }

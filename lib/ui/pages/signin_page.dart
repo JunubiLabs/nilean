@@ -19,6 +19,8 @@ class _SigninPageState extends State<SigninPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  bool isObsecure = true;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -91,6 +93,28 @@ class _SigninPageState extends State<SigninPage> {
                               return null;
                             },
                             decoration: InputThemes.emailInput(context),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            "Password",
+                            style: GoogleFonts.lato(
+                              fontSize: 15,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          TextFormField(
+                            controller: _passwordController,
+                            style: GoogleFonts.lato(fontSize: 15),
+                            validator: (value) {
+                              InputValidator.isValidPassword(value);
+                              return null;
+                            },
+                            obscuringCharacter: '*',
+                            obscureText: isObsecure,
+                            decoration: InputThemes.passwordInput(
+                              context,
+                              isObsecure,
+                            ),
                           ),
                         ],
                       ),

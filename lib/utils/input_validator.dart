@@ -9,7 +9,13 @@ class InputValidator {
     return null;
   }
 
-  static bool isValidPassword(String password) {
-    return password.length >= 6;
+  static isValidPassword(String? password) {
+    if (password == null) {
+      return 'Please enter your password';
+    }
+    if (password.length < 6) {
+      return 'Password too short';
+    }
+    return null;
   }
 }
