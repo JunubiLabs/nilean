@@ -11,8 +11,15 @@ class InputThemes {
       labelText: "example@gmail.com",
       labelStyle: GoogleFonts.lato(fontSize: 15),
       floatingLabelBehavior: FloatingLabelBehavior.never,
-      border: const OutlineInputBorder(),
-      focusedBorder: const OutlineInputBorder(),
+      border: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey),
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
+        ),
+      ),
     );
   }
 

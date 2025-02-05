@@ -1,6 +1,5 @@
 import 'package:buai/blocs/auth/auth_bloc.dart';
 import 'package:buai/blocs/auth/auth_state.dart';
-import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/input_themes.dart';
 import 'package:buai/utils/input_validator.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +27,12 @@ class _SigninPageState extends State<SigninPage> {
     super.dispose();
   }
 
+  hidePassword() {
+    setState(() {
+      isObsecure = !isObsecure;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +58,23 @@ class _SigninPageState extends State<SigninPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppButtons.backButton(
-                      onPressed: () {},
-                      context: context,
+                    Container(
+                      height: 200,
+                      width: double.maxFinite,
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/ssdolympics.jpg'),
+                          alignment: Alignment.center,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [],
+                      ),
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -63,6 +82,7 @@ class _SigninPageState extends State<SigninPage> {
                       style: GoogleFonts.lato(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
+                        color: Colors.blue.shade900,
                       ),
                     ),
                     Text(
