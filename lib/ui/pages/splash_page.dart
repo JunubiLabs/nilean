@@ -43,7 +43,7 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image(image: AssetImage('assets/images/buai.gif')),
+            Image(image: AssetImage('assets/images/buai.png')),
           ],
         ),
       ),
