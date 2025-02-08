@@ -9,15 +9,24 @@ class InputThemes {
       filled: true,
       fillColor: Theme.of(context).colorScheme.primary,
       labelText: "example@gmail.com",
-      labelStyle: GoogleFonts.lato(fontSize: 15),
+      labelStyle: GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.bold),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       border: const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.grey),
+        borderSide: BorderSide(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.all(
+          Radius.circular(5),
+        ),
+      ),
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.all(
+          Radius.circular(5),
+        ),
       ),
       focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.grey),
+        borderSide: BorderSide(color: Colors.black, width: 2),
         borderRadius: BorderRadius.all(
-          Radius.circular(8),
+          Radius.circular(5),
         ),
       ),
     );
@@ -32,13 +41,19 @@ class InputThemes {
       filled: true,
       fillColor: Theme.of(context).colorScheme.primary,
       labelText: "password",
-      labelStyle: GoogleFonts.lato(fontSize: 15),
+      labelStyle: GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.bold),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       border: const OutlineInputBorder(),
-      focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.grey),
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black, width: 2),
         borderRadius: BorderRadius.all(
-          Radius.circular(8),
+          Radius.circular(5),
+        ),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.all(
+          Radius.circular(5),
         ),
       ),
       suffixIcon: IconButton(

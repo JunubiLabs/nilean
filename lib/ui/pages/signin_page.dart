@@ -1,5 +1,6 @@
 import 'package:buai/blocs/auth/auth_bloc.dart';
 import 'package:buai/blocs/auth/auth_state.dart';
+import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/input_themes.dart';
 import 'package:buai/utils/input_validator.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class _SigninPageState extends State<SigninPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryYellow,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
@@ -52,95 +54,79 @@ class _SigninPageState extends State<SigninPage> {
         child: SafeArea(
           child: BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
-              return Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 200,
-                      width: double.maxFinite,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/ssdolympics.jpg'),
-                          alignment: Alignment.center,
-                          fit: BoxFit.cover,
+              return Stack(
+                children: [
+                  Positioned.fill(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Image.asset(
+                          'assets/images/login.png',
+                          height: 350,
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Sign In",
+                          style: GoogleFonts.jockeyOne(
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [],
-                      ),
+                        Text(
+                          "To continue you need to sign in",
+                          style: GoogleFonts.kanit(
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                controller: _emailController,
+                                style: GoogleFonts.lato(fontSize: 15),
+                                validator: (value) {
+                                  InputValidator.isValidEmail(value);
+                                  return null;
+                                },
+                                decoration: InputThemes.emailInput(context),
+                              ),
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                controller: _passwordController,
+                                style: GoogleFonts.lato(fontSize: 15),
+                                validator: (value) {
+                                  InputValidator.isValidPassword(value);
+                                  return null;
+                                },
+                                obscuringCharacter: '*',
+                                obscureText: isObsecure,
+                                decoration: InputThemes.passwordInput(
+                                  context,
+                                  isObsecure,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      "Welcome back!",
-                      style: GoogleFonts.lato(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue.shade900,
-                      ),
-                    ),
-                    Text(
-                      "Login to your account to continue.",
-                      style: GoogleFonts.lato(
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Email",
-                            style: GoogleFonts.lato(
-                              fontSize: 15,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _emailController,
-                            style: GoogleFonts.lato(fontSize: 15),
-                            validator: (value) {
-                              InputValidator.isValidEmail(value);
-                              return null;
-                            },
-                            decoration: InputThemes.emailInput(context),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            "Password",
-                            style: GoogleFonts.lato(
-                              fontSize: 15,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _passwordController,
-                            style: GoogleFonts.lato(fontSize: 15),
-                            validator: (value) {
-                              InputValidator.isValidPassword(value);
-                              return null;
-                            },
-                            obscuringCharacter: '*',
-                            obscureText: isObsecure,
-                            decoration: InputThemes.passwordInput(
-                              context,
-                              isObsecure,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                ],
               );
             },
           ),
