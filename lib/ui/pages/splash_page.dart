@@ -1,3 +1,4 @@
+import 'package:buai/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -36,13 +37,13 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.secondaryBlue,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image(image: AssetImage('assets/images/logo-dark.png')),
+            Image(image: AssetImage('assets/images/buai.gif')),
           ],
         ),
       ),
