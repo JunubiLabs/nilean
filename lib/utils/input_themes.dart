@@ -41,6 +41,7 @@ class InputThemes {
   static InputDecoration passwordInput(
     BuildContext context,
     bool isObsecure,
+    Function() toggleObsecure,
   ) {
     return InputDecoration(
       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -69,9 +70,7 @@ class InputThemes {
         ),
       ),
       suffixIcon: IconButton(
-        onPressed: () {
-          isObsecure = !isObsecure;
-        },
+        onPressed: toggleObsecure,
         icon: Icon(
           isObsecure ? IconsaxPlusLinear.eye : IconsaxPlusLinear.eye_slash,
         ),

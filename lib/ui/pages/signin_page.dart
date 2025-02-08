@@ -4,7 +4,6 @@ import 'package:buai/blocs/auth/auth_state.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/input_themes.dart';
-import 'package:buai/utils/input_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -103,8 +102,15 @@ class _SigninPageState extends State<SigninPage> {
                               TextFormField(
                                 controller: _emailController,
                                 style: GoogleFonts.lato(fontSize: 15),
-                                validator: (value) {
-                                  InputValidator.isValidEmail(value);
+                                validator: (email) {
+                                  if (email == null || email.isEmpty) {
+                                    return 'Please enter your email';
+                                  }
+                                  if (!RegExp(
+                                          r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                      .hasMatch(email)) {
+                                    return 'Please enter a valid email';
+                                  }
                                   return null;
                                 },
                                 decoration: InputThemes.emailInput(context),
@@ -113,8 +119,13 @@ class _SigninPageState extends State<SigninPage> {
                               TextFormField(
                                 controller: _passwordController,
                                 style: GoogleFonts.lato(fontSize: 15),
-                                validator: (value) {
-                                  InputValidator.isValidPassword(value);
+                                validator: (password) {
+                                  if (password == null) {
+                                    return 'Please enter your password';
+                                  }
+                                  if (password.length < 6) {
+                                    return 'Password too short';
+                                  }
                                   return null;
                                 },
                                 obscuringCharacter: '*',
@@ -122,6 +133,7 @@ class _SigninPageState extends State<SigninPage> {
                                 decoration: InputThemes.passwordInput(
                                   context,
                                   isObsecure,
+                                  hidePassword,
                                 ),
                               ),
                               if (state is AuthError) ...[
