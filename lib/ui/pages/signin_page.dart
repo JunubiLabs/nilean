@@ -122,19 +122,47 @@ class _SigninPageState extends State<SigninPage> {
                                   isObsecure,
                                 ),
                               ),
+                              if (state is AuthError) ...[
+                                RichText(
+                                  text: TextSpan(
+                                    text: "forgot your password?",
+                                    style: GoogleFonts.kanit(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            Navigator.of(context)
+                                                .pushNamed('/reset-password');
+                                          },
+                                        text: " CLICK HERE",
+                                        style: GoogleFonts.kanit(
+                                          fontSize: 15,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
                               const SizedBox(height: 5),
                               AppButtons.blueButton(
                                 onPressed: () {},
                                 child: SizedBox(
                                   width: double.maxFinite,
-                                  child: Text(
-                                    "Sign In",
-                                    style: GoogleFonts.kanit(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                  child: state is AuthLoading
+                                      ? CircularProgressIndicator.adaptive()
+                                      : Text(
+                                          "Sign In",
+                                          style: GoogleFonts.kanit(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
                                 ),
                               ),
                             ],
@@ -143,26 +171,26 @@ class _SigninPageState extends State<SigninPage> {
                         const SizedBox(height: 5),
                         RichText(
                           text: TextSpan(
-                              text: "need an account?",
-                              style: GoogleFonts.kanit(
-                                fontSize: 15,
-                                color: Colors.black,
-                              ),
-                              children: [
-                                TextSpan(
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.of(context)
-                                          .pushNamed('/signup');
-                                    },
-                                  text: " SIGN UP",
-                                  style: GoogleFonts.kanit(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              ]),
+                            text: "need an account?",
+                            style: GoogleFonts.kanit(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context).pushNamed('/signup');
+                                  },
+                                text: " SIGN UP",
+                                style: GoogleFonts.kanit(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
