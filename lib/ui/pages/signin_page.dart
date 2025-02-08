@@ -1,8 +1,10 @@
 import 'package:buai/blocs/auth/auth_bloc.dart';
 import 'package:buai/blocs/auth/auth_state.dart';
+import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/input_themes.dart';
 import 'package:buai/utils/input_validator.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -120,9 +122,48 @@ class _SigninPageState extends State<SigninPage> {
                                   isObsecure,
                                 ),
                               ),
+                              const SizedBox(height: 5),
+                              AppButtons.blueButton(
+                                onPressed: () {},
+                                child: SizedBox(
+                                  width: double.maxFinite,
+                                  child: Text(
+                                    "Sign In",
+                                    style: GoogleFonts.kanit(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-                        )
+                        ),
+                        const SizedBox(height: 5),
+                        RichText(
+                          text: TextSpan(
+                              text: "need an account?",
+                              style: GoogleFonts.kanit(
+                                fontSize: 15,
+                                color: Colors.black,
+                              ),
+                              children: [
+                                TextSpan(
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.of(context)
+                                          .pushNamed('/signup');
+                                    },
+                                  text: " SIGN UP",
+                                  style: GoogleFonts.kanit(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ]),
+                        ),
                       ],
                     ),
                   ),
