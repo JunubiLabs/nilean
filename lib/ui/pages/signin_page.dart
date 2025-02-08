@@ -1,4 +1,5 @@
 import 'package:buai/blocs/auth/auth_bloc.dart';
+import 'package:buai/blocs/auth/auth_event.dart';
 import 'package:buai/blocs/auth/auth_state.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({super.key});
@@ -123,6 +125,7 @@ class _SigninPageState extends State<SigninPage> {
                                 ),
                               ),
                               if (state is AuthError) ...[
+                                const SizedBox(height: 5),
                                 RichText(
                                   text: TextSpan(
                                     text: "forgot your password?",
@@ -150,11 +153,23 @@ class _SigninPageState extends State<SigninPage> {
                               ],
                               const SizedBox(height: 5),
                               AppButtons.blueButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    context
+                                        .read<AuthBloc>()
+                                        .add(SignInRequested(
+                                          _emailController.value.text,
+                                          _passwordController.value.text,
+                                        ));
+                                  }
+                                },
                                 child: SizedBox(
                                   width: double.maxFinite,
                                   child: state is AuthLoading
-                                      ? CircularProgressIndicator.adaptive()
+                                      ? LoadingAnimationWidget.fourRotatingDots(
+                                          color: AppColors.primaryWhite,
+                                          size: 20,
+                                        )
                                       : Text(
                                           "Sign In",
                                           style: GoogleFonts.kanit(

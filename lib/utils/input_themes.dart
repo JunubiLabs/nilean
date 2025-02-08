@@ -23,6 +23,12 @@ class InputThemes {
           Radius.circular(5),
         ),
       ),
+      errorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.red, width: 2),
+        borderRadius: BorderRadius.all(
+          Radius.circular(5),
+        ),
+      ),
       focusedBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black, width: 2),
         borderRadius: BorderRadius.all(
@@ -46,6 +52,12 @@ class InputThemes {
       border: const OutlineInputBorder(),
       enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.all(
+          Radius.circular(5),
+        ),
+      ),
+      errorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.red, width: 2),
         borderRadius: BorderRadius.all(
           Radius.circular(5),
         ),
