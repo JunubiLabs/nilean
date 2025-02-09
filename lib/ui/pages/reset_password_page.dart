@@ -1,5 +1,4 @@
 import 'package:buai/blocs/auth/auth_bloc.dart';
-import 'package:buai/blocs/auth/auth_event.dart';
 import 'package:buai/blocs/auth/auth_state.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
@@ -10,14 +9,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+class ResetPasswordPage extends StatefulWidget {
+  const ResetPasswordPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -40,7 +39,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryBlue,
+      backgroundColor: AppColors.primaryYellow,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
@@ -62,11 +61,10 @@ class _SignupPageState extends State<SignupPage> {
                   Positioned.fill(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/images/signup.png',
-                          height: 350,
+                          'assets/images/resetpwd.png',
                         )
                       ],
                     ),
@@ -78,7 +76,7 @@ class _SignupPageState extends State<SignupPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Sign Up",
+                          "Forgot Password",
                           style: GoogleFonts.jockeyOne(
                             fontSize: 36,
                             fontWeight: FontWeight.bold,
@@ -86,7 +84,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                         Text(
-                          "Enter Your Email and Password to Sign Up",
+                          "Enter your email to get password reset email",
                           style: GoogleFonts.kanit(
                             fontSize: 15,
                           ),
@@ -116,65 +114,8 @@ class _SignupPageState extends State<SignupPage> {
                                 decoration: InputThemes.emailInput(context),
                               ),
                               const SizedBox(height: 5),
-                              TextFormField(
-                                controller: _passwordController,
-                                style: GoogleFonts.lato(fontSize: 15),
-                                validator: (password) {
-                                  if (password == null) {
-                                    return 'Please enter your password';
-                                  }
-                                  if (password.length < 6) {
-                                    return 'Password too short. Should be larger than 6 characters';
-                                  }
-                                  return null;
-                                },
-                                obscuringCharacter: '*',
-                                obscureText: isObsecure,
-                                decoration: InputThemes.passwordInput(
-                                  context,
-                                  isObsecure,
-                                  hidePassword,
-                                ),
-                              ),
-                              if (state is AuthError) ...[
-                                const SizedBox(height: 5),
-                                RichText(
-                                  text: TextSpan(
-                                    text: "Error Occured Signing Up",
-                                    style: GoogleFonts.kanit(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            Navigator.of(context)
-                                                .pushNamed('/reset-password');
-                                          },
-                                        text: "",
-                                        style: GoogleFonts.kanit(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                              const SizedBox(height: 5),
                               AppButtons.blueButton(
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    context
-                                        .read<AuthBloc>()
-                                        .add(SignUpRequested(
-                                          _emailController.value.text,
-                                          _passwordController.value.text,
-                                        ));
-                                  }
-                                },
+                                onPressed: () {},
                                 child: SizedBox(
                                   width: double.maxFinite,
                                   child: state is AuthLoading
@@ -183,7 +124,7 @@ class _SignupPageState extends State<SignupPage> {
                                           size: 20,
                                         )
                                       : Text(
-                                          "Sign Up",
+                                          "Submit",
                                           style: GoogleFonts.kanit(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
@@ -198,7 +139,7 @@ class _SignupPageState extends State<SignupPage> {
                         const SizedBox(height: 5),
                         RichText(
                           text: TextSpan(
-                            text: "got an account?",
+                            text: "",
                             style: GoogleFonts.kanit(
                               fontSize: 15,
                               color: Colors.black,
@@ -206,10 +147,8 @@ class _SignupPageState extends State<SignupPage> {
                             children: [
                               TextSpan(
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.of(context).pushNamed('/signin');
-                                  },
-                                text: " SIGN IN",
+                                  ..onTap = () {},
+                                text: "RESEND",
                                 style: GoogleFonts.kanit(
                                   fontSize: 15,
                                   color: Colors.black,

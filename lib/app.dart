@@ -1,3 +1,4 @@
+import 'package:buai/ui/pages/reset_password_page.dart';
 import 'package:buai/ui/pages/signup_page.dart';
 import 'package:buai/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class App extends StatelessWidget {
           '/home': (context) => HomePage(),
           '/signin': (context) => SigninPage(),
           '/signup': (context) => SignupPage(),
+          '/reset-password': (context) => ResetPasswordPage(),
         },
         debugShowCheckedModeBanner: false,
         theme: AppThemes.light,
