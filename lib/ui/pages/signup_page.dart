@@ -140,7 +140,7 @@ class _SignupPageState extends State<SignupPage> {
                                 const SizedBox(height: 5),
                                 RichText(
                                   text: TextSpan(
-                                    text: "forgot your password?",
+                                    text: "Error Occured Signing Up",
                                     style: GoogleFonts.kanit(
                                       fontSize: 15,
                                       color: Colors.black,
@@ -152,7 +152,7 @@ class _SignupPageState extends State<SignupPage> {
                                             Navigator.of(context)
                                                 .pushNamed('/reset-password');
                                           },
-                                        text: " CLICK HERE",
+                                        text: "",
                                         style: GoogleFonts.kanit(
                                           fontSize: 15,
                                           color: Colors.black,
@@ -169,7 +169,7 @@ class _SignupPageState extends State<SignupPage> {
                                   if (_formKey.currentState!.validate()) {
                                     context
                                         .read<AuthBloc>()
-                                        .add(SignInRequested(
+                                        .add(SignUpRequested(
                                           _emailController.value.text,
                                           _passwordController.value.text,
                                         ));
