@@ -34,7 +34,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 children: [
                   AppButtons.authButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
+                      Navigator.of(context).pushNamed('/signin');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   const SizedBox(height: 5),
                   AppButtons.authButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
+                      Navigator.of(context).pushNamed('/signin');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

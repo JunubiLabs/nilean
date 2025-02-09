@@ -1,3 +1,4 @@
+import 'package:buai/ui/pages/signup_page.dart';
 import 'package:buai/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,8 @@ class App extends StatelessWidget {
           '/': (context) => SplashPage(),
           '/auth': (context) => WelcomePage(),
           '/home': (context) => HomePage(),
-          '/login': (context) => SigninPage(),
+          '/signin': (context) => SigninPage(),
+          '/signup': (context) => SignupPage(),
         },
         debugShowCheckedModeBanner: false,
         theme: AppThemes.light,
