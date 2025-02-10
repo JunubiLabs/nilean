@@ -20,7 +20,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: event.email,
         password: event.password,
       );
-      emit(AuthAuthenticated(user!.user!));
+      user!.user!.sendEmailVerification();
+      emit(AuthAuthenticated(user.user!));
     } catch (e) {
       emit(AuthError(e.toString()));
     }
