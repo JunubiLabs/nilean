@@ -95,7 +95,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                     ),
                   ),
                   Text(
-                    "Please Check Your Email for Verification",
+                    "Please Check Your Email for Verification and then come back",
                     style: GoogleFonts.kanit(fontSize: 15),
                   ),
                   const SizedBox(height: 5),
@@ -125,19 +125,6 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          if (isLoading) ...[
-                            const SizedBox(height: 5),
-                            RichText(
-                              text: TextSpan(
-                                text: "Error Occured",
-                                style: GoogleFonts.kanit(
-                                  fontSize: 15,
-                                  color: Colors.red,
-                                ),
-                                children: [],
-                              ),
-                            ),
-                          ],
                         ],
                       ),
                     ),
@@ -145,7 +132,11 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                   const SizedBox(height: 5),
                   AppButtons.blueButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (isEmailVerified) {
+                        if (_formKey.currentState!.validate()) {}
+                      } else {
+                        sendVerificationEmail();
+                      }
                     },
                     child: SizedBox(
                       width: double.maxFinite,
