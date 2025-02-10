@@ -102,40 +102,21 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                               TextFormField(
                                 controller: _firstnameController,
                                 style: GoogleFonts.lato(fontSize: 15),
-                                validator: (email) {
-                                  if (email == null || email.isEmpty) {
-                                    return 'Please enter your email';
-                                  }
-                                  if (!RegExp(
-                                          r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                      .hasMatch(email)) {
-                                    return 'Please enter a valid email';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputThemes.emailInput(context),
+                                decoration: InputThemes.usernameInput(
+                                  "First Name",
+                                  context,
+                                ),
                               ),
                               const SizedBox(height: 5),
                               TextFormField(
                                 controller: _lastnameController,
                                 style: GoogleFonts.lato(fontSize: 15),
-                                validator: (password) {
-                                  if (password == null) {
-                                    return 'Please enter your password';
-                                  }
-                                  if (password.length < 6) {
-                                    return 'Password too short. Should be larger than 6 characters';
-                                  }
-                                  return null;
-                                },
-                                obscuringCharacter: '*',
-                                obscureText: isObsecure,
-                                decoration: InputThemes.passwordInput(
+                                decoration: InputThemes.usernameInput(
+                                  "Last Name",
                                   context,
-                                  isObsecure,
-                                  hidePassword,
                                 ),
                               ),
+                              const SizedBox(height: 5),
                               if (state is AuthError) ...[
                                 const SizedBox(height: 5),
                                 RichText(

@@ -27,8 +27,11 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _navigateBasedOnAuthStatus() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
 
-    if (currentUser != null) {
+    if (currentUser != null && currentUser.emailVerified) {
       Navigator.of(context).pushReplacementNamed('/home');
+    }
+    if (currentUser != null && !currentUser.emailVerified) {
+      Navigator.of(context).pushReplacementNamed('/complete-signup');
     } else {
       Navigator.of(context).pushReplacementNamed('/auth');
     }
