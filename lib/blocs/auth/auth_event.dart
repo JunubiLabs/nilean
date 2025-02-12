@@ -38,6 +38,7 @@ class ResetPasswordRequested extends AuthEvent {
 }
 
 class CompleteRegistrationRequested extends AuthEvent {
-  final String name;
-  const CompleteRegistrationRequested(this.name);
+  final String firstName;
+  final String lastName;
+  const CompleteRegistrationRequested(this.firstName, this.lastName);
 }

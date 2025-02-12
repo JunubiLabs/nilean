@@ -41,8 +41,8 @@ class _SignupPageState extends State<SignupPage> {
       backgroundColor: AppColors.primaryBlue,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state.status == AuthStatus.authenticated) {
-            Navigator.of(context).pushNamed('/home');
+          if (state.status == AuthStatus.unverified) {
+            Navigator.of(context).pushNamed('/complete-signup');
           }
           if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(

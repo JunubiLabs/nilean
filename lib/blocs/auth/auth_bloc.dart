@@ -112,6 +112,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await authRepository.sendVerificationEmail();
   }
 
+  Future<void> checkEmailVerified(
+    CheckEmailVerificationRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    final bool isEmailVerified = await authRepository.isEmailVerified();
+    if (isEmailVerified) {
+      emit(state.copyWith(status: AuthStatus.verified));
+    }
+  }
+
   @override
   Future<void> close() {
     userSubscription.cancel();
