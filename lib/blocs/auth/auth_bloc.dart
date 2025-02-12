@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (user == null) return null;
       return await authRepository.getCurrentUser();
     }).listen((user) {
-      add(AuthStateChanged(user ?? null));
+      add(AuthStateChanged(user));
     });
   }
 
