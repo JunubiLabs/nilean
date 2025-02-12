@@ -7,6 +7,7 @@ enum AuthStatus {
   unauthenticated,
   unverified,
   verified,
+  registrationComplete,
   registrationIncomplete
 }
 

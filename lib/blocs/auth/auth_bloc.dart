@@ -38,7 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final user = await authRepository.getCurrentUser();
       if (user == null || !user.registrationComplete) {
         emit(state.copyWith(
-          status: AuthStatus.registrationIncomplete,
+          status: AuthStatus.registrationComplete,
           user: user,
         ));
       } else {
@@ -127,7 +127,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     await authRepository.completeRegistration(event.firstName, event.lastName);
-    emit(state.copyWith(status: AuthStatus.registrationIncomplete));
+    emit(state.copyWith(status: AuthStatus.registrationComplete));
   }
 
   @override
