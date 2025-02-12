@@ -122,6 +122,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  Future<void> completeRegistration(
+    CompleteRegistrationRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    await authRepository.completeRegistration(event.firstName, event.lastName);
+    emit(state.copyWith(status: AuthStatus.registrationIncomplete));
+  }
+
   @override
   Future<void> close() {
     userSubscription.cancel();
