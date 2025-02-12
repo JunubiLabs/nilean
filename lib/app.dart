@@ -21,7 +21,6 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthBloc(AuthRepository()),
         ),
-        // Other BLoC providers
       ],
       child: MaterialApp(
         title: 'Buai',
