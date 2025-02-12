@@ -1,17 +1,24 @@
+import 'package:buai/models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
   Future<UserCredential?> signUp({
     required String email,
     required String password,
   }) async {
     try {
-      return await _firebaseAuth.createUserWithEmailAndPassword(
+      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      userCredential.user!.sendEmailVerification();
+      return userCredential;
     } on FirebaseAuthException catch (e) {
       throw 'Sign Up Error: ${e.message}';
     }
@@ -33,5 +40,43 @@ class AuthRepository {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  Future<void> resetPassword(String email) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
+  Future<void> sendVerificationEmail() async {
+    final user = _firebaseAuth.currentUser;
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+    }
+  }
+
+  Future<bool> isEmailVerified() async {
+    await _firebaseAuth.currentUser?.reload();
+    return _firebaseAuth.currentUser?.emailVerified ?? false;
+  }
+
+  User? get currentFirebaseUser => _firebaseAuth.currentUser;
+  Future<void> completeRegistration(String firstName, String lastName) async {
+    final user = _firebaseAuth.currentUser;
+    if (user != null) {
+      await _firestore.collection('users').doc(user.uid).set({
+        'email': user.email,
+        'firstName': firstName,
+        'lastName': lastName,
+        'registrationComplete': true,
+      });
+    }
+  }
+
+  Future<UserModel?> getCurrentUser() async {
+    final user = _firebaseAuth.currentUser;
+    if (user != null) {
+      final doc = await _firestore.collection('users').doc(user.uid).get();
+      return doc.exists ? UserModel.fromFirestore(doc) : null;
+    }
+    return null;
   }
 }

@@ -1,6 +1,4 @@
 import 'package:buai/blocs/auth/auth_bloc.dart';
-import 'package:buai/blocs/auth/auth_event.dart';
-import 'package:buai/blocs/auth/auth_state.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/input_themes.dart';
@@ -43,13 +41,16 @@ class _SigninPageState extends State<SigninPage> {
       backgroundColor: AppColors.primaryYellow,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthAuthenticated) {
+          if (state.status == AuthStatus.authenticated) {
             Navigator.of(context).pushNamed('/home');
           }
-          if (state is AuthError) {
+          if (state.status == AuthStatus.unverified) {
+            Navigator.of(context).pushNamed('/complete-signup');
+          }
+          if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(state.error.toString()),
               ),
             );
           }
@@ -136,7 +137,7 @@ class _SigninPageState extends State<SigninPage> {
                                   hidePassword,
                                 ),
                               ),
-                              if (state is AuthError) ...[
+                              if (state.error != null) ...[
                                 const SizedBox(height: 5),
                                 RichText(
                                   text: TextSpan(
@@ -177,7 +178,7 @@ class _SigninPageState extends State<SigninPage> {
                                 },
                                 child: SizedBox(
                                   width: double.maxFinite,
-                                  child: state is AuthLoading
+                                  child: state.status == AuthStatus.loading
                                       ? LoadingAnimationWidget.fourRotatingDots(
                                           color: AppColors.primaryWhite,
                                           size: 20,

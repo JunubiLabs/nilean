@@ -1,5 +1,4 @@
 import 'package:buai/blocs/auth/auth_bloc.dart';
-import 'package:buai/blocs/auth/auth_state.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/input_themes.dart';
@@ -42,13 +41,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       backgroundColor: AppColors.primaryYellow,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthAuthenticated) {
+          if (state.status == AuthStatus.authenticated) {
             Navigator.of(context).pushNamed('/home');
           }
-          if (state is AuthError) {
+          if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.message),
+                content: Text(state.error.toString()),
               ),
             );
           }
@@ -118,7 +117,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 onPressed: () {},
                                 child: SizedBox(
                                   width: double.maxFinite,
-                                  child: state is AuthLoading
+                                  child: state.status == AuthStatus.loading
                                       ? LoadingAnimationWidget.fourRotatingDots(
                                           color: AppColors.primaryWhite,
                                           size: 20,
