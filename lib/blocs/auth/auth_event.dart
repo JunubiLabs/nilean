@@ -8,7 +8,7 @@ abstract class AuthEvent extends Equatable {
 }
 
 class AuthStateChanged extends AuthEvent {
-  final UserModel? user;
+  final User user;
   const AuthStateChanged(this.user);
 }
 
@@ -38,7 +38,6 @@ class ResetPasswordRequested extends AuthEvent {
 }
 
 class CompleteRegistrationRequested extends AuthEvent {
-  final String firstName;
-  final String lastName;
-  const CompleteRegistrationRequested(this.firstName, this.lastName);
+  final String name;
+  const CompleteRegistrationRequested(this.name);
 }

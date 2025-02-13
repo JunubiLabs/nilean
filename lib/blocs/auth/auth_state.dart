@@ -13,7 +13,7 @@ enum AuthStatus {
 
 class AuthState extends Equatable {
   final AuthStatus status;
-  final UserModel? user;
+  final User? user;
   final String? error;
 
   const AuthState({
@@ -27,7 +27,7 @@ class AuthState extends Equatable {
 
   AuthState copyWith({
     AuthStatus? status,
-    UserModel? user,
+    User? user,
     String? error,
   }) {
     return AuthState(

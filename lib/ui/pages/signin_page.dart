@@ -41,10 +41,13 @@ class _SigninPageState extends State<SigninPage> {
       backgroundColor: AppColors.primaryYellow,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state.status == AuthStatus.authenticated) {
+          if (state.status == AuthStatus.authenticated &&
+              state.user!.emailVerified &&
+              state.user!.displayName != null) {
             Navigator.of(context).pushNamed('/home');
           }
-          if (state.status == AuthStatus.unverified) {
+          if (state.user!.emailVerified == false ||
+              state.user!.displayName == null) {
             Navigator.of(context).pushNamed('/complete-signup');
           }
           if (state.error != null) {

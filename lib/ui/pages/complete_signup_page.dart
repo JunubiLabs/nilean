@@ -19,8 +19,7 @@ class CompleteSignupPage extends StatefulWidget {
 
 class _CompleteSignupPageState extends State<CompleteSignupPage> {
   final _formKey = GlobalKey<FormState>();
-  final _firstnameController = TextEditingController();
-  final _lastnameController = TextEditingController();
+  final _nameController = TextEditingController();
 
   bool isEmailVerified = false;
   bool isLoading = false;
@@ -58,8 +57,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
   @override
   void dispose() {
     timer?.cancel();
-    _firstnameController.dispose();
-    _lastnameController.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -69,7 +67,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
       backgroundColor: AppColors.primaryBlue,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state.status == AuthStatus.registrationIncomplete) {
+          if (state.status == AuthStatus.registrationComplete) {
             Navigator.of(context).pushNamed('/home');
           }
           if (state.error != null) {
@@ -104,7 +102,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          state.status == AuthStatus.unverified
+                          !isEmailVerified
                               ? "Email Verification"
                               : "Complete Signup",
                           style: GoogleFonts.jockeyOne(
@@ -114,11 +112,13 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                           ),
                         ),
                         Text(
-                          "Please Check Your Email for Verification and then come back",
+                          !isEmailVerified
+                              ? "Please Check Your Email for Verification and then come back"
+                              : "Enter your name to complete signup",
                           style: GoogleFonts.kanit(fontSize: 15),
                         ),
                         const SizedBox(height: 5),
-                        if (state.status == AuthStatus.verified) ...[
+                        if (isEmailVerified) ...[
                           Form(
                             key: _formKey,
                             child: Column(
@@ -127,19 +127,10 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                               children: [
                                 const SizedBox(height: 5),
                                 TextFormField(
-                                  controller: _firstnameController,
+                                  controller: _nameController,
                                   style: GoogleFonts.lato(fontSize: 15),
                                   decoration: InputThemes.usernameInput(
-                                    "First Name",
-                                    context,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                TextFormField(
-                                  controller: _lastnameController,
-                                  style: GoogleFonts.lato(fontSize: 15),
-                                  decoration: InputThemes.usernameInput(
-                                    "Last Name",
+                                    "Name",
                                     context,
                                   ),
                                 ),
@@ -159,8 +150,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                                 context
                                     .read<AuthBloc>()
                                     .add(CompleteRegistrationRequested(
-                                      _firstnameController.text,
-                                      _lastnameController.text,
+                                      _nameController.text,
                                     ));
                               }
                             } else {
@@ -178,7 +168,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                                   )
                                 : Text(
                                     !isEmailVerified
-                                        ? "Resend Email"
+                                        ? "Resend Verification Email"
                                         : "Let's Go",
                                     style: GoogleFonts.kanit(
                                       fontSize: 15,
@@ -192,7 +182,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                         RichText(
                           text: TextSpan(
                             text: !isEmailVerified
-                                ? "Resend Email after $timer"
+                                ? "Resend Email after ${timer?.tick} seconds"
                                 : "Let's Go",
                             style: GoogleFonts.kanit(
                               fontSize: 15,

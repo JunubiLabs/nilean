@@ -59,15 +59,10 @@ class AuthRepository {
   }
 
   User? get currentFirebaseUser => _firebaseAuth.currentUser;
-  Future<void> completeRegistration(String firstName, String lastName) async {
+  Future<void> completeRegistration(String name) async {
     final user = _firebaseAuth.currentUser;
     if (user != null) {
-      await _firestore.collection('users').doc(user.uid).set({
-        'email': user.email,
-        'firstName': firstName,
-        'lastName': lastName,
-        'registrationComplete': true,
-      });
+      await user.updateDisplayName(name);
     }
   }
 
