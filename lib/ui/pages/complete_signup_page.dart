@@ -21,14 +21,13 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
 
-  bool isEmailVerified = false;
+  bool isEmailVerified = true;
   bool isLoading = false;
   Timer? timer;
 
   @override
   void initState() {
     super.initState();
-    sendVerificationEmail();
 
     timer = Timer.periodic(Duration(seconds: 3), (_) => checkEmailVerified());
   }
@@ -142,7 +141,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                         const SizedBox(height: 5),
                         AppButtons.blueButton(
                           onPressed: () {
-                            if (state.status == AuthStatus.verified) {
+                            if (isEmailVerified) {
                               if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   isLoading = true;
@@ -183,7 +182,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                           text: TextSpan(
                             text: !isEmailVerified
                                 ? "Resend Email after ${timer?.tick} seconds"
-                                : "Let's Go",
+                                : "",
                             style: GoogleFonts.kanit(
                               fontSize: 15,
                               color: Colors.black,
