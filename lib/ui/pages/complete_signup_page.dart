@@ -178,18 +178,18 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        RichText(
-                          text: TextSpan(
-                            text: !isEmailVerified
-                                ? "Resend Email after ${timer?.tick} seconds"
-                                : "",
-                            style: GoogleFonts.kanit(
-                              fontSize: 15,
-                              color: Colors.black,
+                        if (!isEmailVerified) ...[
+                          RichText(
+                            text: TextSpan(
+                              text: "Resend Email after ${timer?.tick} seconds",
+                              style: GoogleFonts.kanit(
+                                fontSize: 15,
+                                color: Colors.black,
+                              ),
+                              children: [],
                             ),
-                            children: [],
                           ),
-                        ),
+                        ]
                       ],
                     ),
                   ),

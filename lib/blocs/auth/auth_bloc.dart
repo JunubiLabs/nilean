@@ -17,6 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignInRequested>(_onSignIn);
     on<SignOutRequested>(_onSignOut);
     on<SendVerificationEmailRequested>(_onSendVerificationEmailRequested);
+    on<CompleteRegistrationRequested>(completeRegistration);
   }
 
   Future<void> _onAuthStateChanged(
