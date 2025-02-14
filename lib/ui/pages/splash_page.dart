@@ -1,4 +1,3 @@
-import 'package:buai/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,16 +9,27 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  bool _isDarkMode = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      final brightness = MediaQuery.of(context).platformBrightness;
+      setState(() {
+        _isDarkMode = brightness == Brightness.dark;
+      });
       _checkAuthenticationStatus();
     });
   }
 
   Future<void> _checkAuthenticationStatus() async {
-    Future.delayed(Duration(seconds: 2)).then((x) {
+    Future.delayed(Duration(seconds: 3)).then((x) {
       _navigateBasedOnAuthStatus();
     });
   }
@@ -48,13 +58,16 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.secondaryBlue,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image(image: AssetImage('assets/images/buai.png')),
+            Image(
+              image: AssetImage(_isDarkMode
+                  ? 'assets/images/buai-dark.gif'
+                  : 'assets/images/buai.gif'),
+            ),
           ],
         ),
       ),
