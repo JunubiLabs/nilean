@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                             text: "Let's talk in",
                             style: GoogleFonts.lato(
                               fontSize: 21,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: AppColors.primaryBlack,
                               fontWeight: FontWeight.bold,
                               height: 1.1,
                             ),
@@ -76,8 +76,7 @@ class _HomePageState extends State<HomePage> {
                                 text: "\nyour mother tongue",
                                 style: GoogleFonts.lato(
                                   fontSize: 21,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
+                                  color: AppColors.secondaryBlack,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -127,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                               text: "Get news in",
                               style: GoogleFonts.lato(
                                 fontSize: 18,
-                                color: Theme.of(context).colorScheme.primary,
+                                color: AppColors.primaryBlack,
                                 fontWeight: FontWeight.bold,
                                 height: 1.1,
                               ),
@@ -136,8 +135,7 @@ class _HomePageState extends State<HomePage> {
                                   text: "\nyour mother tongue",
                                   style: GoogleFonts.lato(
                                     fontSize: 18,
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
+                                    color: AppColors.secondaryBlack,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -180,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                               text: "Translate to",
                               style: GoogleFonts.lato(
                                 fontSize: 18,
-                                color: Theme.of(context).colorScheme.primary,
+                                color: AppColors.primaryBlack,
                                 fontWeight: FontWeight.bold,
                                 height: 1.1,
                               ),
@@ -189,8 +187,7 @@ class _HomePageState extends State<HomePage> {
                                   text: "\nyour mother tongue",
                                   style: GoogleFonts.lato(
                                     fontSize: 18,
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
+                                    color: AppColors.secondaryBlack,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buai/blocs/auth/auth_bloc.dart';
 import 'package:buai/repositories/auth_repository.dart';
-import 'package:buai/ui/pages/home_page.dart';
+import 'package:buai/ui/pages/home/home_page.dart';
 import 'package:buai/ui/pages/splash_page.dart';
 import 'package:buai/ui/pages/welcome_page.dart';
 import 'package:buai/ui/pages/auth/signin_page.dart';
