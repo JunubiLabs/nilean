@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> _checkAuthenticationStatus() async {
-    Future.delayed(Duration(seconds: 3)).then((x) {
+    Future.delayed(Duration(seconds: 2)).then((x) {
       _navigateBasedOnAuthStatus();
     });
   }
@@ -34,7 +34,8 @@ class _SplashPageState extends State<SplashPage> {
     if (currentUser != null &&
         (!currentUser.emailVerified || currentUser.displayName == null)) {
       Navigator.of(context).pushReplacementNamed('/complete-signup');
-    } else {
+    }
+    if (currentUser == null) {
       Navigator.of(context).pushReplacementNamed('/auth');
     }
   }

@@ -1,5 +1,6 @@
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,8 +13,31 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  Future<void> _checkAuthenticationStatus() async {
+    Future.delayed(Duration(seconds: 2)).then((x) {
+      _navigateBasedOnAuthStatus();
+    });
+  }
+
+  Future<void> _navigateBasedOnAuthStatus() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null &&
+        currentUser.emailVerified &&
+        currentUser.displayName != null) {
+      Navigator.of(context).pushReplacementNamed('/home');
+    }
+    if (currentUser != null &&
+        (!currentUser.emailVerified || currentUser.displayName == null)) {
+      Navigator.of(context).pushReplacementNamed('/complete-signup');
+    }
+    if (currentUser == null) {
+      Navigator.of(context).pushReplacementNamed('/auth');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _checkAuthenticationStatus();
     return Scaffold(
       backgroundColor: AppColors.secondaryBlue,
       body: SafeArea(
