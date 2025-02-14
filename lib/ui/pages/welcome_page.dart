@@ -1,6 +1,4 @@
 import 'package:buai/ui/widgets/app_buttons.dart';
-import 'package:buai/utils/colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,41 +16,14 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final brightness = MediaQuery.of(context).platformBrightness;
-      setState(() {
-        _isDarkMode = brightness == Brightness.dark;
-      });
-      _checkAuthenticationStatus();
-    });
-  }
-
-  Future<void> _checkAuthenticationStatus() async {
-    Future.delayed(Duration(seconds: 2)).then((x) {
-      _navigateBasedOnAuthStatus();
-    });
-  }
-
-  Future<void> _navigateBasedOnAuthStatus() async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null &&
-        currentUser.emailVerified &&
-        currentUser.displayName != null) {
-      Navigator.of(context).pushReplacementNamed('/home');
-    }
-    if (currentUser != null &&
-        (!currentUser.emailVerified || currentUser.displayName == null)) {
-      Navigator.of(context).pushReplacementNamed('/complete-signup');
-    }
-    if (currentUser == null) {
-      Navigator.of(context).pushReplacementNamed('/auth');
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final brightness = MediaQuery.of(context).platformBrightness;
+    _isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: AppColors.secondaryBlue,
       body: SafeArea(
         child: Stack(
           children: [
