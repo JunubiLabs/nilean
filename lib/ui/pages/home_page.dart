@@ -1,3 +1,4 @@
+import 'package:buai/ui/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +16,11 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16),
           child: Column(
-            children: [],
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppHeader(),
+            ],
           ),
         ),
       ),
