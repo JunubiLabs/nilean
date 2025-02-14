@@ -4,7 +4,6 @@ import 'package:buai/blocs/auth/auth_bloc.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/input_themes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,36 +20,12 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
 
-  bool isEmailVerified = true;
   bool isLoading = false;
   Timer? timer;
 
   @override
   void initState() {
     super.initState();
-
-    timer = Timer.periodic(Duration(seconds: 3), (_) => checkEmailVerified());
-  }
-
-  Future<void> sendVerificationEmail() async {
-    try {
-      final user = FirebaseAuth.instance.currentUser;
-      await user?.sendEmailVerification();
-    } catch (e) {
-      throw 'Error sending email verification: $e';
-    }
-  }
-
-  Future<void> checkEmailVerified() async {
-    await FirebaseAuth.instance.currentUser?.reload();
-    setState(() {
-      isEmailVerified =
-          FirebaseAuth.instance.currentUser?.emailVerified ?? false;
-    });
-
-    if (isEmailVerified) {
-      timer?.cancel();
-    }
   }
 
   @override
@@ -101,9 +76,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          !isEmailVerified
-                              ? "Email Verification"
-                              : "Complete Signup",
+                          "Complete Signup",
                           style: GoogleFonts.jockeyOne(
                             fontSize: 36,
                             fontWeight: FontWeight.bold,
@@ -111,51 +84,41 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                           ),
                         ),
                         Text(
-                          !isEmailVerified
-                              ? "Please Check Your Email for Verification and then come back"
-                              : "Enter your name to complete signup",
+                          "Enter your name to complete signup",
                           style: GoogleFonts.kanit(fontSize: 15),
                         ),
                         const SizedBox(height: 5),
-                        if (isEmailVerified) ...[
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 5),
-                                TextFormField(
-                                  controller: _nameController,
-                                  style: GoogleFonts.lato(fontSize: 15),
-                                  decoration: InputThemes.usernameInput(
-                                    "Name",
-                                    context,
-                                  ),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 5),
+                              TextFormField(
+                                controller: _nameController,
+                                style: GoogleFonts.lato(fontSize: 15),
+                                decoration: InputThemes.usernameInput(
+                                  "Name",
+                                  context,
                                 ),
-                                const SizedBox(height: 5),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(height: 5),
+                            ],
                           ),
-                        ],
+                        ),
                         const SizedBox(height: 5),
                         AppButtons.blueButton(
                           onPressed: () {
-                            if (isEmailVerified) {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                context
-                                    .read<AuthBloc>()
-                                    .add(CompleteRegistrationRequested(
-                                      _nameController.text,
-                                    ));
-                              }
-                            } else {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                isLoading = true;
+                              });
                               context
                                   .read<AuthBloc>()
-                                  .add(SendVerificationEmailRequested());
+                                  .add(CompleteRegistrationRequested(
+                                    _nameController.text,
+                                  ));
                             }
                           },
                           child: SizedBox(
@@ -166,9 +129,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                                     size: 20,
                                   )
                                 : Text(
-                                    !isEmailVerified
-                                        ? "Resend Verification Email"
-                                        : "Let's Go",
+                                    "Let's Go",
                                     style: GoogleFonts.kanit(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
@@ -178,18 +139,6 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        if (!isEmailVerified) ...[
-                          RichText(
-                            text: TextSpan(
-                              text: "Resend Email after ${timer?.tick} seconds",
-                              style: GoogleFonts.kanit(
-                                fontSize: 15,
-                                color: Colors.black,
-                              ),
-                              children: [],
-                            ),
-                          ),
-                        ]
                       ],
                     ),
                   ),
