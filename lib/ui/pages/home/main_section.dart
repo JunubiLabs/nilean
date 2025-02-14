@@ -4,8 +4,31 @@ import 'package:buai/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MainSection extends StatelessWidget {
+class MainSection extends StatefulWidget {
   const MainSection({super.key});
+
+  @override
+  State<MainSection> createState() => _MainSectionState();
+}
+
+class _MainSectionState extends State<MainSection> {
+  bool _isDarkMode = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final brightness = MediaQuery.of(context).platformBrightness;
+      setState(() {
+        _isDarkMode = brightness == Brightness.dark;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +46,8 @@ class MainSection extends StatelessWidget {
           height: 160,
           width: double.maxFinite,
           decoration: BoxDecoration(
-            color: AppColors.primaryBlue,
+            color:
+                _isDarkMode ? AppColors.primaryBlue : AppColors.secondaryBlue,
             borderRadius: BorderRadius.circular(5),
           ),
           padding: EdgeInsets.all(10),
@@ -40,7 +64,9 @@ class MainSection extends StatelessWidget {
                       text: "Let's talk in",
                       style: GoogleFonts.lato(
                         fontSize: 21,
-                        color: AppColors.primaryBlack,
+                        color: _isDarkMode
+                            ? AppColors.primaryBlack
+                            : AppColors.primaryWhite,
                         fontWeight: FontWeight.bold,
                         height: 1.1,
                       ),
@@ -49,7 +75,10 @@ class MainSection extends StatelessWidget {
                           text: "\nyour mother tongue",
                           style: GoogleFonts.lato(
                             fontSize: 21,
-                            color: AppColors.secondaryBlack,
+                            color: _isDarkMode
+                                ? AppColors.secondaryBlack
+                                : AppColors.secondaryWhite
+                                    .withAlpha((255 * 0.75).ceil()),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
