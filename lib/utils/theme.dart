@@ -1,3 +1,4 @@
+import 'package:buai/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class AppThemes {
@@ -6,6 +7,7 @@ class AppThemes {
     colorScheme: ColorScheme.light(
       primary: Colors.white,
       secondary: Colors.black,
+      onSecondary: AppColors.secondaryBlack,
     ),
   );
 
@@ -14,6 +16,7 @@ class AppThemes {
     colorScheme: ColorScheme.dark(
       primary: Colors.black,
       secondary: Colors.white,
+      onSecondary: AppColors.secondaryWhite.withAlpha((255 * 0.75).ceil()),
     ),
   );
 }
