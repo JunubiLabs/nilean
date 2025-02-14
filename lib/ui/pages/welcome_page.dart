@@ -13,6 +13,20 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  bool _isDarkMode = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final brightness = MediaQuery.of(context).platformBrightness;
+      setState(() {
+        _isDarkMode = brightness == Brightness.dark;
+      });
+      _checkAuthenticationStatus();
+    });
+  }
+
   Future<void> _checkAuthenticationStatus() async {
     Future.delayed(Duration(seconds: 2)).then((x) {
       _navigateBasedOnAuthStatus();
@@ -37,7 +51,6 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _checkAuthenticationStatus();
     return Scaffold(
       backgroundColor: AppColors.secondaryBlue,
       body: SafeArea(
@@ -47,7 +60,11 @@ class _WelcomePageState extends State<WelcomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [Image.asset('assets/images/buai.png')],
+                children: [
+                  Image.asset(_isDarkMode
+                      ? 'assets/images/buai-dark.png'
+                      : 'assets/images/buai.png')
+                ],
               ),
             ),
             Container(
