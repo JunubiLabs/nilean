@@ -6,6 +6,7 @@ class AppThemes {
     scaffoldBackgroundColor: Colors.white,
     colorScheme: ColorScheme.light(
       primary: Colors.white,
+      onPrimary: AppColors.secondaryWhite.withAlpha((255 * 0.75).ceil()),
       secondary: Colors.black,
       onSecondary: AppColors.secondaryBlack,
     ),

@@ -67,4 +67,27 @@ class AppButtons {
       child: child,
     );
   }
+
+  static Widget forwardButton({
+    required onPressed,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 25,
+        height: 25,
+        padding: EdgeInsets.all(2),
+        decoration: BoxDecoration(
+          color: AppColors.primaryGrey,
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(width: 2),
+        ),
+        child: const Icon(
+          Icons.arrow_forward,
+          color: Colors.black,
+          size: 18,
+        ),
+      ),
+    );
+  }
 }
