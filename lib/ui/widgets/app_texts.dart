@@ -18,7 +18,7 @@ class AppTexts {
         ),
         children: [
           TextSpan(
-            text: subtitle,
+            text: '\n$subtitle',
             style: GoogleFonts.lato(
               fontSize: 24,
               color: Theme.of(context).colorScheme.onSecondary,

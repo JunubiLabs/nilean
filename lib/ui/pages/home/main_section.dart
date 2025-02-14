@@ -39,7 +39,7 @@ class _MainSectionState extends State<MainSection> {
         AppTexts.sectionTitle(
           context: context,
           title: "Let's talk in",
-          subtitle: "\nyour mother tongue",
+          subtitle: "your mother tongue",
         ),
         const SizedBox(height: 20),
         Container(

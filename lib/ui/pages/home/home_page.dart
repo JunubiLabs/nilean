@@ -1,4 +1,5 @@
 import 'package:buai/ui/pages/home/main_section.dart';
+import 'package:buai/ui/pages/home/recent_chats.dart';
 import 'package:buai/ui/widgets/header.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,8 @@ class _HomePageState extends State<HomePage> {
               AppHeader(),
               const SizedBox(height: 20),
               MainSection(),
+              const SizedBox(height: 20),
+              RecentChats(),
             ],
           ),
         ),
