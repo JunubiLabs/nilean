@@ -35,24 +35,27 @@ class _AppHeaderState extends State<AppHeader> {
             ),
           ),
         ),
-        Column(
-          children: [
-            Text(
-              DateServices.getMorningOrEvening(),
-              style: GoogleFonts.jockeyOne(
-                fontSize: 15,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+        RichText(
+          textAlign: TextAlign.right,
+          text: TextSpan(
+            text: DateServices.getMorningOrEvening(),
+            style: GoogleFonts.jockeyOne(
+              fontSize: 15,
+              color: Theme.of(context).colorScheme.secondary,
+              height: 1.1,
             ),
-            Text(
-              name.toTitleCase(),
-              style: GoogleFonts.lato(
-                fontSize: 28,
-                color: Theme.of(context).colorScheme.secondary,
+            children: [
+              TextSpan(
+                text: '\n${name.toTitleCase()} ',
+                style: GoogleFonts.lato(
+                  fontSize: 28,
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            )
-          ],
-        )
+            ],
+          ),
+        ),
       ],
     );
   }
