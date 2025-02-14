@@ -42,7 +42,7 @@ class _SignupPageState extends State<SignupPage> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == AuthStatus.unverified) {
-            Navigator.of(context).pushNamed('/complete-signup');
+            Navigator.of(context).pushNamed('/email-verification');
           }
           if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
