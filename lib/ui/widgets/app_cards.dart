@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 
 class AppCards {
