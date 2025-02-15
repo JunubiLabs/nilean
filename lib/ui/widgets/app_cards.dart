@@ -59,4 +59,63 @@ class AppCards {
       ),
     );
   }
+
+  static Widget curatedNewsCard({
+    required BuildContext context,
+    required String news,
+    required String image,
+    required VoidCallback onPressed,
+  }) {
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        foregroundColor: Theme.of(context).primaryColor,
+        padding: EdgeInsets.zero,
+        shape: const RoundedRectangleBorder(),
+      ),
+      child: Container(
+        width: double.maxFinite,
+        height: 120,
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: AppColors.secondaryBlue,
+          image: DecorationImage(
+            image: NetworkImage(image),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withAlpha(100),
+              BlendMode.darken,
+            ),
+          ),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              children: [
+                AppButtons.ellipsisButton(
+                  onPressed: onPressed,
+                  color: AppColors.primaryOrange,
+                  text: Jiffy.now().yMd,
+                  context: context,
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Text(
+              news,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

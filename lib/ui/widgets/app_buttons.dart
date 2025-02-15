@@ -106,7 +106,7 @@ class AppButtons {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(50),
-          border: Border.all(width: 2, color: Colors.black),
+          border: Border.all(width: 1, color: Colors.black),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
