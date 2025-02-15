@@ -12,26 +12,9 @@ class MainSection extends StatefulWidget {
 }
 
 class _MainSectionState extends State<MainSection> {
-  bool _isDarkMode = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final brightness = MediaQuery.of(context).platformBrightness;
-      setState(() {
-        _isDarkMode = brightness == Brightness.dark;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final brightness = MediaQuery.of(context).platformBrightness;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,8 +29,9 @@ class _MainSectionState extends State<MainSection> {
           height: 160,
           width: double.maxFinite,
           decoration: BoxDecoration(
-            color:
-                _isDarkMode ? AppColors.primaryBlue : AppColors.secondaryBlue,
+            color: brightness == Brightness.dark
+                ? AppColors.primaryBlue
+                : AppColors.secondaryBlue,
             borderRadius: BorderRadius.circular(5),
           ),
           padding: EdgeInsets.all(10),
@@ -64,7 +48,7 @@ class _MainSectionState extends State<MainSection> {
                       text: "Let's talk in",
                       style: GoogleFonts.lato(
                         fontSize: 21,
-                        color: _isDarkMode
+                        color: brightness == Brightness.dark
                             ? AppColors.primaryBlack
                             : AppColors.primaryWhite,
                         fontWeight: FontWeight.bold,
@@ -75,7 +59,7 @@ class _MainSectionState extends State<MainSection> {
                           text: "\nyour mother tongue",
                           style: GoogleFonts.lato(
                             fontSize: 21,
-                            color: _isDarkMode
+                            color: brightness == Brightness.dark
                                 ? AppColors.secondaryBlack
                                 : AppColors.secondaryWhite
                                     .withAlpha((255 * 0.75).ceil()),
