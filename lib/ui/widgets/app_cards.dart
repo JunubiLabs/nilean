@@ -35,12 +35,13 @@ class AppCards {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              encodeText(chat),
+              chat,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.lato(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 10),
