@@ -1,11 +1,27 @@
 import 'dart:typed_data';
 
+import 'package:hive/hive.dart';
+
+part 'chat_content_model.g.dart';
+
+@HiveType(typeId: 1)
 class ChatContentModel {
+  @HiveField(0)
   String? date;
+
+  @HiveField(1)
   String? chat;
+
+  @HiveField(2)
   String? translatedChat;
+
+  @HiveField(3)
   String? response;
+
+  @HiveField(4)
   String? translatedResponse;
+
+  @HiveField(5)
   Uint8List? image;
 
   ChatContentModel({

@@ -1,9 +1,21 @@
 import 'package:buai/models/chat_content_model.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+part 'chat_model.g.dart';
+
+@HiveType(typeId: 0)
 class ChatModel {
+  @HiveField(0)
   String? id;
+
+  @HiveField(1)
   DateTime? date;
+
+  @HiveField(2)
   String? title;
+
+  @HiveField(3)
   List<ChatContentModel> chatcontent;
 
   ChatModel({
