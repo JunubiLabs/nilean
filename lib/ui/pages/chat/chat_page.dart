@@ -1,3 +1,4 @@
+import 'package:buai/ui/pages/chat/chat_bubble.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:buai/utils/colors.dart';
@@ -44,6 +45,7 @@ class _ChatPageState extends State<ChatPage> {
                 size: DisplaySize.large,
               ),
               const Spacer(),
+              ChatBubble(),
             ],
           ),
         ),

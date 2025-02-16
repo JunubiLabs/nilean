@@ -101,28 +101,51 @@ class AppButtons {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(50),
-          border: Border.all(width: 1, color: Colors.black),
+          border: Border.all(width: 1.5, color: Colors.black),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              text!,
-              style: GoogleFonts.lato(
-                fontSize: 12,
-                color: Colors.black,
+            if (text != null) ...[
+              Text(
+                text,
+                style: GoogleFonts.lato(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            icon != null
-                ? Icon(icon, size: 16, color: Colors.black)
-                : Container(),
+            ],
+            if (icon != null) ...[Icon(icon, size: 16, color: Colors.black)]
           ],
         ),
+      ),
+    );
+  }
+
+  static Widget circularButton({
+    required VoidCallback onPressed,
+    required BuildContext context,
+    required Color color,
+    required IconData icon,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 25,
+        height: 25,
+        padding: EdgeInsets.all(2),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(width: 2),
+        ),
+        child: Icon(icon, color: Colors.black, size: 17),
       ),
     );
   }
