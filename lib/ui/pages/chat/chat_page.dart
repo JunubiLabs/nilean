@@ -41,6 +41,7 @@ class _ChatPageState extends State<ChatPage> {
                 title: "Let's chat in",
                 subtitle: "your mother tongue",
                 context: context,
+                size: DisplaySize.large,
               ),
               const Spacer(),
             ],
