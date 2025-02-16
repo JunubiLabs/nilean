@@ -29,7 +29,9 @@ class _ChatPageState extends State<ChatPage> {
               Row(
                 children: [
                   AppButtons.ellipsisButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/my-chats');
+                    },
                     color: AppColors.primaryOrange,
                     context: context,
                     text: 'Recent Chats ',
