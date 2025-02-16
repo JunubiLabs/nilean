@@ -116,10 +116,9 @@ class AppButtons {
               style: GoogleFonts.lato(
                 fontSize: 12,
                 color: Colors.black,
-                fontWeight: FontWeight.bold,
               ),
             ),
-            icon != null ? Icon(icon) : Container(),
+            icon != null ? Icon(icon, size: 16) : Container(),
           ],
         ),
       ),

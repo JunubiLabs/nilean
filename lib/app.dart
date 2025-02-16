@@ -2,6 +2,7 @@ import 'package:buai/ui/pages/auth/complete_signup_page.dart';
 import 'package:buai/ui/pages/auth/email_verification_page.dart';
 import 'package:buai/ui/pages/auth/reset_password_page.dart';
 import 'package:buai/ui/pages/auth/signup_page.dart';
+import 'package:buai/ui/pages/chat/chat_page.dart';
 import 'package:buai/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,7 @@ class App extends StatelessWidget {
           '/reset-password': (context) => ResetPasswordPage(),
           '/email-verification': (context) => EmailVerificationPage(),
           '/complete-signup': (context) => CompleteSignupPage(),
+          '/chat': (context) => ChatPage(),
         },
         debugShowCheckedModeBanner: false,
         theme: AppThemes.light,

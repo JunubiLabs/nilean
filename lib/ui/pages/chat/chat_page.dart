@@ -15,27 +15,34 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppButtons.backButton(onPressed: () {}),
-            const Spacer(),
-            AppButtons.ellipsisButton(
-              onPressed: () {},
-              color: AppColors.primaryOrange,
-              context: context,
-              text: 'Recent Chats ',
-              icon: Icons.arrow_outward_sharp,
-            ),
-            const SizedBox(height: 5),
-            AppTexts.sectionTitle(
-              title: "Let's Chat in",
-              subtitle: "your mother tongue",
-              context: context,
-            ),
-            const Spacer(),
-          ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppButtons.backButton(onPressed: () {}),
+              const Spacer(),
+              Row(
+                children: [
+                  AppButtons.ellipsisButton(
+                    onPressed: () {},
+                    color: AppColors.primaryOrange,
+                    context: context,
+                    text: 'Recent Chats ',
+                    icon: Icons.arrow_outward_sharp,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 5),
+              AppTexts.sectionTitle(
+                title: "Let's chat in",
+                subtitle: "your mother tongue",
+                context: context,
+              ),
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );
