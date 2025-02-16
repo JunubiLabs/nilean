@@ -110,4 +110,25 @@ class InputThemes {
       ),
     );
   }
+
+  static InputDecoration chatBubbleTheme(BuildContext context) {
+    return InputDecoration(
+      contentPadding: EdgeInsets.zero,
+      isCollapsed: true,
+      labelText: 'Enter your prompt here',
+      labelStyle: TextStyle(fontSize: 16, color: Colors.black),
+      filled: true,
+      fillColor: Colors.transparent,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.transparent),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.transparent),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.transparent),
+      ),
+    );
+  }
 }

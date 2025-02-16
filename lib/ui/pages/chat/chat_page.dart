@@ -46,6 +46,7 @@ class _ChatPageState extends State<ChatPage> {
               ),
               const Spacer(),
               ChatBubble(),
+              const SizedBox(height: 5),
             ],
           ),
         ),
