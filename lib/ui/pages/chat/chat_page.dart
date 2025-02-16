@@ -1,0 +1,43 @@
+import 'package:buai/ui/widgets/app_buttons.dart';
+import 'package:buai/ui/widgets/app_texts.dart';
+import 'package:buai/utils/colors.dart';
+import 'package:flutter/material.dart';
+
+class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
+
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppButtons.backButton(onPressed: () {}),
+            const Spacer(),
+            AppButtons.ellipsisButton(
+              onPressed: () {},
+              color: AppColors.primaryOrange,
+              context: context,
+              text: 'Recent Chats ',
+              icon: Icons.arrow_outward_sharp,
+            ),
+            const SizedBox(height: 5),
+            AppTexts.sectionTitle(
+              title: "Let's Chat in",
+              subtitle: "your mother tongue",
+              context: context,
+            ),
+            const Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+}

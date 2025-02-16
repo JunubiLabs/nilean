@@ -1,7 +1,6 @@
 import 'package:buai/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax_plus/iconsax_plus.dart';
 
 class AppButtons {
   static Widget authButton({
@@ -26,22 +25,22 @@ class AppButtons {
   }
 
   static Widget backButton({
-    required VoidCallback onPressed,
-    required BuildContext context,
+    required onPressed,
   }) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        alignment: Alignment.center,
         width: 30,
-        padding: const EdgeInsets.all(5),
+        height: 30,
+        padding: EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: Colors.black, width: 2),
+          color: AppColors.primaryGrey,
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(width: 2),
         ),
         child: const Icon(
-          IconsaxPlusLinear.arrow_left,
+          Icons.arrow_back,
+          color: Colors.black,
           size: 20,
         ),
       ),

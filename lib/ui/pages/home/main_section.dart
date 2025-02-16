@@ -25,57 +25,62 @@ class _MainSectionState extends State<MainSection> {
           subtitle: "your mother tongue",
         ),
         const SizedBox(height: 20),
-        Container(
-          height: 160,
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-            color: brightness == Brightness.dark
-                ? AppColors.primaryBlue
-                : AppColors.secondaryBlue,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          padding: EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppButtons.forwardButton(onPressed: () {}),
-                  RichText(
-                    text: TextSpan(
-                      text: "Let's talk in",
-                      style: GoogleFonts.lato(
-                        fontSize: 21,
-                        color: brightness == Brightness.dark
-                            ? AppColors.primaryBlack
-                            : AppColors.primaryWhite,
-                        fontWeight: FontWeight.bold,
-                        height: 1.1,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: "\nyour mother tongue",
-                          style: GoogleFonts.lato(
-                            fontSize: 21,
-                            color: brightness == Brightness.dark
-                                ? AppColors.secondaryBlack
-                                : AppColors.secondaryWhite
-                                    .withAlpha((255 * 0.75).ceil()),
-                            fontWeight: FontWeight.bold,
-                          ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed('/chat');
+          },
+          child: Container(
+            height: 160,
+            width: double.maxFinite,
+            decoration: BoxDecoration(
+              color: brightness == Brightness.dark
+                  ? AppColors.primaryBlue
+                  : AppColors.secondaryBlue,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppButtons.forwardButton(onPressed: () {}),
+                    RichText(
+                      text: TextSpan(
+                        text: "Let's talk in",
+                        style: GoogleFonts.lato(
+                          fontSize: 21,
+                          color: brightness == Brightness.dark
+                              ? AppColors.primaryBlack
+                              : AppColors.primaryWhite,
+                          fontWeight: FontWeight.bold,
+                          height: 1.1,
                         ),
-                      ],
+                        children: [
+                          TextSpan(
+                            text: "\nyour mother tongue",
+                            style: GoogleFonts.lato(
+                              fontSize: 21,
+                              color: brightness == Brightness.dark
+                                  ? AppColors.secondaryBlack
+                                  : AppColors.secondaryWhite
+                                      .withAlpha((255 * 0.75).ceil()),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Image(
-                image: AssetImage('assets/images/chat.png'),
-                height: double.maxFinite,
-              ),
-            ],
+                  ],
+                ),
+                Image(
+                  image: AssetImage('assets/images/chat.png'),
+                  height: double.maxFinite,
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 10),
