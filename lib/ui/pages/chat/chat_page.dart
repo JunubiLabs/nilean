@@ -21,7 +21,9 @@ class _ChatPageState extends State<ChatPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppButtons.backButton(onPressed: () {}),
+              AppButtons.backButton(
+                onPressed: () => Navigator.of(context).pop(),
+              ),
               const Spacer(),
               Row(
                 children: [

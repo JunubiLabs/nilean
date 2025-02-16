@@ -118,7 +118,9 @@ class AppButtons {
                 color: Colors.black,
               ),
             ),
-            icon != null ? Icon(icon, size: 16) : Container(),
+            icon != null
+                ? Icon(icon, size: 16, color: Colors.black)
+                : Container(),
           ],
         ),
       ),
