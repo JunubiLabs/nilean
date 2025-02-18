@@ -73,13 +73,13 @@ class _ChatPageState extends State<ChatPage> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 20),
                             for (var chat in state.chat.chatcontent) ...[
                               ChatBubble(
                                 chat: chat,
                               ),
                             ],
-                            const SizedBox(height: 5),
+                            const SizedBox(height: 20),
                           ],
                         ),
                       ),

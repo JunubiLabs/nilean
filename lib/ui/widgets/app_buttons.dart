@@ -149,13 +149,13 @@ class AppButtons {
       child: Container(
         width: 25,
         height: 25,
-        padding: EdgeInsets.all(2),
+        padding: EdgeInsets.all(3),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(50),
           border: Border.all(width: 2),
         ),
-        child: Icon(icon, color: Colors.black, size: 17),
+        child: Icon(icon, color: Colors.black, size: 15),
       ),
     );
   }

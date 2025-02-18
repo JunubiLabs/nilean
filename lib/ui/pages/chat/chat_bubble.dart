@@ -4,6 +4,7 @@ import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChatBubble extends StatelessWidget {
@@ -46,10 +47,10 @@ class ChatBubble extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 5),
         Text(
           chat.chat ?? '',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
         Container(
@@ -89,11 +90,8 @@ class ChatBubble extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
-              Text(
-                chat.translatedResponse ?? '',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
+              const SizedBox(height: 10),
+              MarkdownBody(data: chat.translatedResponse ?? ''),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -105,14 +103,14 @@ class ChatBubble extends StatelessWidget {
                     color: AppColors.primaryYellow,
                     icon: Icons.copy_sharp,
                   ),
-                  const SizedBox(width: 5),
+                  const SizedBox(width: 2),
                   AppButtons.circularButton(
                     onPressed: () {},
                     context: context,
                     color: AppColors.primaryBlue,
                     icon: Icons.volume_up,
                   ),
-                  const SizedBox(width: 5),
+                  const SizedBox(width: 2),
                   AppButtons.circularButton(
                     onPressed: () {},
                     context: context,

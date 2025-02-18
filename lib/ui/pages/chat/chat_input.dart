@@ -2,6 +2,7 @@ import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/input_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChatInput extends StatelessWidget {
   const ChatInput({
@@ -19,19 +20,24 @@ class ChatInput extends StatelessWidget {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppColors.secondaryWhite,
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(width: 1.5, color: Colors.black),
       ),
       child: Column(
         children: [
           TextFormField(
             controller: inputController,
-            style: TextStyle(color: Colors.black, fontSize: 16),
+            style: GoogleFonts.inter(color: Colors.black, fontSize: 16),
             decoration: InputThemes.chatBubbleTheme(context),
             showCursor: true,
             maxLines: 3,
             minLines: 1,
             cursorHeight: 14,
+            autocorrect: false,
+            autofocus: false,
+            onTapOutside: (event) {
+              FocusScope.of(context).unfocus();
+            },
           ),
           const SizedBox(height: 10),
           Row(
