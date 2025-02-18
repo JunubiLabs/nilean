@@ -8,6 +8,7 @@ import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -61,13 +62,14 @@ class _ChatPageState extends State<ChatPage> {
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       const Spacer(),
-                      AppButtons.ellipsisButton(
-                        onPressed: () {},
-                        color: AppColors.primaryBlue,
-                        context: context,
-                        text: '+ New Chat',
-                        displaySize: DisplaySize.large,
-                      )
+                      if (state is ChatLoaded || state is ChatError)
+                        AppButtons.ellipsisButton(
+                          onPressed: () {},
+                          color: AppColors.primaryBlue,
+                          context: context,
+                          text: '+ New Chat',
+                          displaySize: DisplaySize.large,
+                        )
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -97,10 +99,17 @@ class _ChatPageState extends State<ChatPage> {
                   ],
                   if (state is ChatLoading) ...[
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [],
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          SizedBox(width: double.maxFinite),
+                          LoadingAnimationWidget.fallingDot(
+                            color: AppColors.primaryBlue,
+                            size: 40,
+                          )
+                        ],
                       ),
                     ),
                   ],
