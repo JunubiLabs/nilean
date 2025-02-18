@@ -34,7 +34,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ));
 
     Future.delayed(const Duration(seconds: 3)).then((x) {
-      emit(ChatLoaded(response: '', translatedResponse: ''));
+      emit(ChatLoaded(chat: chat!));
     });
   }
 
@@ -50,7 +50,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       id: Uuid().v4(),
     );
     Future.delayed(const Duration(seconds: 3)).then((x) {
-      emit(ChatLoaded(response: '', translatedResponse: ''));
+      emit(ChatLoaded(chat: chat!));
     });
   }
 }

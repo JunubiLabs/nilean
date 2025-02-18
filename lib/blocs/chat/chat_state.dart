@@ -1,3 +1,5 @@
+import 'package:buai/models/chat_model.dart';
+
 abstract class ChatState {}
 
 class ChatInitial extends ChatState {}
@@ -5,13 +7,9 @@ class ChatInitial extends ChatState {}
 class ChatLoading extends ChatState {}
 
 class ChatLoaded extends ChatState {
-  final String response;
-  final String translatedResponse;
+  final ChatModel chat;
 
-  ChatLoaded({
-    required this.response,
-    required this.translatedResponse,
-  });
+  ChatLoaded({required this.chat});
 }
 
 class ChatError extends ChatState {
