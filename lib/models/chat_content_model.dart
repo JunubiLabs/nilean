@@ -7,7 +7,7 @@ part 'chat_content_model.g.dart';
 @HiveType(typeId: 1)
 class ChatContentModel {
   @HiveField(0)
-  String? date;
+  DateTime? date;
 
   @HiveField(1)
   String? chat;
