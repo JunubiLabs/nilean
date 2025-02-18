@@ -8,9 +8,10 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChatBubble extends StatelessWidget {
-  ChatBubble({super.key, required this.chat});
+  ChatBubble({super.key, required this.chat, this.isError = false});
   final ChatContentModel chat;
   final User user = FirebaseAuth.instance.currentUser!;
+  final bool isError;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +57,13 @@ class ChatBubble extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.tertiary,
+            color:
+                isError ? Colors.red : Theme.of(context).colorScheme.tertiary,
             borderRadius: BorderRadius.circular(5),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [

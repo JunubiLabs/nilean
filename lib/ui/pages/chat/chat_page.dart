@@ -1,6 +1,7 @@
 import 'package:buai/blocs/chat/chat_bloc.dart';
 import 'package:buai/blocs/chat/chat_event.dart';
 import 'package:buai/blocs/chat/chat_state.dart';
+import 'package:buai/models/chat_content_model.dart';
 import 'package:buai/ui/pages/chat/chat_bubble.dart';
 import 'package:buai/ui/pages/chat/chat_input.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
@@ -125,6 +126,24 @@ class _ChatPageState extends State<ChatPage> {
                             ),
                             const SizedBox(height: 25),
                           ],
+                        ],
+                      ),
+                    ),
+                  ],
+                  if (state is ChatError) ...[
+                    Expanded(
+                      child: ListView(
+                        controller: _scrollController,
+                        shrinkWrap: true,
+                        children: [
+                          ChatBubble(
+                            chat: ChatContentModel(
+                              date: DateTime.now(),
+                              chat: prompt,
+                              translatedResponse: state.message,
+                            ),
+                            isError: true,
+                          ),
                         ],
                       ),
                     ),
