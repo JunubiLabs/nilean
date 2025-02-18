@@ -1,10 +1,10 @@
-import 'package:buai/ui/widgets/app_buttons.dart';
+import 'package:buai/models/chat_content_model.dart';
 import 'package:buai/utils/colors.dart';
-import 'package:buai/utils/input_themes.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubble extends StatelessWidget {
-  const ChatBubble({super.key});
+  const ChatBubble({super.key, required this.chat});
+  final ChatContentModel chat;
 
   @override
   Widget build(BuildContext context) {
@@ -16,43 +16,7 @@ class ChatBubble extends StatelessWidget {
         border: Border.all(width: 1.5, color: Colors.black),
       ),
       child: Column(
-        children: [
-          TextFormField(
-            style: TextStyle(color: Colors.black, fontSize: 16),
-            decoration: InputThemes.chatBubbleTheme(context),
-            showCursor: true,
-            maxLines: 3,
-            minLines: 1,
-            cursorHeight: 14,
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              AppButtons.ellipsisButton(
-                onPressed: () {},
-                color: AppColors.primaryBlue,
-                context: context,
-                text: 'Nuer',
-                icon: Icons.keyboard_arrow_down,
-              ),
-              const SizedBox(width: 5),
-              AppButtons.circularButton(
-                onPressed: () {},
-                color: AppColors.primaryOrange,
-                context: context,
-                icon: Icons.attach_file_sharp,
-              ),
-              const Spacer(),
-              AppButtons.ellipsisButton(
-                onPressed: () {},
-                color: AppColors.primaryYellow,
-                context: context,
-                text: 'Send ',
-                icon: Icons.send,
-              ),
-            ],
-          )
-        ],
+        children: [],
       ),
     );
   }

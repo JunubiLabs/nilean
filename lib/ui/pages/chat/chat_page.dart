@@ -61,8 +61,11 @@ class _ChatPageState extends State<ChatPage> {
                         child: Column(
                           children: [
                             for (var chat in state.chat.chatcontent) ...[
-                              ChatBubble(),
-                            ]
+                              ChatBubble(
+                                chat: chat,
+                              ),
+                            ],
+                            const SizedBox(height: 5),
                           ],
                         ),
                       ),
