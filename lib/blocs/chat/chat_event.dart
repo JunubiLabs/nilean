@@ -12,3 +12,5 @@ class SendImagePromptEvent extends ChatEvent {
 
   SendImagePromptEvent(this.image, this.prompt);
 }
+
+class ResetChatEvent extends ChatEvent {}

@@ -1,3 +1,4 @@
+import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -97,6 +98,7 @@ class AppButtons {
     required BuildContext context,
     IconData? icon,
     String? text,
+    DisplaySize? displaySize,
   }) {
     return TextButton(
       onPressed: onPressed,
@@ -106,7 +108,14 @@ class AppButtons {
         minimumSize: Size.zero,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+        padding: EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: displaySize == DisplaySize.large
+              ? 4
+              : displaySize == DisplaySize.medium
+                  ? 2
+                  : 1,
+        ),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(50),
@@ -120,13 +129,25 @@ class AppButtons {
               Text(
                 text,
                 style: GoogleFonts.lato(
-                  fontSize: 12,
+                  fontSize: displaySize == DisplaySize.large
+                      ? 15
+                      : displaySize == DisplaySize.small
+                          ? 8
+                          : 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
             ],
-            if (icon != null) ...[Icon(icon, size: 16, color: Colors.black)]
+            if (icon != null) ...[
+              Icon(icon,
+                  size: displaySize == DisplaySize.large
+                      ? 20
+                      : displaySize == DisplaySize.small
+                          ? 12
+                          : 16,
+                  color: Colors.black)
+            ]
           ],
         ),
       ),

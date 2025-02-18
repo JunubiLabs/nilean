@@ -27,11 +27,17 @@ class _ChatPageState extends State<ChatPage> {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
-          duration: const Duration(seconds: 1),
+          duration: const Duration(milliseconds: 750),
           curve: Curves.easeInOut,
         );
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    context.read<ChatBloc>().add(ResetChatEvent());
+    super.didChangeDependencies();
   }
 
   @override
@@ -55,6 +61,13 @@ class _ChatPageState extends State<ChatPage> {
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       const Spacer(),
+                      AppButtons.ellipsisButton(
+                        onPressed: () {},
+                        color: AppColors.primaryBlue,
+                        context: context,
+                        text: '+ New Chat',
+                        displaySize: DisplaySize.large,
+                      )
                     ],
                   ),
                   const SizedBox(height: 20),

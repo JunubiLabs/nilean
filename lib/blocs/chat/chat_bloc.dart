@@ -11,6 +11,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc() : super(ChatInitial()) {
     on<SendPromptEvent>(_sendPrompt);
     on<SendImagePromptEvent>(_sendImagePrompt);
+    on<ResetChatEvent>(resetChat);
   }
 
   Future _sendPrompt(
@@ -54,5 +55,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     Future.delayed(const Duration(seconds: 3)).then((x) {
       emit(ChatLoaded(chat: chat!));
     });
+  }
+
+  Future<void> resetChat(
+    ResetChatEvent event,
+    Emitter<ChatState> emit,
+  ) async {
+    chat = null;
+    emit(ChatInitial());
   }
 }
