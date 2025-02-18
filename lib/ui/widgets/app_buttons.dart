@@ -192,14 +192,18 @@ class AppButtons {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapDown: (details) {
+        final Size screenSize = MediaQuery.of(context).size;
+
+        final RelativeRect position = RelativeRect.fromLTRB(
+          details.globalPosition.dx,
+          details.globalPosition.dy,
+          screenSize.width - details.globalPosition.dx,
+          screenSize.height - details.globalPosition.dy,
+        );
+
         showMenu(
           context: context,
-          position: RelativeRect.fromLTRB(
-            details.globalPosition.dx,
-            details.globalPosition.dy,
-            0.0,
-            0.0,
-          ),
+          position: position,
           color: Theme.of(context).scaffoldBackgroundColor,
           menuPadding: EdgeInsets.all(2),
           shape: RoundedRectangleBorder(
@@ -264,13 +268,16 @@ class AppButtons {
                   color: Colors.black,
                 ),
               ),
-              Icon(Icons.arrow_drop_down,
-                  size: displaySize == DisplaySize.large
-                      ? 20
-                      : displaySize == DisplaySize.small
-                          ? 12
-                          : 16,
-                  color: Colors.black)
+              const SizedBox(width: 3),
+              Icon(
+                Icons.language_sharp,
+                size: displaySize == DisplaySize.large
+                    ? 20
+                    : displaySize == DisplaySize.small
+                        ? 12
+                        : 16,
+                color: Colors.black,
+              )
             ],
           ),
         ),
