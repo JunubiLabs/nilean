@@ -56,7 +56,7 @@ class ChatBubble extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: AppColors.primaryGrey.withAlpha((0.15 * 255).ceil()),
+            color: Theme.of(context).colorScheme.tertiary,
             borderRadius: BorderRadius.circular(5),
           ),
           child: Column(

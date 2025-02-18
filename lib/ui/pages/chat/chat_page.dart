@@ -17,8 +17,22 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  final ScrollController _scrollController = ScrollController();
   TextEditingController inputController = TextEditingController();
+
   String prompt = '';
+
+  scrollToTheBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +40,24 @@ class _ChatPageState extends State<ChatPage> {
       body: SafeArea(
         child: BlocBuilder<ChatBloc, ChatState>(
           builder: (context, state) {
+            if (state is ChatLoaded) {
+              scrollToTheBottom();
+            }
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppButtons.backButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                  Row(
+                    children: [
+                      AppButtons.backButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                      const Spacer(),
+                    ],
                   ),
+                  const SizedBox(height: 20),
                   if (state is ChatInitial) ...[
                     const Spacer(),
                     Row(
@@ -70,18 +93,17 @@ class _ChatPageState extends State<ChatPage> {
                   ],
                   if (state is ChatLoaded) ...[
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 20),
-                            for (var chat in state.chat.chatcontent) ...[
-                              ChatBubble(
-                                chat: chat,
-                              ),
-                            ],
-                            const SizedBox(height: 20),
+                      child: ListView(
+                        controller: _scrollController,
+                        shrinkWrap: true,
+                        children: [
+                          for (var chat in state.chat.chatcontent) ...[
+                            ChatBubble(
+                              chat: chat,
+                            ),
+                            const SizedBox(height: 25),
                           ],
-                        ),
+                        ],
                       ),
                     ),
                   ],
@@ -95,6 +117,9 @@ class _ChatPageState extends State<ChatPage> {
                       BlocProvider.of<ChatBloc>(context).add(
                         SendPromptEvent(prompt),
                       );
+                      Future.delayed(const Duration(seconds: 1)).then((x) {
+                        scrollToTheBottom();
+                      });
                     },
                   ),
                   const SizedBox(height: 5),
