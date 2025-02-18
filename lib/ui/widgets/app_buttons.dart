@@ -180,4 +180,101 @@ class AppButtons {
       ),
     );
   }
+
+  static Widget dropdownButton({
+    required Function(String) onPressed,
+    required BuildContext context,
+    DisplaySize? displaySize,
+    required List<String> items,
+    required String activeItem,
+    required Color color,
+  }) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTapDown: (details) {
+        showMenu(
+          context: context,
+          position: RelativeRect.fromLTRB(
+            details.globalPosition.dx,
+            details.globalPosition.dy,
+            0.0,
+            0.0,
+          ),
+          color: Theme.of(context).scaffoldBackgroundColor,
+          menuPadding: EdgeInsets.all(2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            side: BorderSide(
+              color: AppColors.primaryBlue,
+              width: 0.5,
+            ),
+          ),
+          items: [
+            for (var item in items) ...[
+              PopupMenuItem(
+                onTap: () => onPressed(item),
+                value: item,
+                height: 40,
+                child: Text(
+                  item,
+                  style: GoogleFonts.lato(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ],
+        );
+      },
+      child: TextButton(
+        onPressed: () {},
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.all(0),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          minimumSize: Size.zero,
+        ),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: displaySize == DisplaySize.large
+                ? 4
+                : displaySize == DisplaySize.medium
+                    ? 2
+                    : 1,
+          ),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(width: 1.5, color: Colors.black),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                activeItem,
+                style: GoogleFonts.lato(
+                  fontSize: displaySize == DisplaySize.large
+                      ? 15
+                      : displaySize == DisplaySize.small
+                          ? 8
+                          : 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              Icon(Icons.arrow_drop_down,
+                  size: displaySize == DisplaySize.large
+                      ? 20
+                      : displaySize == DisplaySize.small
+                          ? 12
+                          : 16,
+                  color: Colors.black)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

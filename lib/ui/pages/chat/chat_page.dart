@@ -7,6 +7,7 @@ import 'package:buai/ui/pages/chat/chat_input.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:buai/utils/colors.dart';
+import 'package:buai/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -23,6 +24,8 @@ class _ChatPageState extends State<ChatPage> {
   TextEditingController inputController = TextEditingController();
 
   String prompt = '';
+  String chatLanguage = 'English';
+  List<String> languages = AppConstants.languages.map((l) => l.name).toList();
 
   scrollToTheBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -164,6 +167,13 @@ class _ChatPageState extends State<ChatPage> {
                         scrollToTheBottom();
                       });
                     },
+                    onLanguagePressed: (String language) {
+                      setState(() {
+                        chatLanguage = language;
+                      });
+                    },
+                    items: languages,
+                    activeItem: chatLanguage,
                   ),
                   const SizedBox(height: 5),
                 ],

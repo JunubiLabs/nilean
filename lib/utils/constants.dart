@@ -1,6 +1,6 @@
 import 'package:buai/models/language_model.dart';
 
-class Constants {
+class AppConstants {
   static List<LanguageModel> languages = [
     LanguageModel(name: 'English', code: 'en'),
     LanguageModel(name: 'Dinka', code: 'din'),

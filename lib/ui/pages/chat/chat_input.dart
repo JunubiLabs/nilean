@@ -9,10 +9,16 @@ class ChatInput extends StatelessWidget {
     super.key,
     required this.inputController,
     required this.onSend,
+    required this.onLanguagePressed,
+    required this.items,
+    required this.activeItem,
   });
 
   final TextEditingController inputController;
   final void Function() onSend;
+  final Function(String) onLanguagePressed;
+  final List<String> items;
+  final String activeItem;
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +48,12 @@ class ChatInput extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: [
-              AppButtons.ellipsisButton(
-                onPressed: () {},
-                color: AppColors.primaryBlue,
+              AppButtons.dropdownButton(
+                onPressed: onLanguagePressed,
                 context: context,
-                text: 'Nuer',
-                icon: Icons.keyboard_arrow_down,
+                items: items,
+                activeItem: activeItem,
+                color: AppColors.primaryBlue,
               ),
               const SizedBox(width: 5),
               AppButtons.circularButton(
