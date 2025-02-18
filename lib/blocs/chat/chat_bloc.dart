@@ -37,7 +37,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ));
 
     await Future.delayed(const Duration(seconds: 3)).then((x) {
-      emit(ChatError('Error Occured'));
+      emit(ChatLoaded(chat: chat!));
     });
   }
 

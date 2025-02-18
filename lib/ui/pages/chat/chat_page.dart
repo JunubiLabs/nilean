@@ -65,7 +65,9 @@ class _ChatPageState extends State<ChatPage> {
                       const Spacer(),
                       if (state is ChatLoaded || state is ChatError)
                         AppButtons.ellipsisButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.read<ChatBloc>().add(ResetChatEvent());
+                          },
                           color: AppColors.primaryBlue,
                           context: context,
                           text: '+ New Chat',
@@ -106,8 +108,8 @@ class _ChatPageState extends State<ChatPage> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           SizedBox(width: double.maxFinite),
-                          LoadingAnimationWidget.fallingDot(
-                            color: AppColors.primaryBlue,
+                          LoadingAnimationWidget.fourRotatingDots(
+                            color: AppColors.secondaryBlue,
                             size: 40,
                           )
                         ],
