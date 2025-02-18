@@ -1,4 +1,5 @@
 import 'package:buai/blocs/chat/chat_bloc.dart';
+import 'package:buai/blocs/chat/chat_event.dart';
 import 'package:buai/blocs/chat/chat_state.dart';
 import 'package:buai/ui/pages/chat/chat_bubble.dart';
 import 'package:buai/ui/pages/chat/chat_input.dart';
@@ -16,6 +17,9 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  TextEditingController inputController = TextEditingController();
+  String prompt = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +75,18 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                     ),
                   ],
-                  ChatInput(),
+                  ChatInput(
+                    inputController: inputController,
+                    onSend: () {
+                      setState(() {
+                        prompt = inputController.value.text;
+                      });
+                      inputController.clear();
+                      BlocProvider.of<ChatBloc>(context).add(
+                        SendPromptEvent(prompt),
+                      );
+                    },
+                  ),
                   const SizedBox(height: 5),
                 ],
               ),

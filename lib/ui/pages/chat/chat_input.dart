@@ -4,7 +4,14 @@ import 'package:buai/utils/input_themes.dart';
 import 'package:flutter/material.dart';
 
 class ChatInput extends StatelessWidget {
-  const ChatInput({super.key});
+  const ChatInput({
+    super.key,
+    required this.inputController,
+    required this.onSend,
+  });
+
+  final TextEditingController inputController;
+  final void Function() onSend;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +25,7 @@ class ChatInput extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            controller: inputController,
             style: TextStyle(color: Colors.black, fontSize: 16),
             decoration: InputThemes.chatBubbleTheme(context),
             showCursor: true,
@@ -29,7 +37,7 @@ class ChatInput extends StatelessWidget {
           Row(
             children: [
               AppButtons.ellipsisButton(
-                onPressed: () {},
+                onPressed: onSend,
                 color: AppColors.primaryBlue,
                 context: context,
                 text: 'Nuer',
@@ -44,7 +52,7 @@ class ChatInput extends StatelessWidget {
               ),
               const Spacer(),
               AppButtons.ellipsisButton(
-                onPressed: () {},
+                onPressed: () => onSend,
                 color: AppColors.primaryYellow,
                 context: context,
                 text: 'Send ',
