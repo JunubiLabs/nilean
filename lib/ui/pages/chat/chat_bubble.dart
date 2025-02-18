@@ -1,8 +1,10 @@
+import 'package:buai/extensions/string_extensions.dart';
 import 'package:buai/models/chat_content_model.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChatBubble extends StatelessWidget {
   ChatBubble({super.key, required this.chat});
@@ -32,11 +34,11 @@ class ChatBubble extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
-                user.displayName ?? '',
-                style: TextStyle(
+                user.displayName?.toTitleCase() ?? '',
+                style: GoogleFonts.lato(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),
@@ -44,14 +46,18 @@ class ChatBubble extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 10),
         Text(
           chat.chat ?? '',
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
         Container(
-          color: AppColors.primaryGrey.withAlpha((0.15 * 255).ceil()),
-          padding: EdgeInsets.all(3),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: AppColors.primaryGrey.withAlpha((0.15 * 255).ceil()),
+            borderRadius: BorderRadius.circular(5),
+          ),
           child: Column(
             children: [
               Row(
@@ -61,7 +67,7 @@ class ChatBubble extends StatelessWidget {
                     width: 20,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/avatar.png'),
+                        image: AssetImage('assets/images/buai.png'),
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(60),
@@ -71,10 +77,10 @@ class ChatBubble extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 3),
                   Expanded(
                     child: Text(
-                      'junubi ai',
+                      'JunubiAi',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -88,36 +94,36 @@ class ChatBubble extends StatelessWidget {
                 chat.translatedResponse ?? '',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  AppButtons.circularButton(
+                    onPressed: () {},
+                    context: context,
+                    color: AppColors.primaryYellow,
+                    icon: Icons.copy_sharp,
+                  ),
+                  const SizedBox(width: 5),
+                  AppButtons.circularButton(
+                    onPressed: () {},
+                    context: context,
+                    color: AppColors.primaryBlue,
+                    icon: Icons.volume_up,
+                  ),
+                  const SizedBox(width: 5),
+                  AppButtons.circularButton(
+                    onPressed: () {},
+                    context: context,
+                    color: AppColors.primaryGrey,
+                    icon: Icons.ios_share,
+                  ),
+                ],
+              )
             ],
           ),
         ),
-        const SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            AppButtons.circularButton(
-              onPressed: () {},
-              context: context,
-              color: AppColors.primaryBlue,
-              icon: Icons.copy_sharp,
-            ),
-            const SizedBox(width: 5),
-            AppButtons.circularButton(
-              onPressed: () {},
-              context: context,
-              color: AppColors.primaryBlue,
-              icon: Icons.volume_up,
-            ),
-            const SizedBox(width: 5),
-            AppButtons.circularButton(
-              onPressed: () {},
-              context: context,
-              color: AppColors.primaryBlue,
-              icon: Icons.ios_share,
-            ),
-          ],
-        )
       ],
     );
   }

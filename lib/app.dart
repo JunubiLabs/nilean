@@ -1,3 +1,4 @@
+import 'package:buai/blocs/chat/chat_bloc.dart';
 import 'package:buai/ui/pages/auth/complete_signup_page.dart';
 import 'package:buai/ui/pages/auth/email_verification_page.dart';
 import 'package:buai/ui/pages/auth/reset_password_page.dart';
@@ -23,6 +24,9 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(AuthRepository()),
+        ),
+        BlocProvider(
+          create: (context) => ChatBloc(),
         ),
       ],
       child: MaterialApp(

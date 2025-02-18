@@ -98,8 +98,13 @@ class AppButtons {
     IconData? icon,
     String? text,
   }) {
-    return GestureDetector(
-      onTap: onPressed,
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        minimumSize: Size.zero,
+      ),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
         decoration: BoxDecoration(
@@ -134,8 +139,13 @@ class AppButtons {
     required Color color,
     required IconData icon,
   }) {
-    return GestureDetector(
-      onTap: onPressed,
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        minimumSize: Size.zero,
+      ),
       child: Container(
         width: 25,
         height: 25,

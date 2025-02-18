@@ -59,11 +59,21 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                     const Spacer(),
                   ],
+                  if (state is ChatLoading) ...[
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [],
+                        ),
+                      ),
+                    ),
+                  ],
                   if (state is ChatLoaded) ...[
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                            const SizedBox(height: 10),
                             for (var chat in state.chat.chatcontent) ...[
                               ChatBubble(
                                 chat: chat,

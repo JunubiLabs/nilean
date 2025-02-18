@@ -37,7 +37,7 @@ class ChatInput extends StatelessWidget {
           Row(
             children: [
               AppButtons.ellipsisButton(
-                onPressed: onSend,
+                onPressed: () {},
                 color: AppColors.primaryBlue,
                 context: context,
                 text: 'Nuer',
@@ -52,7 +52,7 @@ class ChatInput extends StatelessWidget {
               ),
               const Spacer(),
               AppButtons.ellipsisButton(
-                onPressed: () => onSend,
+                onPressed: onSend,
                 color: AppColors.primaryYellow,
                 context: context,
                 text: 'Send ',
