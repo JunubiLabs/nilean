@@ -1,7 +1,14 @@
+import 'dart:math';
+
+import 'package:buai/models/chat_model.dart';
+import 'package:buai/ui/pages/chat/chat_page.dart';
 import 'package:buai/ui/widgets/app_cards.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
+import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:hive/hive.dart';
 
 class RecentChats extends StatefulWidget {
   const RecentChats({super.key});
@@ -11,39 +18,87 @@ class RecentChats extends StatefulWidget {
 }
 
 class _RecentChatsState extends State<RecentChats> {
-  List chats = [
-    'Ɛŋu mi göörä kɛ ɣöö bä ko̱r joc',
-    'Kä ji̱ South Sudan ti ŋuan ti ci li̱w rɛy köör Sudan in rɛwdɛ?',
-    'Yeŋö ye ɣɛn wïc ba dɔ̈ɔ̈r bɛ̈i në piny ciɛɛm de Sudan yic në thaa thiɔ̈kic?',
-    'Kä ji̱ South Sudan ti ŋuan ti ci li̱w rɛy köör Sudan in rɛwdɛ?',
-  ];
+  Future<List<ChatModel>> getRecentChatSessionsFromStorage() async {
+    final chatsBox = await Hive.openBox<ChatModel>('chats');
+    await Future.delayed(const Duration(seconds: 3));
+    List<ChatModel> chats = chatsBox.values.toList();
+    return chats;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppTexts.sectionTitle(
-          title: 'Your Chats',
-          subtitle: 'History',
-          context: context,
-        ),
-        const SizedBox(height: 20),
-        StaggeredGrid.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 15,
-          crossAxisSpacing: 10,
+    return FutureBuilder(
+      future: getRecentChatSessionsFromStorage(),
+      builder: (context, snapshot) {
+        var chats = snapshot.data ?? [];
+
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            for (var chat in chats) ...[
-              AppCards.chatCard(
+            if (snapshot.connectionState == ConnectionState.waiting) ...[
+              AppTexts.sectionTitle(
+                title: 'Your Chats',
+                subtitle: 'History',
                 context: context,
-                chat: chat,
-                onPressed: () {},
               ),
+              const SizedBox(height: 20),
+              StaggeredGrid.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 10,
+                children: [
+                  for (var i = 1; i < 5; i++) ...[
+                    CardLoading(
+                      height: (Random().nextInt(80) + 40).toDouble(),
+                    ),
+                  ],
+                ],
+              ),
+            ],
+            if (snapshot.connectionState == ConnectionState.done) ...[
+              AppTexts.sectionTitle(
+                title: 'Your Chats',
+                subtitle: 'History',
+                context: context,
+              ),
+              const SizedBox(height: 20),
+              if (chats.isNotEmpty) ...[
+                StaggeredGrid.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 10,
+                  children: [
+                    for (var chat in chats) ...[
+                      AppCards.chatCard(
+                        context: context,
+                        chat: chat.title ?? '',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                chat: chat,
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                          .animate()
+                          .slideY(
+                            curve: Curves.ease,
+                            duration: const Duration(milliseconds: 700),
+                            begin: 0.5,
+                          )
+                          .fade(),
+                    ]
+                  ],
+                ),
+              ],
             ]
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }
