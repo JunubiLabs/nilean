@@ -7,6 +7,7 @@ import 'package:buai/ui/widgets/app_cards.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -84,7 +85,17 @@ class _MyChatsState extends State<MyChats> {
                                     ),
                                   );
                                 },
-                              ),
+                              )
+                                  .animate()
+                                  .slideY(
+                                    begin: 1,
+                                    duration: const Duration(milliseconds: 500),
+                                    delay: Duration(
+                                      milliseconds: chats.indexOf(chat) * 100,
+                                    ),
+                                    curve: Curves.fastOutSlowIn,
+                                  )
+                                  .fade(),
                             ]
                           ],
                         ),

@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:buai/ui/widgets/app_buttons.dart';
+import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 
 class AppCards {
@@ -77,7 +79,7 @@ class AppCards {
         height: 120,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: AppColors.secondaryBlue,
+          color: AppColors.primaryGrey,
           image: DecorationImage(
             image: NetworkImage(image),
             fit: BoxFit.cover,
@@ -99,17 +101,21 @@ class AppCards {
                   color: AppColors.primaryOrange,
                   text: Jiffy.now().yMd,
                   context: context,
+                  displaySize: DisplaySize.small,
                 ),
               ],
             ),
             const SizedBox(height: 5),
-            Text(
-              news,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
+            RichText(
+              maxLines: 3,
+              text: TextSpan(
+                text: news,
+                style: GoogleFonts.inter(
+                  height: 1.0,
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],
