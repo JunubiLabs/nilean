@@ -20,7 +20,6 @@ class RecentChats extends StatefulWidget {
 class _RecentChatsState extends State<RecentChats> {
   Future<List<ChatModel>> getRecentChatSessionsFromStorage() async {
     final chatsBox = await Hive.openBox<ChatModel>('chats');
-    await chatsBox.clear();
     List<ChatModel> chats = chatsBox.values.toList();
     return chats;
   }
@@ -31,6 +30,7 @@ class _RecentChatsState extends State<RecentChats> {
       future: getRecentChatSessionsFromStorage(),
       builder: (context, snapshot) {
         var chats = snapshot.data ?? [];
+        print(chats);
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
