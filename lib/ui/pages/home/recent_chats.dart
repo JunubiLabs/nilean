@@ -30,7 +30,6 @@ class _RecentChatsState extends State<RecentChats> {
       future: getRecentChatSessionsFromStorage(),
       builder: (context, snapshot) {
         var chats = snapshot.data ?? [];
-        print(chats);
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
