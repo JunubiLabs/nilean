@@ -95,7 +95,10 @@ class ChatBubble extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              MarkdownBody(data: chat.response ?? ''),
+              MarkdownBody(
+                data: chat.response ?? '',
+                selectable: true,
+              ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

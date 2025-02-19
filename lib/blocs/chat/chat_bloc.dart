@@ -5,6 +5,7 @@ import 'package:buai/models/chat_model.dart';
 import 'package:buai/services/ai_services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
@@ -105,10 +106,17 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         );
       }
 
+      saveChat(chat!);
+
       emit(ChatLoaded(chat: chat!));
     } catch (e) {
       emit(ChatError(e.toString()));
     }
+  }
+
+  Future<void> saveChat(ChatModel chat) async {
+    final chatBox = await Hive.openBox<ChatModel>('chats');
+    await chatBox.put(chat.id, chat);
   }
 
   Future _sendImagePrompt(
