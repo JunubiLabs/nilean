@@ -20,7 +20,7 @@ class RecentChats extends StatefulWidget {
 class _RecentChatsState extends State<RecentChats> {
   Future<List<ChatModel>> getRecentChatSessionsFromStorage() async {
     final chatsBox = await Hive.openBox<ChatModel>('chats');
-    await Future.delayed(const Duration(seconds: 3));
+    await chatsBox.clear();
     List<ChatModel> chats = chatsBox.values.toList();
     return chats;
   }
@@ -55,15 +55,16 @@ class _RecentChatsState extends State<RecentChats> {
                   ],
                 ],
               ),
+              const SizedBox(height: 25),
             ],
             if (snapshot.connectionState == ConnectionState.done) ...[
-              AppTexts.sectionTitle(
-                title: 'Your Chats',
-                subtitle: 'History',
-                context: context,
-              ),
-              const SizedBox(height: 20),
               if (chats.isNotEmpty) ...[
+                AppTexts.sectionTitle(
+                  title: 'Your Chats',
+                  subtitle: 'History',
+                  context: context,
+                ),
+                const SizedBox(height: 20),
                 StaggeredGrid.count(
                   crossAxisCount: 2,
                   mainAxisSpacing: 15,
@@ -94,6 +95,7 @@ class _RecentChatsState extends State<RecentChats> {
                     ]
                   ],
                 ),
+                const SizedBox(height: 25),
               ],
             ]
           ],
