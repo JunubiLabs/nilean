@@ -2,10 +2,12 @@ import 'package:buai/extensions/string_extensions.dart';
 import 'package:buai/models/chat_content_model.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ChatBubble extends StatelessWidget {
   ChatBubble({super.key, required this.chat, this.isError = false});
@@ -105,7 +107,12 @@ class ChatBubble extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   AppButtons.circularButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      FlutterClipboard.copy(chat.response ?? '');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Copied to clipboard')),
+                      );
+                    },
                     context: context,
                     color: AppColors.primaryYellow,
                     icon: Icons.copy_sharp,
@@ -119,7 +126,9 @@ class ChatBubble extends StatelessWidget {
                   ),
                   const SizedBox(width: 2),
                   AppButtons.circularButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Share.share(chat.response ?? '');
+                    },
                     context: context,
                     color: AppColors.primaryGrey,
                     icon: Icons.ios_share,
