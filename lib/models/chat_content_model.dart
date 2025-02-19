@@ -13,13 +13,13 @@ class ChatContentModel {
   String? chat;
 
   @HiveField(2)
-  String? translatedChat;
+  String? enChat;
 
   @HiveField(3)
   String? response;
 
   @HiveField(4)
-  String? translatedResponse;
+  String? enResponse;
 
   @HiveField(5)
   Uint8List? image;
@@ -29,8 +29,8 @@ class ChatContentModel {
     this.chat,
     this.response,
     this.image,
-    this.translatedChat,
-    this.translatedResponse,
+    this.enChat,
+    this.enResponse,
   });
 
   static ChatContentModel fromJson(Map<String, dynamic> json) {
@@ -39,8 +39,8 @@ class ChatContentModel {
       chat: json['chat'],
       response: json['response'],
       image: json['image'],
-      translatedChat: json['translated_chat'],
-      translatedResponse: json['translated_response'],
+      enChat: json['en_chat'],
+      enResponse: json['en_response'],
     );
   }
 
@@ -50,8 +50,8 @@ class ChatContentModel {
       'chat': chat,
       'response': response,
       'image': image,
-      'translated_chat': translatedChat,
-      'translated_response': translatedResponse,
+      'en_chat': enChat,
+      'en_response': enResponse,
     };
   }
 }

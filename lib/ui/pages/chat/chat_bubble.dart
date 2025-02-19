@@ -95,7 +95,7 @@ class ChatBubble extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              MarkdownBody(data: chat.translatedResponse ?? ''),
+              MarkdownBody(data: chat.response ?? ''),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

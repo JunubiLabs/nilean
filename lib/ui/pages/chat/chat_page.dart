@@ -27,6 +27,10 @@ class _ChatPageState extends State<ChatPage> {
   String chatLanguage = 'English';
   List<String> languages = AppConstants.languages.map((l) => l.name).toList();
 
+  getLanguageCode(String language) {
+    return AppConstants.languages.firstWhere((l) => l.name == language).code;
+  }
+
   scrollToTheBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
@@ -145,7 +149,7 @@ class _ChatPageState extends State<ChatPage> {
                             chat: ChatContentModel(
                               date: DateTime.now(),
                               chat: prompt,
-                              translatedResponse: state.message,
+                              response: state.message,
                             ),
                             isError: true,
                           ),
@@ -161,7 +165,7 @@ class _ChatPageState extends State<ChatPage> {
                       });
                       inputController.clear();
                       BlocProvider.of<ChatBloc>(context).add(
-                        SendPromptEvent(prompt),
+                        SendPromptEvent(prompt, getLanguageCode(chatLanguage)),
                       );
                       Future.delayed(const Duration(seconds: 1)).then((x) {
                         scrollToTheBottom();
