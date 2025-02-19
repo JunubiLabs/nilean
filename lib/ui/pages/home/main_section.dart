@@ -2,6 +2,7 @@ import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainSection extends StatefulWidget {
@@ -25,59 +26,77 @@ class _MainSectionState extends State<MainSection> {
           subtitle: "your mother tongue",
         ),
         const SizedBox(height: 20),
-        Container(
-          height: 160,
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-            color: brightness == Brightness.dark
-                ? AppColors.primaryBlue
-                : AppColors.secondaryBlue,
-            borderRadius: BorderRadius.circular(5),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed('/chat');
+          },
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.all(0),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            minimumSize: Size.zero,
           ),
-          padding: EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppButtons.forwardButton(onPressed: () {}),
-                  RichText(
-                    text: TextSpan(
-                      text: "Let's talk in",
-                      style: GoogleFonts.lato(
-                        fontSize: 21,
-                        color: brightness == Brightness.dark
-                            ? AppColors.primaryBlack
-                            : AppColors.primaryWhite,
-                        fontWeight: FontWeight.bold,
-                        height: 1.1,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: "\nyour mother tongue",
-                          style: GoogleFonts.lato(
-                            fontSize: 21,
-                            color: brightness == Brightness.dark
-                                ? AppColors.secondaryBlack
-                                : AppColors.secondaryWhite
-                                    .withAlpha((255 * 0.75).ceil()),
-                            fontWeight: FontWeight.bold,
-                          ),
+          child: Container(
+            height: 160,
+            width: double.maxFinite,
+            decoration: BoxDecoration(
+              color: brightness == Brightness.dark
+                  ? AppColors.primaryBlue
+                  : AppColors.secondaryBlue,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppButtons.forwardButton(onPressed: () {}),
+                    RichText(
+                      text: TextSpan(
+                        text: "Let's talk in",
+                        style: GoogleFonts.lato(
+                          fontSize: 21,
+                          color: brightness == Brightness.dark
+                              ? AppColors.primaryBlack
+                              : AppColors.primaryWhite,
+                          fontWeight: FontWeight.bold,
+                          height: 1.1,
                         ),
-                      ],
+                        children: [
+                          TextSpan(
+                            text: "\nyour mother tongue",
+                            style: GoogleFonts.lato(
+                              fontSize: 21,
+                              color: brightness == Brightness.dark
+                                  ? AppColors.secondaryBlack
+                                  : AppColors.secondaryWhite
+                                      .withAlpha((255 * 0.75).ceil()),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Image(
-                image: AssetImage('assets/images/chat.png'),
-                height: double.maxFinite,
-              ),
-            ],
+                  ],
+                ),
+                Image(
+                  image: AssetImage('assets/images/chat.png'),
+                  height: double.maxFinite,
+                ),
+              ],
+            ),
           ),
-        ),
+        )
+            .animate()
+            .slideY(
+              curve: Curves.ease,
+              duration: const Duration(milliseconds: 800),
+              delay: const Duration(milliseconds: 100),
+              begin: 0.5,
+            )
+            .fade(),
         const SizedBox(height: 10),
         Row(
           children: [
@@ -131,7 +150,15 @@ class _MainSectionState extends State<MainSection> {
                   ],
                 ),
               ),
-            ),
+            )
+                .animate()
+                .slideY(
+                  curve: Curves.ease,
+                  duration: const Duration(milliseconds: 800),
+                  delay: const Duration(milliseconds: 300),
+                  begin: 0.5,
+                )
+                .fade(),
             const SizedBox(width: 5),
             Expanded(
               child: Container(
@@ -183,7 +210,15 @@ class _MainSectionState extends State<MainSection> {
                   ],
                 ),
               ),
-            ),
+            )
+                .animate()
+                .slideY(
+                  curve: Curves.ease,
+                  duration: const Duration(milliseconds: 800),
+                  delay: const Duration(milliseconds: 500),
+                  begin: 0.5,
+                )
+                .fade(),
           ],
         ),
       ],

@@ -1,7 +1,10 @@
+import 'package:buai/blocs/chat/chat_bloc.dart';
 import 'package:buai/ui/pages/auth/complete_signup_page.dart';
 import 'package:buai/ui/pages/auth/email_verification_page.dart';
 import 'package:buai/ui/pages/auth/reset_password_page.dart';
 import 'package:buai/ui/pages/auth/signup_page.dart';
+import 'package:buai/ui/pages/chat/chat_page.dart';
+import 'package:buai/ui/pages/chat/my_chats.dart';
 import 'package:buai/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +25,9 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthBloc(AuthRepository()),
         ),
+        BlocProvider(
+          create: (context) => ChatBloc(),
+        ),
       ],
       child: MaterialApp(
         title: 'Buai',
@@ -35,6 +41,8 @@ class App extends StatelessWidget {
           '/reset-password': (context) => ResetPasswordPage(),
           '/email-verification': (context) => EmailVerificationPage(),
           '/complete-signup': (context) => CompleteSignupPage(),
+          '/chat': (context) => ChatPage(),
+          '/my-chats': (context) => MyChats(),
         },
         debugShowCheckedModeBanner: false,
         theme: AppThemes.light,
