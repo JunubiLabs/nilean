@@ -23,7 +23,6 @@ class AppCards {
         shape: const RoundedRectangleBorder(),
       ),
       child: Container(
-        width: double.maxFinite,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: AppColors.primaryGrey,

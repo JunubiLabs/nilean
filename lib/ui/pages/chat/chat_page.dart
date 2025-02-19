@@ -128,8 +128,8 @@ class _ChatPageState extends State<ChatPage> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           SizedBox(width: double.maxFinite),
-                          LoadingAnimationWidget.fourRotatingDots(
-                            color: AppColors.secondaryBlue,
+                          LoadingAnimationWidget.inkDrop(
+                            color: AppColors.primaryOrange,
                             size: 40,
                           )
                         ],

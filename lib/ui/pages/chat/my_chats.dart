@@ -42,28 +42,34 @@ class _MyChatsState extends State<MyChats> {
                 context: context,
               ),
               const SizedBox(height: 20),
-              StaggeredGrid.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 10,
-                children: [
-                  FutureBuilder(
-                    future: getRecentChatSessionsFromStorage(),
-                    builder: (context, snapshot) {
-                      var chats = snapshot.data ?? [];
+              FutureBuilder(
+                future: getRecentChatSessionsFromStorage(),
+                builder: (context, snapshot) {
+                  var chats = snapshot.data ?? [];
 
-                      return Column(
-                        children: [
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) ...[
+                  return Column(
+                    children: [
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) ...[
+                        StaggeredGrid.count(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 15,
+                          crossAxisSpacing: 10,
+                          children: [
                             for (var i = 1; i < 10; i++) ...[
                               CardLoading(
                                 height: 110 * Random(100).nextDouble() / 100,
                               ),
                             ],
                           ],
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) ...[
+                        ),
+                      ],
+                      if (snapshot.connectionState == ConnectionState.done) ...[
+                        StaggeredGrid.count(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 15,
+                          crossAxisSpacing: 10,
+                          children: [
                             for (var chat in chats) ...[
                               AppCards.chatCard(
                                 context: context,
@@ -80,12 +86,12 @@ class _MyChatsState extends State<MyChats> {
                                 },
                               ),
                             ]
-                          ]
-                        ],
-                      );
-                    },
-                  ),
-                ],
+                          ],
+                        ),
+                      ]
+                    ],
+                  );
+                },
               ),
             ],
           ),

@@ -57,6 +57,7 @@ dependencies:
   dio: ^5.8.0+1
   flutter_gemini: ^3.0.0
   card_loading: ^0.3.2
+  get: ^4.7.2
 
 dev_dependencies:
   build_runner: ^2.4.15
