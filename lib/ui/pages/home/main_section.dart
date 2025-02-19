@@ -2,6 +2,7 @@ import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainSection extends StatefulWidget {
@@ -25,10 +26,15 @@ class _MainSectionState extends State<MainSection> {
           subtitle: "your mother tongue",
         ),
         const SizedBox(height: 20),
-        GestureDetector(
-          onTap: () {
+        TextButton(
+          onPressed: () {
             Navigator.of(context).pushNamed('/chat');
           },
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.all(0),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            minimumSize: Size.zero,
+          ),
           child: Container(
             height: 160,
             width: double.maxFinite,
@@ -82,7 +88,15 @@ class _MainSectionState extends State<MainSection> {
               ],
             ),
           ),
-        ),
+        )
+            .animate()
+            .slideY(
+              curve: Curves.ease,
+              duration: const Duration(milliseconds: 800),
+              delay: const Duration(milliseconds: 100),
+              begin: 0.5,
+            )
+            .fade(),
         const SizedBox(height: 10),
         Row(
           children: [
@@ -136,7 +150,15 @@ class _MainSectionState extends State<MainSection> {
                   ],
                 ),
               ),
-            ),
+            )
+                .animate()
+                .slideY(
+                  curve: Curves.ease,
+                  duration: const Duration(milliseconds: 800),
+                  delay: const Duration(milliseconds: 300),
+                  begin: 0.5,
+                )
+                .fade(),
             const SizedBox(width: 5),
             Expanded(
               child: Container(
@@ -188,7 +210,15 @@ class _MainSectionState extends State<MainSection> {
                   ],
                 ),
               ),
-            ),
+            )
+                .animate()
+                .slideY(
+                  curve: Curves.ease,
+                  duration: const Duration(milliseconds: 800),
+                  delay: const Duration(milliseconds: 500),
+                  begin: 0.5,
+                )
+                .fade(),
           ],
         ),
       ],
