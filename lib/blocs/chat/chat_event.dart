@@ -1,3 +1,5 @@
+import 'package:buai/models/chat_model.dart';
+
 abstract class ChatEvent {}
 
 class SendPromptEvent extends ChatEvent {
@@ -16,3 +18,9 @@ class SendImagePromptEvent extends ChatEvent {
 }
 
 class ResetChatEvent extends ChatEvent {}
+
+class LoadChatEvent extends ChatEvent {
+  final ChatModel chat;
+
+  LoadChatEvent(this.chat);
+}

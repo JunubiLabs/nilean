@@ -17,6 +17,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<SendPromptEvent>(_sendPrompt);
     on<SendImagePromptEvent>(_sendImagePrompt);
     on<ResetChatEvent>(resetChat);
+    on<LoadChatEvent>(loadChat);
+  }
+
+  Future<void> loadChat(
+    LoadChatEvent event,
+    Emitter<ChatState> emit,
+  ) async {
+    chat = event.chat;
+    emit(ChatLoaded(chat: chat!));
   }
 
   Future _sendPrompt(
@@ -43,7 +52,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       }
 
       chat ??= ChatModel(
-        title: '',
+        title: event.prompt,
         chatcontent: [],
         date: DateTime.now(),
         id: Uuid().v4(),

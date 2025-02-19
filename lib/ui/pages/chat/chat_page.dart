@@ -6,6 +6,7 @@ import 'package:buai/ui/pages/chat/chat_bubble.dart';
 import 'package:buai/ui/pages/chat/chat_input.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
+import 'package:buai/models/chat_model.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  const ChatPage({super.key, this.chat});
+
+  final ChatModel? chat;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -36,9 +39,19 @@ class _ChatPageState extends State<ChatPage> {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 750),
+          duration: const Duration(milliseconds: 1250),
           curve: Curves.easeInOut,
         );
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.chat != null) {
+        context.read<ChatBloc>().add(LoadChatEvent(widget.chat!));
       }
     });
   }
