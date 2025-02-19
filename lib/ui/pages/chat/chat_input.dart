@@ -36,9 +36,10 @@ class ChatInput extends StatelessWidget {
             style: GoogleFonts.inter(color: Colors.black, fontSize: 16),
             decoration: InputThemes.chatBubbleTheme(context),
             showCursor: true,
+            cursorColor: Colors.black,
             maxLines: 3,
             minLines: 1,
-            cursorHeight: 14,
+            cursorHeight: 17,
             autocorrect: false,
             autofocus: false,
             onTapOutside: (event) {
