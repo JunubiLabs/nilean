@@ -101,53 +101,63 @@ class _MainSectionState extends State<MainSection> {
         Row(
           children: [
             Expanded(
-              child: Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryOrange,
-                  borderRadius: BorderRadius.circular(5),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/news');
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  minimumSize: Size.zero,
                 ),
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Image(
-                            image: AssetImage('assets/images/news.png'),
-                            height: 80,
-                            alignment: Alignment.topLeft,
-                          ),
-                        ),
-                        AppButtons.forwardButton(onPressed: () {}),
-                      ],
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: "Get news in",
-                        style: GoogleFonts.lato(
-                          fontSize: 18,
-                          color: AppColors.primaryBlack,
-                          fontWeight: FontWeight.bold,
-                          height: 1.1,
-                        ),
+                child: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryOrange,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextSpan(
-                            text: "\nyour mother tongue",
-                            style: GoogleFonts.lato(
-                              fontSize: 18,
-                              color: AppColors.secondaryBlack,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Image(
+                              image: AssetImage('assets/images/news.png'),
+                              height: 80,
+                              alignment: Alignment.topLeft,
                             ),
                           ),
+                          AppButtons.forwardButton(onPressed: () {}),
                         ],
                       ),
-                    ),
-                  ],
+                      RichText(
+                        text: TextSpan(
+                          text: "Get news in",
+                          style: GoogleFonts.lato(
+                            fontSize: 18,
+                            color: AppColors.primaryBlack,
+                            fontWeight: FontWeight.bold,
+                            height: 1.1,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "\nyour mother tongue",
+                              style: GoogleFonts.lato(
+                                fontSize: 18,
+                                color: AppColors.secondaryBlack,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )
@@ -161,53 +171,63 @@ class _MainSectionState extends State<MainSection> {
                 .fade(),
             const SizedBox(width: 5),
             Expanded(
-              child: Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryYellow,
-                  borderRadius: BorderRadius.circular(5),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/translate');
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  minimumSize: Size.zero,
                 ),
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image(
-                          image: AssetImage(
-                            'assets/images/translate.png',
-                          ),
-                          height: 80,
-                          alignment: Alignment.topLeft,
-                        ),
-                        AppButtons.forwardButton(onPressed: () {}),
-                      ],
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: "Translate to",
-                        style: GoogleFonts.lato(
-                          fontSize: 18,
-                          color: AppColors.primaryBlack,
-                          fontWeight: FontWeight.bold,
-                          height: 1.1,
-                        ),
+                child: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryYellow,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextSpan(
-                            text: "\nyour mother tongue",
-                            style: GoogleFonts.lato(
-                              fontSize: 18,
-                              color: AppColors.secondaryBlack,
-                              fontWeight: FontWeight.bold,
+                          Image(
+                            image: AssetImage(
+                              'assets/images/translate.png',
                             ),
+                            height: 80,
+                            alignment: Alignment.topLeft,
                           ),
+                          AppButtons.forwardButton(onPressed: () {}),
                         ],
                       ),
-                    ),
-                  ],
+                      RichText(
+                        text: TextSpan(
+                          text: "Translate to",
+                          style: GoogleFonts.lato(
+                            fontSize: 18,
+                            color: AppColors.primaryBlack,
+                            fontWeight: FontWeight.bold,
+                            height: 1.1,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "\nyour mother tongue",
+                              style: GoogleFonts.lato(
+                                fontSize: 18,
+                                color: AppColors.secondaryBlack,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )
