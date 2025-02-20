@@ -14,9 +14,7 @@ class TranslatePage extends StatefulWidget {
 }
 
 class _TranslatePageState extends State<TranslatePage> {
-  String prompt = '';
   String displayText = '';
-  String chatLanguage = 'English';
   List<String> languages = AppConstants.languages.map((l) => l.name).toList();
 
   getLanguageCode(String language) {
@@ -24,6 +22,9 @@ class _TranslatePageState extends State<TranslatePage> {
         .firstWhere((element) => element.name == language)
         .code;
   }
+
+  String translateToLanguage = 'English';
+  String translateFromLanguage = 'English';
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,7 @@ class _TranslatePageState extends State<TranslatePage> {
               ),
               AppTexts.sectionTitle(
                 title: "",
-                subtitle: 'To',
+                subtitle: 'to',
                 context: context,
                 size: DisplaySize.large,
               ),
@@ -69,15 +70,15 @@ class _TranslatePageState extends State<TranslatePage> {
                 isLoading: false,
                 onLanguagePressed: (String ste) {
                   setState(() {
-                    chatLanguage = ste;
+                    translateToLanguage = ste;
                   });
                 },
                 items: languages,
-                activeItem: chatLanguage,
+                activeItem: translateToLanguage,
               ),
               AppTexts.sectionTitle(
                 title: "",
-                subtitle: 'From',
+                subtitle: 'from',
                 context: context,
                 size: DisplaySize.large,
               ),
@@ -87,11 +88,11 @@ class _TranslatePageState extends State<TranslatePage> {
                 onSend: () {},
                 onLanguagePressed: (String ste) {
                   setState(() {
-                    chatLanguage = ste;
+                    translateFromLanguage = ste;
                   });
                 },
                 items: languages,
-                activeItem: chatLanguage,
+                activeItem: translateFromLanguage,
               ),
             ],
           ),

@@ -155,7 +155,6 @@ class _MainSectionState extends State<MainSection> {
             ).animate().slideX(
                   curve: Curves.ease,
                   duration: const Duration(milliseconds: 800),
-                  delay: const Duration(milliseconds: 300),
                   begin: 0.5,
                 ),
             const SizedBox(width: 5),
@@ -222,7 +221,6 @@ class _MainSectionState extends State<MainSection> {
             ).animate().slideX(
                   curve: Curves.ease,
                   duration: const Duration(milliseconds: 800),
-                  delay: const Duration(milliseconds: 500),
                   begin: 0.5,
                 ),
           ],
