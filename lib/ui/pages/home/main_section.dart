@@ -88,15 +88,7 @@ class _MainSectionState extends State<MainSection> {
               ],
             ),
           ),
-        )
-            .animate()
-            .slideY(
-              curve: Curves.ease,
-              duration: const Duration(milliseconds: 800),
-              delay: const Duration(milliseconds: 100),
-              begin: 0.5,
-            )
-            .fade(),
+        ),
         const SizedBox(height: 10),
         Row(
           children: [
@@ -160,15 +152,12 @@ class _MainSectionState extends State<MainSection> {
                   ),
                 ),
               ),
-            )
-                .animate()
-                .slideY(
+            ).animate().slideX(
                   curve: Curves.ease,
                   duration: const Duration(milliseconds: 800),
                   delay: const Duration(milliseconds: 300),
                   begin: 0.5,
-                )
-                .fade(),
+                ),
             const SizedBox(width: 5),
             Expanded(
               child: TextButton(
@@ -230,15 +219,12 @@ class _MainSectionState extends State<MainSection> {
                   ),
                 ),
               ),
-            )
-                .animate()
-                .slideY(
+            ).animate().slideX(
                   curve: Curves.ease,
                   duration: const Duration(milliseconds: 800),
                   delay: const Duration(milliseconds: 500),
                   begin: 0.5,
-                )
-                .fade(),
+                ),
           ],
         ),
       ],

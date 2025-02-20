@@ -1,6 +1,9 @@
+import 'package:buai/ui/pages/translate/translate_display.dart';
+import 'package:buai/ui/pages/translate/translate_input.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:buai/utils/colors.dart';
+import 'package:buai/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class TranslatePage extends StatefulWidget {
@@ -11,6 +14,17 @@ class TranslatePage extends StatefulWidget {
 }
 
 class _TranslatePageState extends State<TranslatePage> {
+  String prompt = '';
+  String displayText = '';
+  String chatLanguage = 'English';
+  List<String> languages = AppConstants.languages.map((l) => l.name).toList();
+
+  getLanguageCode(String language) {
+    return AppConstants.languages
+        .firstWhere((element) => element.name == language)
+        .code;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +57,41 @@ class _TranslatePageState extends State<TranslatePage> {
                 context: context,
                 size: DisplaySize.large,
               ),
-              const SizedBox(
-                height: 20,
+              AppTexts.sectionTitle(
+                title: "",
+                subtitle: 'To',
+                context: context,
+                size: DisplaySize.large,
+              ),
+              const SizedBox(height: 5),
+              TranslateDisplay(
+                displayText: displayText,
+                isLoading: false,
+                onLanguagePressed: (String ste) {
+                  setState(() {
+                    chatLanguage = ste;
+                  });
+                },
+                items: languages,
+                activeItem: chatLanguage,
+              ),
+              AppTexts.sectionTitle(
+                title: "",
+                subtitle: 'From',
+                context: context,
+                size: DisplaySize.large,
+              ),
+              const SizedBox(height: 5),
+              TranslateInput(
+                inputController: TextEditingController(),
+                onSend: () {},
+                onLanguagePressed: (String ste) {
+                  setState(() {
+                    chatLanguage = ste;
+                  });
+                },
+                items: languages,
+                activeItem: chatLanguage,
               ),
             ],
           ),
