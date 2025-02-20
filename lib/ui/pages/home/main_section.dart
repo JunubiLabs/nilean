@@ -129,7 +129,7 @@ class _MainSectionState extends State<MainSection> {
                       ),
                       RichText(
                         text: TextSpan(
-                          text: "Get news in",
+                          text: "Read news in",
                           style: GoogleFonts.lato(
                             fontSize: 18,
                             color: AppColors.primaryBlack,
