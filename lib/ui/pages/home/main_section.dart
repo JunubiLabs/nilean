@@ -88,137 +88,141 @@ class _MainSectionState extends State<MainSection> {
               ],
             ),
           ),
-        )
-            .animate()
-            .slideY(
-              curve: Curves.ease,
-              duration: const Duration(milliseconds: 800),
-              delay: const Duration(milliseconds: 100),
-              begin: 0.5,
-            )
-            .fade(),
+        ),
         const SizedBox(height: 10),
         Row(
           children: [
             Expanded(
-              child: Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryOrange,
-                  borderRadius: BorderRadius.circular(5),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/news');
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  minimumSize: Size.zero,
                 ),
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Image(
-                            image: AssetImage('assets/images/news.png'),
+                child: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryOrange,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Image(
+                              image: AssetImage('assets/images/news.png'),
+                              height: 80,
+                              alignment: Alignment.topLeft,
+                            ),
+                          ),
+                          AppButtons.forwardButton(onPressed: () {}),
+                        ],
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: "Read news in",
+                          style: GoogleFonts.lato(
+                            fontSize: 18,
+                            color: AppColors.primaryBlack,
+                            fontWeight: FontWeight.bold,
+                            height: 1.1,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "\nyour mother tongue",
+                              style: GoogleFonts.lato(
+                                fontSize: 18,
+                                color: AppColors.secondaryBlack,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ).animate().slideX(
+                  curve: Curves.ease,
+                  duration: const Duration(milliseconds: 800),
+                  begin: 0.5,
+                ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/translate');
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  minimumSize: Size.zero,
+                ),
+                child: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryYellow,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image(
+                            image: AssetImage(
+                              'assets/images/translate.png',
+                            ),
                             height: 80,
                             alignment: Alignment.topLeft,
                           ),
-                        ),
-                        AppButtons.forwardButton(onPressed: () {}),
-                      ],
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: "Get news in",
-                        style: GoogleFonts.lato(
-                          fontSize: 18,
-                          color: AppColors.primaryBlack,
-                          fontWeight: FontWeight.bold,
-                          height: 1.1,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "\nyour mother tongue",
-                            style: GoogleFonts.lato(
-                              fontSize: 18,
-                              color: AppColors.secondaryBlack,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          AppButtons.forwardButton(onPressed: () {}),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-                .animate()
-                .slideY(
-                  curve: Curves.ease,
-                  duration: const Duration(milliseconds: 800),
-                  delay: const Duration(milliseconds: 300),
-                  begin: 0.5,
-                )
-                .fade(),
-            const SizedBox(width: 5),
-            Expanded(
-              child: Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryYellow,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image(
-                          image: AssetImage(
-                            'assets/images/translate.png',
+                      RichText(
+                        text: TextSpan(
+                          text: "Translate to",
+                          style: GoogleFonts.lato(
+                            fontSize: 18,
+                            color: AppColors.primaryBlack,
+                            fontWeight: FontWeight.bold,
+                            height: 1.1,
                           ),
-                          height: 80,
-                          alignment: Alignment.topLeft,
-                        ),
-                        AppButtons.forwardButton(onPressed: () {}),
-                      ],
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: "Translate to",
-                        style: GoogleFonts.lato(
-                          fontSize: 18,
-                          color: AppColors.primaryBlack,
-                          fontWeight: FontWeight.bold,
-                          height: 1.1,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "\nyour mother tongue",
-                            style: GoogleFonts.lato(
-                              fontSize: 18,
-                              color: AppColors.secondaryBlack,
-                              fontWeight: FontWeight.bold,
+                          children: [
+                            TextSpan(
+                              text: "\nyour mother tongue",
+                              style: GoogleFonts.lato(
+                                fontSize: 18,
+                                color: AppColors.secondaryBlack,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            )
-                .animate()
-                .slideY(
+            ).animate().slideX(
                   curve: Curves.ease,
                   duration: const Duration(milliseconds: 800),
-                  delay: const Duration(milliseconds: 500),
                   begin: 0.5,
-                )
-                .fade(),
+                ),
           ],
         ),
       ],
