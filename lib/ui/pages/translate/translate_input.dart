@@ -24,11 +24,7 @@ class TranslateInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColors.primaryGrey,
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(width: 1.5, color: Colors.black),
-      ),
+      decoration: BoxDecoration(color: AppColors.primaryGrey),
       constraints: BoxConstraints(
         minHeight: MediaQuery.of(context).size.height * 0.2,
       ),
