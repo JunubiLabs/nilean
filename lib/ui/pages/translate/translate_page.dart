@@ -32,6 +32,18 @@ class _TranslatePageState extends State<TranslatePage> {
   TextEditingController inputController = TextEditingController();
 
   @override
+  void dispose() {
+    inputController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    context.read<TranslateBloc>().add(TranslateResetEvent());
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<TranslateBloc, TranslateState>(
