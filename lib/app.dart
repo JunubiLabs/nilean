@@ -1,4 +1,5 @@
 import 'package:buai/blocs/chat/chat_bloc.dart';
+import 'package:buai/blocs/translate/translate_bloc.dart';
 import 'package:buai/ui/pages/auth/complete_signup_page.dart';
 import 'package:buai/ui/pages/auth/email_verification_page.dart';
 import 'package:buai/ui/pages/auth/reset_password_page.dart';
@@ -28,6 +29,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ChatBloc(),
+        ),
+        BlocProvider(
+          create: (context) => TranslateBloc(),
         ),
       ],
       child: MaterialApp(

@@ -1,5 +1,6 @@
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/utils/colors.dart';
+import 'package:card_loading/card_loading.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,11 +32,33 @@ class TranslateDisplay extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            displayText,
-            style: GoogleFonts.inter(color: Colors.black, fontSize: 16),
-          ),
+          if (!isLoading) ...[
+            Text(
+              displayText,
+              style: GoogleFonts.inter(color: Colors.black, fontSize: 16),
+            )
+          ],
+          if (isLoading) ...[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CardLoading(height: 13, width: double.maxFinite),
+                const SizedBox(height: 10),
+                CardLoading(
+                  height: 13,
+                  width: MediaQuery.of(context).size.width * 0.6,
+                ),
+                const SizedBox(height: 10),
+                CardLoading(
+                  height: 13,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                )
+              ],
+            )
+          ],
           Row(
             children: [
               AppButtons.dropdownButton(
