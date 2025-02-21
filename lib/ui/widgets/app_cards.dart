@@ -34,14 +34,16 @@ class AppCards {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              chat,
+            RichText(
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
+              text: TextSpan(
+                text: chat,
+                style: GoogleFonts.inter(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -52,7 +54,6 @@ class AppCards {
                   color: AppColors.primaryBlue,
                   text: Jiffy.now().yMd,
                   context: context,
-                  displaySize: DisplaySize.small,
                 ),
               ],
             ),

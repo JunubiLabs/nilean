@@ -126,16 +126,18 @@ class AppButtons {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (text != null) ...[
-              Text(
-                text,
-                style: GoogleFonts.lato(
-                  fontSize: displaySize == DisplaySize.large
-                      ? 15
-                      : displaySize == DisplaySize.small
-                          ? 8
-                          : 12,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+              RichText(
+                text: TextSpan(
+                  text: text,
+                  style: GoogleFonts.lato(
+                    fontSize: displaySize == DisplaySize.large
+                        ? 15
+                        : displaySize == DisplaySize.small
+                            ? 8
+                            : 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ],
