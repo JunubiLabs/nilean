@@ -52,6 +52,7 @@ class AppCards {
                   color: AppColors.primaryBlue,
                   text: Jiffy.now().yMd,
                   context: context,
+                  displaySize: DisplaySize.small,
                 ),
               ],
             ),
