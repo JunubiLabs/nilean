@@ -29,7 +29,7 @@ class NewsArticleModel {
   final ArticleLanguageModel content;
 
   @HiveField(8)
-  final String publishedAt;
+  final DateTime publishedAt;
 
   @HiveField(9)
   final String? category;
@@ -85,7 +85,6 @@ class NewsArticleModel {
 
   factory NewsArticleModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> doc,
-    SnapshotOptions? options,
   ) {
     final data = doc.data()!;
     return NewsArticleModel(
@@ -97,7 +96,7 @@ class NewsArticleModel {
       imageUrl: data['image_url'],
       description: data['description'],
       content: ArticleLanguageModel.fromJson(data['content']),
-      publishedAt: data['published_at'],
+      publishedAt: data['published_at'].toDate(),
       category: data['category'],
       source: data['source'],
     );
