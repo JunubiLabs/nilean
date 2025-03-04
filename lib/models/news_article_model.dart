@@ -2,44 +2,42 @@ import 'package:buai/models/article_language_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 
+part 'news_article_model.g.dart';
+
 @HiveType(typeId: 3)
 class NewsArticleModel {
   @HiveField(0)
   final String id;
 
   @HiveField(1)
-  final String newsId;
-
-  @HiveField(2)
   final ArticleLanguageModel title;
 
-  @HiveField(3)
+  @HiveField(2)
   final String author;
 
-  @HiveField(4)
+  @HiveField(3)
   final String url;
 
-  @HiveField(5)
+  @HiveField(4)
   final String imageUrl;
 
-  @HiveField(6)
+  @HiveField(5)
   final String description;
 
-  @HiveField(7)
+  @HiveField(6)
   final ArticleLanguageModel content;
 
-  @HiveField(8)
+  @HiveField(7)
   final DateTime publishedAt;
 
-  @HiveField(9)
+  @HiveField(8)
   final String? category;
 
-  @HiveField(10)
+  @HiveField(9)
   final String source;
 
   NewsArticleModel({
     required this.id,
-    required this.newsId,
     required this.title,
     required this.author,
     required this.url,
@@ -54,14 +52,13 @@ class NewsArticleModel {
   factory NewsArticleModel.fromJson(Map<String, dynamic> json) {
     return NewsArticleModel(
       id: json['id'],
-      newsId: json['news_id'],
       title: ArticleLanguageModel.fromJson(json['title']),
       author: json['author'],
       url: json['url'],
-      imageUrl: json['image_url'],
+      imageUrl: json['imageUrl'],
       description: json['description'],
       content: ArticleLanguageModel.fromJson(json['content']),
-      publishedAt: json['published_at'],
+      publishedAt: json['publishedAt'],
       category: json['category'],
       source: json['source'],
     );
@@ -70,14 +67,13 @@ class NewsArticleModel {
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
-      'news_id': newsId,
       'title': title.toJson(),
       'author': author,
       'url': url,
-      'image_url': imageUrl,
+      'imageUrl': imageUrl,
       'description': description,
       'content': content.toJson(),
-      'published_at': publishedAt,
+      'publishedAt': publishedAt,
       'category': category,
       'source': source,
     };
@@ -88,15 +84,14 @@ class NewsArticleModel {
   ) {
     final data = doc.data()!;
     return NewsArticleModel(
-      id: data['id'],
-      newsId: data['news_id'],
+      id: doc.id,
       title: ArticleLanguageModel.fromJson(data['title']),
       author: data['author'],
       url: data['url'],
-      imageUrl: data['image_url'],
+      imageUrl: data['imageUrl'],
       description: data['description'],
       content: ArticleLanguageModel.fromJson(data['content']),
-      publishedAt: data['published_at'].toDate(),
+      publishedAt: DateTime.parse(data['publishedAt']),
       category: data['category'],
       source: data['source'],
     );
@@ -105,14 +100,13 @@ class NewsArticleModel {
   Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
       'id': id,
-      'news_id': newsId,
       'title': title.toJson(),
       'author': author,
       'url': url,
-      'image_url': imageUrl,
+      'imageUrl': imageUrl,
       'description': description,
       'content': content.toJson(),
-      'published_at': publishedAt,
+      'publishedAt': publishedAt,
       'category': category,
       'source': source,
     };

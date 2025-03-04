@@ -5,15 +5,30 @@ import 'package:hive_flutter/hive_flutter.dart';
 class NewsRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<List<NewsArticleModel>> fetchNews(String languageCode) async {
-    final querySnapshot = await _firestore
-        .collection('articles')
-        .orderBy('timestamp', descending: true)
-        .get();
+  Future<List<NewsArticleModel>> fetchNews() async {
+    try {
+      final querySnapshot = await _firestore.collection('articles').get();
 
-    return querySnapshot.docs
-        .map((doc) => NewsArticleModel.fromFirestore(doc))
-        .toList();
+      final articles = querySnapshot.docs
+          .map((doc) => NewsArticleModel.fromFirestore(doc))
+          .toList();
+
+      return articles;
+    } catch (e) {
+      throw Error();
+    }
+  }
+
+  Future<List<NewsArticleModel>> fetchBreakingNews() async {
+    try {
+      final querySnapshot = await _firestore.collection('breaking_news').get();
+
+      return querySnapshot.docs
+          .map((doc) => NewsArticleModel.fromFirestore(doc))
+          .toList();
+    } catch (e) {
+      throw Error();
+    }
   }
 
   Future<NewsArticleModel> fetchNewsById(String id) async {

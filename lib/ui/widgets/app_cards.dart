@@ -77,7 +77,7 @@ class AppCards {
         shape: const RoundedRectangleBorder(),
       ),
       child: Container(
-        width: double.maxFinite,
+        width: 200,
         height: 120,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -86,7 +86,7 @@ class AppCards {
             image: NetworkImage(image),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-              Colors.black.withAlpha(100),
+              Colors.black.withAlpha(75),
               BlendMode.darken,
             ),
           ),
@@ -114,10 +114,100 @@ class AppCards {
                 text: news,
                 style: GoogleFonts.inter(
                   height: 1.0,
-                  fontSize: 16,
+                  fontSize: 13,
                   color: Colors.white,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
+              ),
+            ),
+            const SizedBox(height: 5),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget newsCard({
+    required BuildContext context,
+    required String news,
+    required String image,
+    required String source,
+    required String author,
+    required String date,
+    required VoidCallback onPressed,
+  }) {
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        foregroundColor: Theme.of(context).primaryColor,
+        padding: EdgeInsets.zero,
+        shape: const RoundedRectangleBorder(),
+      ),
+      child: Container(
+        width: double.maxFinite,
+        padding: EdgeInsets.zero,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryGrey,
+                  image: DecorationImage(
+                    image: NetworkImage(image),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    maxLines: 3,
+                    text: TextSpan(
+                      text: 'by $author | ${Jiffy.parse(date).MMMEd}',
+                      style: GoogleFonts.inter(
+                        height: 1.0,
+                        fontSize: 10,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  RichText(
+                    maxLines: 3,
+                    text: TextSpan(
+                      text: news,
+                      style: GoogleFonts.inter(
+                        height: 1.0,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      AppButtons.ellipsisButton(
+                        onPressed: onPressed,
+                        color: AppColors.sourceColors(source),
+                        text: source,
+                        context: context,
+                        displaySize: DisplaySize.small,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
