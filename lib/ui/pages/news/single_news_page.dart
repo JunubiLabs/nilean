@@ -52,6 +52,16 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
     }
   }
 
+  String newsTitle(NewsArticleModel news) {
+    if (getLanguageCode(newsLanguage) == 'en') {
+      return news.title.en;
+    } else if (getLanguageCode(newsLanguage) == 'nus') {
+      return news.title.nus ?? news.title.en;
+    } else {
+      return news.title.din ?? news.title.en;
+    }
+  }
+
   @override
   void initState() {
     loadInitialLanguage();
@@ -143,7 +153,7 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      widget.news.title,
+                      newsTitle(widget.news),
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: 20),

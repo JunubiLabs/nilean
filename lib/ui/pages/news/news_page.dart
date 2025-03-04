@@ -1,3 +1,4 @@
+import 'package:buai/models/news_article_model.dart';
 import 'package:buai/repositories/news_repository.dart';
 import 'package:buai/ui/pages/news/single_news_page.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
@@ -40,6 +41,16 @@ class _NewsPageState extends State<NewsPage> {
     Hive.openBox('settings').then((box) {
       box.put('language', language);
     });
+  }
+
+  String newsTitle(NewsArticleModel news) {
+    if (getLanguageCode(newsLanguage) == 'en') {
+      return news.title.en;
+    } else if (getLanguageCode(newsLanguage) == 'nus') {
+      return news.title.nus ?? news.title.en;
+    } else {
+      return news.title.din ?? news.title.en;
+    }
   }
 
   @override
@@ -104,7 +115,7 @@ class _NewsPageState extends State<NewsPage> {
                           for (var news in snapshot.data!) ...[
                             AppCards.curatedNewsCard(
                               context: context,
-                              news: news.title,
+                              news: newsTitle(news),
                               image: news.imageUrl,
                               onPressed: () {},
                             ),
@@ -142,7 +153,7 @@ class _NewsPageState extends State<NewsPage> {
                           for (var news in snapshot.data!) ...[
                             AppCards.newsCard(
                               context: context,
-                              news: news.title,
+                              news: newsTitle(news),
                               image: news.imageUrl,
                               source: news.source,
                               author: news.author,

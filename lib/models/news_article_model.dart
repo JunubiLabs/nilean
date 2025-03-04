@@ -10,7 +10,7 @@ class NewsArticleModel {
   final String id;
 
   @HiveField(1)
-  final String title;
+  final ArticleLanguageModel title;
 
   @HiveField(2)
   final String author;
@@ -52,7 +52,7 @@ class NewsArticleModel {
   factory NewsArticleModel.fromJson(Map<String, dynamic> json) {
     return NewsArticleModel(
       id: json['id'],
-      title: json['title'],
+      title: ArticleLanguageModel.fromJson(json['title']),
       author: json['author'],
       url: json['url'],
       imageUrl: json['imageUrl'],
@@ -67,7 +67,7 @@ class NewsArticleModel {
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
-      'title': title,
+      'title': title.toJson(),
       'author': author,
       'url': url,
       'imageUrl': imageUrl,
@@ -85,7 +85,7 @@ class NewsArticleModel {
     final data = doc.data()!;
     return NewsArticleModel(
       id: doc.id,
-      title: data['title'],
+      title: ArticleLanguageModel.fromJson(data['title']),
       author: data['author'],
       url: data['url'],
       imageUrl: data['imageUrl'],
@@ -100,7 +100,7 @@ class NewsArticleModel {
   Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
       'id': id,
-      'title': title,
+      'title': title.toJson(),
       'author': author,
       'url': url,
       'imageUrl': imageUrl,
