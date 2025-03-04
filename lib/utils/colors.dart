@@ -12,4 +12,17 @@ class AppColors {
   static HexColor primaryOrange = HexColor('#FF7D3C');
   static HexColor secondaryOrange = HexColor('#FFAA3C');
   static HexColor primaryYellow = HexColor('#FFC73C');
+
+  static Color sourceColors(String source) {
+    switch (source) {
+      case 'eyeradio.org':
+        return primaryBlue;
+
+      case 'radiotamazuj.org':
+        return primaryYellow;
+
+      default:
+        return primaryBlue;
+    }
+  }
 }

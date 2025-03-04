@@ -9,9 +9,11 @@ class NewsRepository {
     try {
       final querySnapshot = await _firestore.collection('articles').get();
 
-      return querySnapshot.docs
+      final articles = querySnapshot.docs
           .map((doc) => NewsArticleModel.fromFirestore(doc))
           .toList();
+
+      return articles;
     } catch (e) {
       throw Error();
     }

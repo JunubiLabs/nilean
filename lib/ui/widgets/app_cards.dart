@@ -200,7 +200,7 @@ class AppCards {
                     children: [
                       AppButtons.ellipsisButton(
                         onPressed: onPressed,
-                        color: AppColors.primaryOrange,
+                        color: AppColors.sourceColors(source),
                         text: source,
                         context: context,
                         displaySize: DisplaySize.small,
