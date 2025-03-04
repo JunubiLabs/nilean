@@ -27,14 +27,15 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AppButtons.backButton(
                     onPressed: () => Navigator.pop(context),
@@ -50,51 +51,63 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 25),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppButtons.ellipsisButton(
-                    onPressed: () {},
-                    color: AppColors.primaryOrange,
-                    context: context,
-                    text: Jiffy.parseFromDateTime(widget.news.publishedAt)
-                        .MMMMEEEEd,
-                  ),
-                  const SizedBox(width: 5),
-                  AppButtons.ellipsisButton(
-                    onPressed: () {},
-                    color: AppColors.sourceColors(widget.news.source),
-                    context: context,
-                    text: widget.news.source,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Text(
-                widget.news.title,
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              const SizedBox(height: 20),
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryGrey,
-                  image: DecorationImage(
-                    image: NetworkImage(widget.news.imageUrl),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(5),
+            ),
+            const SizedBox(height: 4),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppButtons.ellipsisButton(
+                          onPressed: () {},
+                          color: AppColors.primaryOrange,
+                          context: context,
+                          text: Jiffy.parseFromDateTime(widget.news.publishedAt)
+                              .MMMMEEEEd,
+                        ),
+                        const SizedBox(width: 5),
+                        AppButtons.ellipsisButton(
+                          onPressed: () {},
+                          color: AppColors.sourceColors(widget.news.source),
+                          context: context,
+                          text: widget.news.source,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      widget.news.title,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryGrey,
+                        image: DecorationImage(
+                          image: NetworkImage(widget.news.imageUrl),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    MarkdownBody(
+                      data: widget.news.content.en,
+                      selectable: true,
+                      shrinkWrap: true,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              MarkdownBody(
-                data: widget.news.content.en,
-                shrinkWrap: true,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
