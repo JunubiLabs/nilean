@@ -10,38 +10,34 @@ class NewsArticleModel {
   final String id;
 
   @HiveField(1)
-  final String newsId;
+  final String title;
 
   @HiveField(2)
-  final ArticleLanguageModel title;
-
-  @HiveField(3)
   final String author;
 
-  @HiveField(4)
+  @HiveField(3)
   final String url;
 
-  @HiveField(5)
+  @HiveField(4)
   final String imageUrl;
 
-  @HiveField(6)
+  @HiveField(5)
   final String description;
 
-  @HiveField(7)
+  @HiveField(6)
   final ArticleLanguageModel content;
 
-  @HiveField(8)
+  @HiveField(7)
   final DateTime publishedAt;
 
-  @HiveField(9)
+  @HiveField(8)
   final String? category;
 
-  @HiveField(10)
+  @HiveField(9)
   final String source;
 
   NewsArticleModel({
     required this.id,
-    required this.newsId,
     required this.title,
     required this.author,
     required this.url,
@@ -56,8 +52,7 @@ class NewsArticleModel {
   factory NewsArticleModel.fromJson(Map<String, dynamic> json) {
     return NewsArticleModel(
       id: json['id'],
-      newsId: json['news_id'],
-      title: ArticleLanguageModel.fromJson(json['title']),
+      title: json['title'],
       author: json['author'],
       url: json['url'],
       imageUrl: json['image_url'],
@@ -72,8 +67,7 @@ class NewsArticleModel {
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
-      'news_id': newsId,
-      'title': title.toJson(),
+      'title': title,
       'author': author,
       'url': url,
       'image_url': imageUrl,
@@ -91,8 +85,7 @@ class NewsArticleModel {
     final data = doc.data()!;
     return NewsArticleModel(
       id: data['id'],
-      newsId: data['news_id'],
-      title: ArticleLanguageModel.fromJson(data['title']),
+      title: data['title'],
       author: data['author'],
       url: data['url'],
       imageUrl: data['image_url'],
@@ -107,8 +100,7 @@ class NewsArticleModel {
   Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
       'id': id,
-      'news_id': newsId,
-      'title': title.toJson(),
+      'title': title,
       'author': author,
       'url': url,
       'image_url': imageUrl,

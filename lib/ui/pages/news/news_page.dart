@@ -1,7 +1,10 @@
+import 'package:buai/repositories/news_repository.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
+import 'package:buai/ui/widgets/app_cards.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/constants.dart';
+import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 
 class NewsPage extends StatefulWidget {
@@ -12,6 +15,8 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
+  final NewsRepository _newsRepository = NewsRepository();
+
   String newsLanguage = 'English';
   List<String> languages = AppConstants.languages.map((l) => l.name).toList();
 
@@ -49,6 +54,39 @@ class _NewsPageState extends State<NewsPage> {
                 context: context,
               ),
               const SizedBox(height: 20),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: FutureBuilder(
+                  future: _newsRepository.fetchNews(),
+                  builder: (context, snapshot) {
+                    return Row(
+                      children: [
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) ...[
+                          CardLoading(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.3,
+                          ),
+                          const SizedBox(width: 10),
+                        ],
+                        if (snapshot.hasData) ...[
+                          for (var news in snapshot.data!) ...[
+                            AppCards.curatedNewsCard(
+                              context: context,
+                              news: news.title,
+                              image: news.imageUrl,
+                              onPressed: () {},
+                            ),
+                            const SizedBox(width: 10),
+                          ],
+                        ]
+                      ],
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+              Expanded(child: Column())
             ],
           ),
         ),
