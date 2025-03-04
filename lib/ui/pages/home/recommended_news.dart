@@ -1,4 +1,5 @@
 import 'package:buai/repositories/news_repository.dart';
+import 'package:buai/ui/pages/news/single_news_page.dart';
 import 'package:buai/ui/widgets/app_cards.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
 import 'package:card_loading/card_loading.dart';
@@ -47,7 +48,15 @@ class _RecommendedNewsState extends State<RecommendedNews> {
                       context: context,
                       news: news.title,
                       image: news.imageUrl,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                SingleNewsPage(news: news),
+                          ),
+                        );
+                      },
                     )
                         .animate()
                         .slideY(

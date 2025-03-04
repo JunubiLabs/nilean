@@ -14,8 +14,9 @@ class AppThemes {
     ),
     textTheme: TextTheme(
       labelLarge: GoogleFonts.inter(
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
+        height: 1.2,
       ),
     ),
   );
@@ -30,8 +31,9 @@ class AppThemes {
     ),
     textTheme: TextTheme(
       labelLarge: GoogleFonts.inter(
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
+        height: 1.2,
       ),
     ),
   );

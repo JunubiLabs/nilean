@@ -1,4 +1,5 @@
 import 'package:buai/repositories/news_repository.dart';
+import 'package:buai/ui/pages/news/single_news_page.dart';
 import 'package:buai/ui/widgets/app_buttons.dart';
 import 'package:buai/ui/widgets/app_cards.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
@@ -122,7 +123,15 @@ class _NewsPageState extends State<NewsPage> {
                               source: news.source,
                               author: news.author,
                               date: news.publishedAt.toString(),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        SingleNewsPage(news: news),
+                                  ),
+                                );
+                              },
                             ),
                             const SizedBox(height: 20),
                           ],

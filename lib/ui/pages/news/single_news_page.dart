@@ -50,7 +50,7 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +62,7 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                     text: Jiffy.parseFromDateTime(widget.news.publishedAt)
                         .MMMMEEEEd,
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 5),
                   AppButtons.ellipsisButton(
                     onPressed: () {},
                     color: AppColors.sourceColors(widget.news.source),
@@ -71,14 +71,14 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Text(
                 widget.news.title,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
               const SizedBox(height: 20),
               Container(
-                height: 140,
+                height: 200,
                 decoration: BoxDecoration(
                   color: AppColors.primaryGrey,
                   image: DecorationImage(
