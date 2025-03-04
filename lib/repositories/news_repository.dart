@@ -6,10 +6,7 @@ class NewsRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<List<NewsArticleModel>> fetchNews(String languageCode) async {
-    final querySnapshot = await _firestore
-        .collection('articles')
-        .orderBy('timestamp', descending: true)
-        .get();
+    final querySnapshot = await _firestore.collection('articles').get();
 
     return querySnapshot.docs
         .map((doc) => NewsArticleModel.fromFirestore(doc))
