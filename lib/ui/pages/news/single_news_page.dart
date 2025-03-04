@@ -4,7 +4,9 @@ import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SingleNewsPage extends StatefulWidget {
   const SingleNewsPage({super.key, required this.news});
@@ -26,6 +28,31 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.blue.shade700,
+        onPressed: () async {
+          final Uri url = Uri.parse(widget.news.url);
+
+          if (await canLaunchUrl(url)) {
+            await launchUrl(url, mode: LaunchMode.externalApplication);
+          } else {
+            throw 'Could not launch $url';
+          }
+        },
+        label: Text(
+          'Read',
+          style: GoogleFonts.lato(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+        icon: const Icon(
+          Icons.arrow_outward_rounded,
+          color: Colors.white,
+          size: 20,
+        ),
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

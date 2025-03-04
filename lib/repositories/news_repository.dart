@@ -27,7 +27,6 @@ class NewsRepository {
           .map((doc) => NewsArticleModel.fromFirestore(doc))
           .toList();
     } catch (e) {
-      print(e);
       throw Error();
     }
   }
