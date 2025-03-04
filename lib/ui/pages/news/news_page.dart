@@ -58,19 +58,19 @@ class _NewsPageState extends State<NewsPage> {
                 context: context,
               ),
               const SizedBox(height: 20),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: FutureBuilder(
-                  future: _newsRepository.fetchNews(),
-                  builder: (context, snapshot) {
-                    return Row(
+              FutureBuilder(
+                future: _newsRepository.fetchNews(),
+                builder: (context, snapshot) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
                       children: [
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) ...[
                           for (var i = 0; i < 3; i++) ...[
                             CardLoading(
-                              height: 150,
-                              width: MediaQuery.of(context).size.width * 0.3,
+                              height: 120,
+                              width: 200,
                             ),
                             const SizedBox(width: 10),
                           ],
@@ -87,11 +87,51 @@ class _NewsPageState extends State<NewsPage> {
                           ],
                         ]
                       ],
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 20),
+              AppTexts.sectionTitle(
+                title: 'Latest News',
+                subtitle: 'Curated for you',
+                context: context,
+              ),
+              const SizedBox(height: 20),
+              FutureBuilder(
+                future: _newsRepository.fetchNews(),
+                builder: (context, snapshot) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) ...[
+                          for (var i = 0; i < 6; i++) ...[
+                            CardLoading(
+                              height: 100,
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                        ],
+                        if (snapshot.hasData) ...[
+                          for (var news in snapshot.data!) ...[
+                            AppCards.newsCard(
+                              context: context,
+                              news: news.title,
+                              image: news.imageUrl,
+                              source: news.source,
+                              author: news.author,
+                              date: news.publishedAt.toString(),
+                              onPressed: () {},
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                        ]
+                      ],
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

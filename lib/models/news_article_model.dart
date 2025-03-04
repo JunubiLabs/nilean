@@ -83,7 +83,6 @@ class NewsArticleModel {
     DocumentSnapshot<Map<String, dynamic>> doc,
   ) {
     final data = doc.data()!;
-    print(data['url']);
     return NewsArticleModel(
       id: doc.id,
       title: data['title'],

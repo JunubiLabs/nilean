@@ -113,8 +113,8 @@ class AppButtons {
           vertical: displaySize == DisplaySize.large
               ? 4
               : displaySize == DisplaySize.medium
-                  ? 2
-                  : 1,
+                  ? 3
+                  : 2,
         ),
         decoration: BoxDecoration(
           color: color,
