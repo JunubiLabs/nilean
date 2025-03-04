@@ -20,11 +20,16 @@ class NewsRepository {
   }
 
   Future<List<NewsArticleModel>> fetchBreakingNews() async {
-    final querySnapshot = await _firestore.collection('breaking_news').get();
+    try {
+      final querySnapshot = await _firestore.collection('breaking_news').get();
 
-    return querySnapshot.docs
-        .map((doc) => NewsArticleModel.fromFirestore(doc))
-        .toList();
+      return querySnapshot.docs
+          .map((doc) => NewsArticleModel.fromFirestore(doc))
+          .toList();
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
   }
 
   Future<NewsArticleModel> fetchNewsById(String id) async {

@@ -59,7 +59,7 @@ class _NewsPageState extends State<NewsPage> {
               ),
               const SizedBox(height: 20),
               FutureBuilder(
-                future: _newsRepository.fetchNews(),
+                future: _newsRepository.fetchBreakingNews(),
                 builder: (context, snapshot) {
                   return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
