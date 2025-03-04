@@ -91,7 +91,7 @@ class _NewsPageState extends State<NewsPage> {
                   );
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               AppTexts.sectionTitle(
                 title: 'Latest News',
                 subtitle: 'Curated for you',
