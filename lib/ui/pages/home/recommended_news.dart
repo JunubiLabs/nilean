@@ -1,11 +1,14 @@
+import 'package:buai/models/news_article_model.dart';
 import 'package:buai/repositories/news_repository.dart';
 import 'package:buai/ui/pages/news/single_news_page.dart';
 import 'package:buai/ui/widgets/app_cards.dart';
 import 'package:buai/ui/widgets/app_texts.dart';
+import 'package:buai/utils/constants.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:hive/hive.dart';
 
 class RecommendedNews extends StatefulWidget {
   const RecommendedNews({super.key});
@@ -15,6 +18,39 @@ class RecommendedNews extends StatefulWidget {
 }
 
 class _RecommendedNewsState extends State<RecommendedNews> {
+  String newsLanguage = 'English';
+  List<String> languages = AppConstants.languages.map((l) => l.name).toList();
+
+  getLanguageCode(String language) {
+    return AppConstants.languages.firstWhere((l) => l.name == language).code;
+  }
+
+  String newsTitle(NewsArticleModel news) {
+    if (getLanguageCode(newsLanguage) == 'en') {
+      return news.title.en;
+    } else if (getLanguageCode(newsLanguage) == 'nus') {
+      return news.title.nus ?? news.title.en;
+    } else {
+      return news.title.din ?? news.title.en;
+    }
+  }
+
+  loadInitialLanguage() {
+    Hive.openBox('settings').then((box) {
+      if (box.get('language') != null) {
+        setState(() {
+          newsLanguage = box.get('language');
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    loadInitialLanguage();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,7 +82,7 @@ class _RecommendedNewsState extends State<RecommendedNews> {
                   for (var news in snapshot.data!.sublist(0, 4)) ...[
                     AppCards.curatedNewsCard(
                       context: context,
-                      news: news.title,
+                      news: newsTitle(news),
                       image: news.imageUrl,
                       onPressed: () {
                         Navigator.push(
