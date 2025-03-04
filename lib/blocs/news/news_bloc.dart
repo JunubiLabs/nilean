@@ -2,7 +2,6 @@ import 'package:buai/repositories/news_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buai/blocs/news/news_event.dart';
 import 'package:buai/blocs/news/news_state.dart';
-import 'package:buai/repositories/news_repository.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   final NewsRepository newsRepository = NewsRepository();

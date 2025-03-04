@@ -55,10 +55,10 @@ class NewsArticleModel {
       title: json['title'],
       author: json['author'],
       url: json['url'],
-      imageUrl: json['image_url'],
+      imageUrl: json['imageUrl'],
       description: json['description'],
       content: ArticleLanguageModel.fromJson(json['content']),
-      publishedAt: json['published_at'],
+      publishedAt: json['publishedAt'],
       category: json['category'],
       source: json['source'],
     );
@@ -70,10 +70,10 @@ class NewsArticleModel {
       'title': title,
       'author': author,
       'url': url,
-      'image_url': imageUrl,
+      'imageUrl': imageUrl,
       'description': description,
       'content': content.toJson(),
-      'published_at': publishedAt,
+      'publishedAt': publishedAt,
       'category': category,
       'source': source,
     };
@@ -83,15 +83,16 @@ class NewsArticleModel {
     DocumentSnapshot<Map<String, dynamic>> doc,
   ) {
     final data = doc.data()!;
+    print(data['url']);
     return NewsArticleModel(
-      id: data['id'],
+      id: doc.id,
       title: data['title'],
       author: data['author'],
       url: data['url'],
-      imageUrl: data['image_url'],
+      imageUrl: data['imageUrl'],
       description: data['description'],
       content: ArticleLanguageModel.fromJson(data['content']),
-      publishedAt: data['published_at'].toDate(),
+      publishedAt: DateTime.parse(data['publishedAt']),
       category: data['category'],
       source: data['source'],
     );
@@ -103,10 +104,10 @@ class NewsArticleModel {
       'title': title,
       'author': author,
       'url': url,
-      'image_url': imageUrl,
+      'imageUrl': imageUrl,
       'description': description,
       'content': content.toJson(),
-      'published_at': publishedAt,
+      'publishedAt': publishedAt,
       'category': category,
       'source': source,
     };

@@ -31,11 +31,15 @@ class _NewsPageState extends State<NewsPage> {
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppButtons.backButton(onPressed: () {}),
+                  AppButtons.backButton(
+                    onPressed: () => Navigator.pop(context),
+                  ),
                   AppButtons.dropdownButton(
                     onPressed: (String lang) {
                       setState(() => newsLanguage = lang);
@@ -50,7 +54,7 @@ class _NewsPageState extends State<NewsPage> {
               SizedBox(height: 20),
               AppTexts.sectionTitle(
                 title: 'Breaking News',
-                subtitle: 'Top headlines from around the world',
+                subtitle: 'Happening Now',
                 context: context,
               ),
               const SizedBox(height: 20),
@@ -63,11 +67,13 @@ class _NewsPageState extends State<NewsPage> {
                       children: [
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) ...[
-                          CardLoading(
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.3,
-                          ),
-                          const SizedBox(width: 10),
+                          for (var i = 0; i < 3; i++) ...[
+                            CardLoading(
+                              height: 150,
+                              width: MediaQuery.of(context).size.width * 0.3,
+                            ),
+                            const SizedBox(width: 10),
+                          ],
                         ],
                         if (snapshot.hasData) ...[
                           for (var news in snapshot.data!) ...[
@@ -86,7 +92,6 @@ class _NewsPageState extends State<NewsPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              Expanded(child: Column())
             ],
           ),
         ),

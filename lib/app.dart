@@ -6,6 +6,7 @@ import 'package:buai/ui/pages/auth/reset_password_page.dart';
 import 'package:buai/ui/pages/auth/signup_page.dart';
 import 'package:buai/ui/pages/chat/chat_page.dart';
 import 'package:buai/ui/pages/chat/my_chats.dart';
+import 'package:buai/ui/pages/news/news_page.dart';
 import 'package:buai/ui/pages/translate/translate_page.dart';
 import 'package:buai/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,7 @@ class App extends StatelessWidget {
           '/chat': (context) => ChatPage(),
           '/my-chats': (context) => MyChats(),
           '/translate': (context) => TranslatePage(),
+          '/news': (context) => NewsPage(),
         },
         debugShowCheckedModeBanner: false,
         theme: AppThemes.light,
