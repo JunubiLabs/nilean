@@ -5,6 +5,7 @@ import 'package:buai/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,6 +24,38 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
 
   getLanguageCode(String language) {
     return AppConstants.languages.firstWhere((l) => l.name == language).code;
+  }
+
+  loadInitialLanguage() {
+    Hive.openBox('settings').then((box) {
+      if (box.get('language') != null) {
+        setState(() {
+          newsLanguage = box.get('language');
+        });
+      }
+    });
+  }
+
+  setLanguage(String language) {
+    Hive.openBox('settings').then((box) {
+      box.put('language', language);
+    });
+  }
+
+  String newsData() {
+    if (getLanguageCode(newsLanguage) == 'en') {
+      return widget.news.content.en;
+    } else if (getLanguageCode(newsLanguage) == 'nus') {
+      return widget.news.content.nus ?? widget.news.content.en;
+    } else {
+      return widget.news.content.din ?? widget.news.content.en;
+    }
+  }
+
+  @override
+  void initState() {
+    loadInitialLanguage();
+    super.initState();
   }
 
   @override
@@ -70,6 +103,7 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                   AppButtons.dropdownButton(
                     onPressed: (String lang) {
                       setState(() => newsLanguage = lang);
+                      setLanguage(lang);
                     },
                     context: context,
                     items: languages,
@@ -126,7 +160,7 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                     ),
                     const SizedBox(height: 20),
                     MarkdownBody(
-                      data: widget.news.content.en,
+                      data: newsData(),
                       selectable: true,
                       shrinkWrap: true,
                     ),

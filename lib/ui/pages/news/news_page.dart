@@ -7,6 +7,7 @@ import 'package:buai/utils/colors.dart';
 import 'package:buai/utils/constants.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
@@ -23,6 +24,28 @@ class _NewsPageState extends State<NewsPage> {
 
   getLanguageCode(String language) {
     return AppConstants.languages.firstWhere((l) => l.name == language).code;
+  }
+
+  loadInitialLanguage() {
+    Hive.openBox('settings').then((box) {
+      if (box.get('language') != null) {
+        setState(() {
+          newsLanguage = box.get('language');
+        });
+      }
+    });
+  }
+
+  setLanguage(String language) {
+    Hive.openBox('settings').then((box) {
+      box.put('language', language);
+    });
+  }
+
+  @override
+  void initState() {
+    loadInitialLanguage();
+    super.initState();
   }
 
   @override
@@ -44,6 +67,7 @@ class _NewsPageState extends State<NewsPage> {
                   AppButtons.dropdownButton(
                     onPressed: (String lang) {
                       setState(() => newsLanguage = lang);
+                      setLanguage(lang);
                     },
                     context: context,
                     items: languages,
