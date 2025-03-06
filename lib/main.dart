@@ -19,7 +19,7 @@ void main() async {
     handler: firebaseMessagingBackgroundHandler,
   );
 
-  await FirebaseMessaging.instance.subscribeToTopic('new_articles');
+  await FirebaseMessaging.instance.subscribeToTopic('articles');
 
   Gemini.init(apiKey: GeminiOptions.googleApiKey);
 
