@@ -36,6 +36,14 @@ class NewsRepository {
     return NewsArticleModel.fromFirestore(doc);
   }
 
+  Future<NewsArticleModel> fetchNewsByUrl({required String url}) async {
+    final doc = await _firestore
+        .collection('articles')
+        .where('url', isEqualTo: url)
+        .get();
+    return NewsArticleModel.fromFirestore(doc.docs.first);
+  }
+
   Future<NewsArticleModel> saveArticle(NewsArticleModel news) async {
     final articleStorage = Hive.box<NewsArticleModel>('articles');
     await articleStorage.put(news.id, news);

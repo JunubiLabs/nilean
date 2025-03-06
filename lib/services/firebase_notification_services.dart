@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -7,6 +10,8 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 class FirebaseNotificationServices {
   Future<void> initializeNotifications({
     required Future<void> Function(RemoteMessage) handler,
+    required onNotificationTap,
+    required handleMessageNotification,
   }) async {
     const initializationSettingsAndroid = AndroidInitializationSettings(
       '@mipmap/ic_launcher',
@@ -17,7 +22,11 @@ class FirebaseNotificationServices {
       iOS: DarwinInitializationSettings(),
     );
 
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveBackgroundNotificationResponse: onNotificationTap,
+      onDidReceiveNotificationResponse: onNotificationTap,
+    );
 
     await FirebaseMessaging.instance.requestPermission(
       alert: true,
@@ -31,6 +40,13 @@ class FirebaseNotificationServices {
 
     FirebaseMessaging.onMessage.listen(showFlutterNotification);
     FirebaseMessaging.onBackgroundMessage(handler);
+
+    final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        handleMessageNotification(initialMessage);
+      });
+    }
   }
 
   void showFlutterNotification(RemoteMessage message) {
@@ -40,7 +56,7 @@ class FirebaseNotificationServices {
       flutterLocalNotificationsPlugin.show(
         notification.hashCode,
         notification.title,
-        notification.body,
+        jsonDecode(notification.body.toString())['description'],
         NotificationDetails(
           android: AndroidNotificationDetails(
             'channel_id',
@@ -48,17 +64,10 @@ class FirebaseNotificationServices {
             channelDescription: 'Channel for new article notifications',
             importance: Importance.max,
             priority: Priority.high,
-            largeIcon: FilePathAndroidBitmap(message.data['image']),
-            styleInformation: BigPictureStyleInformation(
-              FilePathAndroidBitmap(message.data['image']),
-              contentTitle: message.data['title'],
-              htmlFormatContentTitle: true,
-              summaryText: message.data['source'],
-            ),
           ),
           iOS: const DarwinNotificationDetails(),
         ),
-        payload: message.data['article_id'],
+        payload: notification.body,
       );
     }
   }

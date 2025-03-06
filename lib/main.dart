@@ -1,15 +1,20 @@
+import 'dart:convert';
+
 import 'package:buai/app.dart';
 import 'package:buai/gemini_options.dart';
 import 'package:buai/models/chat_content_model.dart';
 import 'package:buai/models/chat_model.dart';
+import 'package:buai/repositories/news_repository.dart';
 import 'package:buai/services/firebase_notification_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 final firebaseNotificationServices = FirebaseNotificationServices();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,9 +22,14 @@ void main() async {
 
   await firebaseNotificationServices.initializeNotifications(
     handler: firebaseMessagingBackgroundHandler,
+    onNotificationTap: onNotificationTap,
+    handleMessageNotification: handleMessageNotification,
   );
 
   await FirebaseMessaging.instance.subscribeToTopic('articles');
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    handleMessageNotification(message);
+  });
 
   Gemini.init(apiKey: GeminiOptions.googleApiKey);
 
@@ -35,4 +45,26 @@ void main() async {
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   firebaseNotificationServices.showFlutterNotification(message);
+}
+
+onNotificationTap(NotificationResponse notificationResponse) {
+  if (notificationResponse.payload != null) {
+    final payload = jsonDecode(notificationResponse.payload.toString());
+    NewsRepository().fetchNewsByUrl(url: payload['url']).then((news) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        navigatorKey.currentState?.pushNamed('/article', arguments: news);
+      });
+    });
+  }
+}
+
+handleMessageNotification(RemoteMessage message) {
+  if (message.notification != null) {
+    final body = jsonDecode(message.notification!.body.toString());
+    NewsRepository().fetchNewsByUrl(url: body['url']).then((news) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        navigatorKey.currentState?.pushNamed('/article', arguments: news);
+      });
+    });
+  }
 }
