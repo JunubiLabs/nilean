@@ -23,7 +23,6 @@ class FirebaseNotificationServices {
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onDidReceiveBackgroundNotificationResponse: onNotificationTap,
       onDidReceiveNotificationResponse: onNotificationTap,
     );
 
@@ -37,8 +36,8 @@ class FirebaseNotificationServices {
       sound: true,
     );
 
-    FirebaseMessaging.onMessage.listen(showFlutterNotification);
     FirebaseMessaging.onBackgroundMessage(handler);
+    FirebaseMessaging.onMessage.listen(showFlutterNotification);
 
     final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {

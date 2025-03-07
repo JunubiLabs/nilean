@@ -27,9 +27,6 @@ void main() async {
   );
 
   await FirebaseMessaging.instance.subscribeToTopic('articles');
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    handleMessageNotification(message);
-  });
 
   Gemini.init(apiKey: GeminiOptions.googleApiKey);
 
@@ -44,7 +41,6 @@ void main() async {
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  firebaseNotificationServices.showFlutterNotification(message);
 }
 
 onNotificationTap(NotificationResponse notificationResponse) {
@@ -67,6 +63,5 @@ handleMessageNotification(RemoteMessage message) async {
       '/article',
       arguments: news,
     );
-    print('to pag2');
   }
 }
