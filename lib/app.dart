@@ -22,22 +22,18 @@ import 'package:buai/ui/pages/auth/signin_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
+  static final navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => AuthBloc(AuthRepository()),
-        ),
-        BlocProvider(
-          create: (context) => ChatBloc(),
-        ),
-        BlocProvider(
-          create: (context) => TranslateBloc(),
-        ),
+        BlocProvider(create: (context) => AuthBloc(AuthRepository())),
+        BlocProvider(create: (context) => ChatBloc()),
+        BlocProvider(create: (context) => TranslateBloc()),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         title: 'Buai',
         initialRoute: '/',
         routes: {

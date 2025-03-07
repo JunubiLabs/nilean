@@ -26,8 +26,9 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
               MainSection(),
               const SizedBox(height: 25),
+              RecommendedNews(),
+              const SizedBox(height: 25),
               RecentChats(),
-              RecommendedNews()
             ],
           ),
         ),

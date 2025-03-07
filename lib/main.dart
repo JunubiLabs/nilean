@@ -51,20 +51,22 @@ onNotificationTap(NotificationResponse notificationResponse) {
   if (notificationResponse.payload != null) {
     final payload = jsonDecode(notificationResponse.payload.toString());
     NewsRepository().fetchNewsByUrl(url: payload['url']).then((news) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        navigatorKey.currentState?.pushNamed('/article', arguments: news);
-      });
+      App.navigatorKey.currentState!.pushNamed(
+        '/article',
+        arguments: news,
+      );
     });
   }
 }
 
-handleMessageNotification(RemoteMessage message) {
+handleMessageNotification(RemoteMessage message) async {
   if (message.notification != null) {
     final body = jsonDecode(message.notification!.body.toString());
-    NewsRepository().fetchNewsByUrl(url: body['url']).then((news) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        navigatorKey.currentState?.pushNamed('/article', arguments: news);
-      });
-    });
+    final news = await NewsRepository().fetchNewsByUrl(url: body['url']);
+    App.navigatorKey.currentState!.pushNamed(
+      '/article',
+      arguments: news,
+    );
+    print('to pag2');
   }
 }
