@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   handleMessage() async {
     final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
-      print(initialMessage.notification?.title);
       handleMessageNotification(initialMessage);
     }
   }
