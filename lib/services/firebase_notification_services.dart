@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -24,6 +22,7 @@ class FirebaseNotificationServices {
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: onNotificationTap,
+      onDidReceiveBackgroundNotificationResponse: onNotificationTap,
     );
 
     await FirebaseMessaging.instance.requestPermission(
@@ -47,12 +46,11 @@ class FirebaseNotificationServices {
 
   void showFlutterNotification(RemoteMessage message) {
     final notification = message.notification;
-
     if (notification != null) {
       flutterLocalNotificationsPlugin.show(
         notification.hashCode,
         notification.title,
-        jsonDecode(notification.body.toString())['description'],
+        notification.body,
         NotificationDetails(
           android: AndroidNotificationDetails(
             'channel_id',
@@ -63,7 +61,7 @@ class FirebaseNotificationServices {
           ),
           iOS: const DarwinNotificationDetails(),
         ),
-        payload: notification.body,
+        payload: message.data['url'],
       );
     }
   }

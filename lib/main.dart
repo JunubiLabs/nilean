@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:buai/app.dart';
 import 'package:buai/gemini_options.dart';
 import 'package:buai/models/chat_content_model.dart';
@@ -45,8 +43,8 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 onNotificationTap(NotificationResponse notificationResponse) {
   if (notificationResponse.payload != null) {
-    final payload = jsonDecode(notificationResponse.payload.toString());
-    NewsRepository().fetchNewsByUrl(url: payload['url']).then((news) {
+    final payload = notificationResponse.payload!;
+    NewsRepository().fetchNewsByUrl(url: payload).then((news) {
       App.navigatorKey.currentState!.pushNamed(
         '/article',
         arguments: news,
@@ -57,8 +55,9 @@ onNotificationTap(NotificationResponse notificationResponse) {
 
 handleMessageNotification(RemoteMessage message) async {
   if (message.notification != null) {
-    final body = jsonDecode(message.notification!.body.toString());
-    final news = await NewsRepository().fetchNewsByUrl(url: body['url']);
+    final news = await NewsRepository().fetchNewsByUrl(
+      url: message.data['url'],
+    );
     App.navigatorKey.currentState!.pushNamed(
       '/article',
       arguments: news,
