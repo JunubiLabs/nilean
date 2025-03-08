@@ -58,7 +58,9 @@ handleMessageNotification(RemoteMessage message) async {
     final news = await NewsRepository().fetchNewsByUrl(
       url: message.data['url'],
     );
-    navigatorKey.currentState!.pushNamed(
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (!App.navigatorKey.currentState!.mounted) return;
+    App.navigatorKey.currentState!.pushNamed(
       '/article',
       arguments: news,
     );
