@@ -58,6 +58,12 @@ class FirebaseNotificationServices {
             channelDescription: 'Channel for new article notifications',
             importance: Importance.max,
             priority: Priority.high,
+            styleInformation: BigPictureStyleInformation(
+              FilePathAndroidBitmap(message.data['imageUrl']),
+              contentTitle: message.notification!.title,
+              htmlFormatContentTitle: true,
+              summaryText: message.notification!.body,
+            ),
           ),
           iOS: const DarwinNotificationDetails(),
         ),
