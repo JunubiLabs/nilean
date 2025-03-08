@@ -1,5 +1,6 @@
 import 'package:buai/blocs/chat/chat_bloc.dart';
 import 'package:buai/blocs/translate/translate_bloc.dart';
+import 'package:buai/models/news_article_model.dart';
 import 'package:buai/ui/pages/auth/complete_signup_page.dart';
 import 'package:buai/ui/pages/auth/email_verification_page.dart';
 import 'package:buai/ui/pages/auth/reset_password_page.dart';
@@ -7,6 +8,7 @@ import 'package:buai/ui/pages/auth/signup_page.dart';
 import 'package:buai/ui/pages/chat/chat_page.dart';
 import 'package:buai/ui/pages/chat/my_chats.dart';
 import 'package:buai/ui/pages/news/news_page.dart';
+import 'package:buai/ui/pages/news/single_news_page.dart';
 import 'package:buai/ui/pages/translate/translate_page.dart';
 import 'package:buai/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -20,22 +22,18 @@ import 'package:buai/ui/pages/auth/signin_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
+  static final navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => AuthBloc(AuthRepository()),
-        ),
-        BlocProvider(
-          create: (context) => ChatBloc(),
-        ),
-        BlocProvider(
-          create: (context) => TranslateBloc(),
-        ),
+        BlocProvider(create: (context) => AuthBloc(AuthRepository())),
+        BlocProvider(create: (context) => ChatBloc()),
+        BlocProvider(create: (context) => TranslateBloc()),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         title: 'Buai',
         initialRoute: '/',
         routes: {
@@ -51,6 +49,15 @@ class App extends StatelessWidget {
           '/my-chats': (context) => MyChats(),
           '/translate': (context) => TranslatePage(),
           '/news': (context) => NewsPage(),
+        },
+        onGenerateRoute: (settings) {
+          if (settings.name == '/article') {
+            final article = settings.arguments as NewsArticleModel;
+            return MaterialPageRoute(
+              builder: (context) => SingleNewsPage(news: article),
+            );
+          }
+          return null;
         },
         debugShowCheckedModeBanner: false,
         theme: AppThemes.light,

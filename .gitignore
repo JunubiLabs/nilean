@@ -50,3 +50,4 @@ lib/firebase_options.dart
 
 *.g.dart
 lib/gemini_options.dart
+.cxx/
