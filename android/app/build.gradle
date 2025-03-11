@@ -23,7 +23,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.neurollect.junubai"
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
