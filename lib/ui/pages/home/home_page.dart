@@ -1,8 +1,8 @@
-import 'package:buai/main.dart';
-import 'package:buai/ui/pages/home/main_section.dart';
-import 'package:buai/ui/pages/home/recent_chats.dart';
-import 'package:buai/ui/pages/home/recommended_news.dart';
-import 'package:buai/ui/widgets/header.dart';
+import 'package:nilean/main.dart';
+import 'package:nilean/ui/pages/home/main_section.dart';
+import 'package:nilean/ui/pages/home/recent_chats.dart';
+import 'package:nilean/ui/pages/home/recommended_news.dart';
+import 'package:nilean/ui/widgets/header.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 

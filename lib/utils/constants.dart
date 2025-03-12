@@ -1,4 +1,4 @@
-import 'package:buai/models/language_model.dart';
+import 'package:nilean/models/language_model.dart';
 
 class AppConstants {
   static List<LanguageModel> languages = [

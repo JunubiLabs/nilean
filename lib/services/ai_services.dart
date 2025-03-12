@@ -1,4 +1,4 @@
-import 'package:buai/models/text_translate_model.dart';
+import 'package:nilean/models/text_translate_model.dart';
 import 'package:dio/dio.dart';
 
 class AiServices {

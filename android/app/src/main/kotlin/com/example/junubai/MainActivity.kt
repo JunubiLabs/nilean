@@ -1,4 +1,4 @@
-package com.neurollect.junubai
+package com.neurollect.nilean
 
 import io.flutter.embedding.android.FlutterActivity
 

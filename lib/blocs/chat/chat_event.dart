@@ -1,4 +1,4 @@
-import 'package:buai/models/chat_model.dart';
+import 'package:nilean/models/chat_model.dart';
 
 abstract class ChatEvent {}
 

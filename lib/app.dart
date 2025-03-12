@@ -1,24 +1,24 @@
-import 'package:buai/blocs/chat/chat_bloc.dart';
-import 'package:buai/blocs/translate/translate_bloc.dart';
-import 'package:buai/models/news_article_model.dart';
-import 'package:buai/ui/pages/auth/complete_signup_page.dart';
-import 'package:buai/ui/pages/auth/email_verification_page.dart';
-import 'package:buai/ui/pages/auth/reset_password_page.dart';
-import 'package:buai/ui/pages/auth/signup_page.dart';
-import 'package:buai/ui/pages/chat/chat_page.dart';
-import 'package:buai/ui/pages/chat/my_chats.dart';
-import 'package:buai/ui/pages/news/news_page.dart';
-import 'package:buai/ui/pages/news/single_news_page.dart';
-import 'package:buai/ui/pages/translate/translate_page.dart';
-import 'package:buai/utils/theme.dart';
+import 'package:nilean/blocs/chat/chat_bloc.dart';
+import 'package:nilean/blocs/translate/translate_bloc.dart';
+import 'package:nilean/models/news_article_model.dart';
+import 'package:nilean/ui/pages/auth/complete_signup_page.dart';
+import 'package:nilean/ui/pages/auth/email_verification_page.dart';
+import 'package:nilean/ui/pages/auth/reset_password_page.dart';
+import 'package:nilean/ui/pages/auth/signup_page.dart';
+import 'package:nilean/ui/pages/chat/chat_page.dart';
+import 'package:nilean/ui/pages/chat/my_chats.dart';
+import 'package:nilean/ui/pages/news/news_page.dart';
+import 'package:nilean/ui/pages/news/single_news_page.dart';
+import 'package:nilean/ui/pages/translate/translate_page.dart';
+import 'package:nilean/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:buai/blocs/auth/auth_bloc.dart';
-import 'package:buai/repositories/auth_repository.dart';
-import 'package:buai/ui/pages/home/home_page.dart';
-import 'package:buai/ui/pages/splash_page.dart';
-import 'package:buai/ui/pages/welcome_page.dart';
-import 'package:buai/ui/pages/auth/signin_page.dart';
+import 'package:nilean/blocs/auth/auth_bloc.dart';
+import 'package:nilean/repositories/auth_repository.dart';
+import 'package:nilean/ui/pages/home/home_page.dart';
+import 'package:nilean/ui/pages/splash_page.dart';
+import 'package:nilean/ui/pages/welcome_page.dart';
+import 'package:nilean/ui/pages/auth/signin_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -34,7 +34,7 @@ class App extends StatelessWidget {
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
-        title: 'Buai',
+        title: 'Nilean',
         initialRoute: '/',
         routes: {
           '/': (context) => SplashPage(),

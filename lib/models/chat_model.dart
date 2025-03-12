@@ -1,4 +1,4 @@
-import 'package:buai/models/chat_content_model.dart';
+import 'package:nilean/models/chat_content_model.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

@@ -1,5 +1,5 @@
-import 'package:buai/ui/widgets/app_buttons.dart';
-import 'package:buai/utils/colors.dart';
+import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/utils/colors.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';

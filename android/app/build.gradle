@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.neurollect.junubai"
+    namespace = "com.neurollect.nilean"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -23,7 +23,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.neurollect.junubai"
+        applicationId = "com.neurollect.nilean"
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -32,7 +32,7 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.release
         }
     }
 }
