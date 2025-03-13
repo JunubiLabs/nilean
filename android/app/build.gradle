@@ -34,7 +34,7 @@ android {
         release {
             keyAlias 'upload'
             keyPassword 'Jumamos123'
-            storeFile file('/upload-keystore.jks')
+            storeFile file('/home/gakah/Projects/junubai/android/upload-keystore.jks')
             storePassword 'Jumamos123'
         }
     }
