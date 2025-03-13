@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:buai/models/chat_model.dart';
-import 'package:buai/ui/pages/chat/chat_page.dart';
-import 'package:buai/ui/widgets/app_cards.dart';
-import 'package:buai/ui/widgets/app_texts.dart';
+import 'package:nilean/models/chat_model.dart';
+import 'package:nilean/ui/pages/chat/chat_page.dart';
+import 'package:nilean/ui/widgets/app_cards.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';

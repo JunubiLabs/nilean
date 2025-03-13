@@ -1,7 +1,7 @@
-import 'package:buai/extensions/string_extensions.dart';
-import 'package:buai/models/chat_content_model.dart';
-import 'package:buai/ui/widgets/app_buttons.dart';
-import 'package:buai/utils/colors.dart';
+import 'package:nilean/extensions/string_extensions.dart';
+import 'package:nilean/models/chat_content_model.dart';
+import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/utils/colors.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
-import 'package:buai/blocs/translate/translate_event.dart';
-import 'package:buai/blocs/translate/translate_state.dart';
-import 'package:buai/services/ai_services.dart';
+import 'package:nilean/blocs/translate/translate_event.dart';
+import 'package:nilean/blocs/translate/translate_state.dart';
+import 'package:nilean/services/ai_services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {

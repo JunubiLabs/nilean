@@ -1,5 +1,5 @@
-import 'package:buai/ui/widgets/app_texts.dart';
-import 'package:buai/utils/colors.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
+import 'package:nilean/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

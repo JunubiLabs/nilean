@@ -1,4 +1,4 @@
-import 'package:buai/models/article_language_model.dart';
+import 'package:nilean/models/article_language_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 

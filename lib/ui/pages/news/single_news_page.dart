@@ -1,7 +1,7 @@
-import 'package:buai/models/news_article_model.dart';
-import 'package:buai/ui/widgets/app_buttons.dart';
-import 'package:buai/utils/colors.dart';
-import 'package:buai/utils/constants.dart';
+import 'package:nilean/models/news_article_model.dart';
+import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/utils/colors.dart';
+import 'package:nilean/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';

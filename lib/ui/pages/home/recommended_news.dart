@@ -1,9 +1,9 @@
-import 'package:buai/models/news_article_model.dart';
-import 'package:buai/repositories/news_repository.dart';
-import 'package:buai/ui/pages/news/single_news_page.dart';
-import 'package:buai/ui/widgets/app_cards.dart';
-import 'package:buai/ui/widgets/app_texts.dart';
-import 'package:buai/utils/constants.dart';
+import 'package:nilean/models/news_article_model.dart';
+import 'package:nilean/repositories/news_repository.dart';
+import 'package:nilean/ui/pages/news/single_news_page.dart';
+import 'package:nilean/ui/widgets/app_cards.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
+import 'package:nilean/utils/constants.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';

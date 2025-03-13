@@ -1,5 +1,5 @@
-import 'package:buai/extensions/string_extensions.dart';
-import 'package:buai/services/date_services.dart';
+import 'package:nilean/extensions/string_extensions.dart';
+import 'package:nilean/services/date_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

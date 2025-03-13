@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.neurollect.junubai"
+    namespace = "com.neurollect.nilean"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -23,19 +23,25 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.neurollect.junubai"
+        applicationId = "com.neurollect.nilean"
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'upload'
+            keyPassword 'Jumamos123'
+            storeFile file('/home/gakah/Projects/junubai/android/upload-keystore.jks')
+            storePassword 'Jumamos123'
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }

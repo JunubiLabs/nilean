@@ -1,12 +1,12 @@
-import 'package:buai/blocs/translate/translate_bloc.dart';
-import 'package:buai/blocs/translate/translate_event.dart';
-import 'package:buai/blocs/translate/translate_state.dart';
-import 'package:buai/ui/pages/translate/translate_display.dart';
-import 'package:buai/ui/pages/translate/translate_input.dart';
-import 'package:buai/ui/widgets/app_buttons.dart';
-import 'package:buai/ui/widgets/app_texts.dart';
-import 'package:buai/utils/colors.dart';
-import 'package:buai/utils/constants.dart';
+import 'package:nilean/blocs/translate/translate_bloc.dart';
+import 'package:nilean/blocs/translate/translate_event.dart';
+import 'package:nilean/blocs/translate/translate_state.dart';
+import 'package:nilean/ui/pages/translate/translate_display.dart';
+import 'package:nilean/ui/pages/translate/translate_input.dart';
+import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
+import 'package:nilean/utils/colors.dart';
+import 'package:nilean/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
