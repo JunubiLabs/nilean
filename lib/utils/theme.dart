@@ -11,6 +11,7 @@ class AppThemes {
       secondary: Colors.black,
       onSecondary: AppColors.secondaryBlack,
       tertiary: AppColors.primaryGrey.withAlpha((255 * 0.65).ceil()),
+      onTertiary: AppColors.primaryGrey,
     ),
     textTheme: TextTheme(
       labelLarge: GoogleFonts.inter(
@@ -28,6 +29,7 @@ class AppThemes {
       secondary: Colors.white,
       onSecondary: AppColors.secondaryWhite.withAlpha((255 * 0.75).ceil()),
       tertiary: AppColors.primaryGrey.withAlpha((255 * 0.15).ceil()),
+      onTertiary: AppColors.secondaryGrey,
     ),
     textTheme: TextTheme(
       labelLarge: GoogleFonts.inter(

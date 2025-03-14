@@ -286,4 +286,22 @@ class AppButtons {
       ),
     );
   }
+
+  static Widget settingItem({
+    required VoidCallback onPressed,
+    required BuildContext context,
+    required Widget child,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.onTertiary,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: child,
+      ),
+    );
+  }
 }
