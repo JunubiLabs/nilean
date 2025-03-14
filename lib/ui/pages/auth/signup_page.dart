@@ -39,7 +39,6 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryBlue,
-      resizeToAvoidBottomInset: false,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == AuthStatus.unverified) {
@@ -101,7 +100,10 @@ class _SignupPageState extends State<SignupPage> {
                               const SizedBox(height: 5),
                               TextFormField(
                                 controller: _emailController,
-                                style: GoogleFonts.lato(fontSize: 15),
+                                style: GoogleFonts.lato(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
                                 validator: (email) {
                                   if (email == null || email.isEmpty) {
                                     return 'Please enter your email';
@@ -118,7 +120,10 @@ class _SignupPageState extends State<SignupPage> {
                               const SizedBox(height: 5),
                               TextFormField(
                                 controller: _passwordController,
-                                style: GoogleFonts.lato(fontSize: 15),
+                                style: GoogleFonts.lato(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
                                 validator: (password) {
                                   if (password == null) {
                                     return 'Please enter your password';

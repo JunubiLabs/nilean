@@ -39,7 +39,6 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryBlue,
-      resizeToAvoidBottomInset: false,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == AuthStatus.registrationComplete) {
@@ -98,7 +97,10 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                               const SizedBox(height: 5),
                               TextFormField(
                                 controller: _nameController,
-                                style: GoogleFonts.lato(fontSize: 15),
+                                style: GoogleFonts.lato(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
                                 decoration: InputThemes.usernameInput(
                                   "Name",
                                   context,

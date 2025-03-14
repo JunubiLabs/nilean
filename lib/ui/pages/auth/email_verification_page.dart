@@ -63,7 +63,6 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.primaryBlue,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -117,7 +116,10 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                 const SizedBox(height: 5),
                                 TextFormField(
                                   controller: _nameController,
-                                  style: GoogleFonts.lato(fontSize: 15),
+                                  style: GoogleFonts.lato(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
                                   decoration: InputThemes.usernameInput(
                                     "Name",
                                     context,

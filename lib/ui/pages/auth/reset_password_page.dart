@@ -39,7 +39,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryYellow,
-      resizeToAvoidBottomInset: false,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == AuthStatus.authenticated) {
@@ -99,7 +98,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               const SizedBox(height: 5),
                               TextFormField(
                                 controller: _emailController,
-                                style: GoogleFonts.lato(fontSize: 15),
+                                style: GoogleFonts.lato(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
                                 validator: (email) {
                                   if (email == null || email.isEmpty) {
                                     return 'Please enter your email';
