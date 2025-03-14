@@ -56,7 +56,7 @@ class _AppHeaderState extends State<AppHeader> {
             ),
             children: [
               TextSpan(
-                text: '\n${name.toTitleCase()} ',
+                text: '\n${name.isEmpty ? 'Dear User' : name.toTitleCase()} ',
                 style: GoogleFonts.lato(
                   fontSize: 28,
                   color: Theme.of(context).colorScheme.secondary,
