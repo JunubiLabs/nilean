@@ -39,6 +39,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryBlue,
+      resizeToAvoidBottomInset: false,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == AuthStatus.registrationComplete) {

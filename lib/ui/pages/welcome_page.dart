@@ -53,15 +53,15 @@ class _WelcomePageState extends State<WelcomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.mail_outline,
+                          Icons.login,
                           color: Colors.black,
                           weight: 2,
                           size: 21,
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          "Continue with Email",
-                          style: GoogleFonts.kanit(
+                          "Sign In / Sign Up",
+                          style: GoogleFonts.lato(
                             color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -79,17 +79,15 @@ class _WelcomePageState extends State<WelcomePage> {
                   const SizedBox(height: 5),
                   AppButtons.authButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/signin');
+                      Navigator.of(context).pushNamed('/home');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset('assets/images/google.png', width: 16),
-                        const SizedBox(width: 6),
                         Text(
-                          "Continue with Google",
-                          style: GoogleFonts.kanit(
+                          "Continue without Login",
+                          style: GoogleFonts.lato(
                             color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

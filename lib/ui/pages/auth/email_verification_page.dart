@@ -63,6 +63,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.primaryBlue,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
