@@ -295,7 +295,7 @@ class AppButtons {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.onTertiary,
           borderRadius: BorderRadius.circular(4),

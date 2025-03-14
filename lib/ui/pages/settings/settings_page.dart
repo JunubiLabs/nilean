@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nilean/repositories/auth_repository.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
 import 'package:nilean/ui/widgets/app_texts.dart';
+import 'package:rate_us_on_store/rate_us_on_store.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -34,7 +38,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 20),
               AppButtons.settingItem(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
+                },
                 context: context,
                 child: Row(
                   children: [
@@ -53,7 +59,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 5),
               AppButtons.settingItem(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/notifications');
+                },
                 context: context,
                 child: Row(
                   children: [
@@ -72,26 +80,10 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 5),
               AppButtons.settingItem(
-                onPressed: () {},
-                context: context,
-                child: Row(
-                  children: [
-                    Icon(Icons.account_circle_outlined),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Theme Settings',
-                      style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios_sharp),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 5),
-              AppButtons.settingItem(
-                onPressed: () {},
+                onPressed: () async {
+                  await AuthRepository().signOut();
+                  logout();
+                },
                 context: context,
                 child: Row(
                   children: [
@@ -156,7 +148,15 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 5),
               AppButtons.settingItem(
-                onPressed: () {},
+                onPressed: () async {
+                  final Uri url = Uri.parse('https://neurollect.africa');
+
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
                 context: context,
                 child: Row(
                   children: [
@@ -175,7 +175,13 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 5),
               AppButtons.settingItem(
-                onPressed: () {},
+                onPressed: () {
+                  Share.share(
+                    'Check out: https://play.google.com/store/apps/details?id=com.neurollect.nlean',
+                    subject:
+                        'Nilean: Connect, Communicate, and Stay Informed—Naturally.',
+                  );
+                },
                 context: context,
                 child: Row(
                   children: [
@@ -194,7 +200,12 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 5),
               AppButtons.settingItem(
-                onPressed: () {},
+                onPressed: () {
+                  RateUsOnStore(
+                    androidPackageName: "com.neurollect.nliean",
+                    appstoreAppId: "",
+                  ).launch();
+                },
                 context: context,
                 child: Row(
                   children: [
@@ -216,5 +227,9 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ),
     );
+  }
+
+  logout() {
+    Navigator.pushNamed(context, '/');
   }
 }

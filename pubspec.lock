@@ -941,6 +941,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
+  rate_us_on_store:
+    dependency: "direct main"
+    description:
+      name: rate_us_on_store
+      sha256: ef3c3b5847b6e8b13b912243249f723ebc974470041cdd1e25c90c4d8302c589
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   share_plus:
     dependency: "direct main"
     description:
