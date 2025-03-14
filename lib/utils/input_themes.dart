@@ -10,9 +10,13 @@ class InputThemes {
     return InputDecoration(
       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       filled: true,
-      fillColor: Theme.of(context).colorScheme.primary,
+      fillColor: Colors.white,
       labelText: label,
-      labelStyle: GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.bold),
+      labelStyle: GoogleFonts.lato(
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       border: const OutlineInputBorder(),
       enabledBorder: const OutlineInputBorder(
@@ -40,9 +44,13 @@ class InputThemes {
     return InputDecoration(
       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       filled: true,
-      fillColor: Theme.of(context).colorScheme.primary,
+      fillColor: Colors.white,
       labelText: "example@gmail.com",
-      labelStyle: GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.bold),
+      labelStyle: GoogleFonts.lato(
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       border: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black, width: 2),
@@ -79,9 +87,13 @@ class InputThemes {
     return InputDecoration(
       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       filled: true,
-      fillColor: Theme.of(context).colorScheme.primary,
+      fillColor: Colors.white,
       labelText: "password",
-      labelStyle: GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.bold),
+      labelStyle: GoogleFonts.lato(
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       border: const OutlineInputBorder(),
       enabledBorder: const OutlineInputBorder(

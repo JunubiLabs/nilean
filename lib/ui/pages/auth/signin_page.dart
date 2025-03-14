@@ -94,6 +94,7 @@ class _SigninPageState extends State<SigninPage> {
                           "To continue you need to sign in",
                           style: GoogleFonts.kanit(
                             fontSize: 15,
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(height: 5),

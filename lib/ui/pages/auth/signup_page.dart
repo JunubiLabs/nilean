@@ -88,6 +88,7 @@ class _SignupPageState extends State<SignupPage> {
                           "Enter Your Email and Password to Sign Up",
                           style: GoogleFonts.kanit(
                             fontSize: 15,
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(height: 5),
