@@ -12,7 +12,7 @@ class PriacyPolicyPage extends StatefulWidget {
 
 class _PriacyPolicyPageState extends State<PriacyPolicyPage> {
   final info = """
-At AudRead, we take your privacy and data security seriously. This Data and Privacy Statement explains how we collect, use, and protect your personal information and data when you use our e-learning app.
+At Neurollect, we take your privacy and data security seriously. This Data and Privacy Statement explains how we collect, use, and protect your personal information and data when you use our e-learning app.
 
 We collect personal information that you voluntarily provide to us when you use our app, such as your name, email address, and educational background. We may also collect information about your device, IP address, and browser type.
 
