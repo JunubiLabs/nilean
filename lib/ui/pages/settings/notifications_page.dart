@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -9,6 +10,7 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
+  bool isNotificationsOn = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +23,26 @@ class _NotificationsPageState extends State<NotificationsPage> {
             children: [
               AppButtons.backButton(onPressed: () {}),
               const SizedBox(height: 20),
+              AppTexts.sectionTitle(
+                title: 'Notifications',
+                subtitle: '',
+                context: context,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Turn on Notifications'),
+                  Transform.scale(
+                    scale: 0.5,
+                    child: Switch(
+                      value: isNotificationsOn,
+                      onChanged: (onChanged) {
+                        setState(() => isNotificationsOn = !isNotificationsOn);
+                      },
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),
