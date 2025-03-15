@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -21,6 +22,11 @@ class _AccountPageState extends State<AccountPage> {
             children: [
               AppButtons.backButton(onPressed: () {}),
               const SizedBox(height: 20),
+              AppTexts.sectionTitle(
+                title: 'My Account',
+                subtitle: '',
+                context: context,
+              ),
             ],
           ),
         ),
