@@ -81,7 +81,6 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
                 subtitle: '',
                 context: context,
               ),
-              const SizedBox(height: 20),
               MarkdownBody(data: terms),
             ],
           ),

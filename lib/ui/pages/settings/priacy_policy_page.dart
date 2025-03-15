@@ -54,7 +54,6 @@ If you have any questions or concerns about this Data and Privacy Statement, ple
                 subtitle: '',
                 context: context,
               ),
-              const SizedBox(height: 20),
               MarkdownBody(data: info),
             ],
           ),
