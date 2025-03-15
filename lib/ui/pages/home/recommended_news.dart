@@ -72,7 +72,7 @@ class _RecommendedNewsState extends State<RecommendedNews> {
               crossAxisSpacing: 10,
               children: [
                 if (snapshot.connectionState == ConnectionState.waiting) ...[
-                  for (var i = 0; i < 3; i++) ...[
+                  for (var i = 0; i < 4; i++) ...[
                     CardLoading(
                       height: 120,
                     ),
