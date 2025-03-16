@@ -142,8 +142,8 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   void _pickProfilePicture() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? photo = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? photo = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (photo != null) {
         _pickedImage = photo;
