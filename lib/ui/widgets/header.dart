@@ -13,6 +13,7 @@ class AppHeader extends StatefulWidget {
 
 class _AppHeaderState extends State<AppHeader> {
   String name = FirebaseAuth.instance.currentUser?.displayName ?? '';
+  String? photoUrl = FirebaseAuth.instance.currentUser?.photoURL;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,9 @@ class _AppHeaderState extends State<AppHeader> {
             width: 45,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/avatar.png'),
+                image: photoUrl != null
+                    ? NetworkImage(photoUrl ?? '')
+                    : AssetImage('assets/images/avatar.png'),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.circular(60),
