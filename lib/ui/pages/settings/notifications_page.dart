@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
 import 'package:nilean/ui/widgets/app_texts.dart';
 
@@ -10,7 +11,9 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
-  bool isNotificationsOn = true;
+  String info = """
+**"To turn on or off notifications for this app, go to your device's Settings > Apps > [App Name] > Notifications. Alternatively, you can also access notification settings from within the app by navigating to Settings > Notifications."**
+""";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,21 +31,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 subtitle: '',
                 context: context,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Turn on Notifications'),
-                  Transform.scale(
-                    scale: 0.5,
-                    child: Switch(
-                      value: isNotificationsOn,
-                      onChanged: (onChanged) {
-                        setState(() => isNotificationsOn = !isNotificationsOn);
-                      },
-                    ),
-                  )
-                ],
-              )
+              const SizedBox(height: 20),
+              MarkdownBody(data: info),
             ],
           ),
         ),
