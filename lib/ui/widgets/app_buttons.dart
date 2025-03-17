@@ -69,6 +69,27 @@ class AppButtons {
     );
   }
 
+  static Widget defButton({
+    required VoidCallback onPressed,
+    required Widget child,
+    required Color color,
+  }) {
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        backgroundColor: color,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+      ),
+      child: child,
+    );
+  }
+
   static Widget forwardButton({
     required onPressed,
   }) {

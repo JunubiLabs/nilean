@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/utils/colors.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -44,21 +46,37 @@ class _AccountPageState extends State<AccountPage> {
               Form(
                 key: _formKey,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Profile Picture
-                    _profilePictureUrl != null
-                        ? CircleAvatar(
-                            backgroundImage: NetworkImage(_profilePictureUrl!),
-                            radius: 50,
-                          )
-                        : CircleAvatar(
-                            radius: 50,
-                            child: Icon(Icons.person, size: 100),
-                          ),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: _profilePictureUrl != null
+                              ? NetworkImage(_profilePictureUrl ?? '')
+                              : AssetImage('assets/images/avatar.png'),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(60),
+                        border: Border.all(
+                          width: 2,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: _pickProfilePicture,
-                      child: Text('Update Profile Picture'),
+                    Row(
+                      children: [
+                        AppButtons.ellipsisButton(
+                          onPressed: _pickProfilePicture,
+                          text: 'Update Profile Picture',
+                          icon: Icons.arrow_outward,
+                          color: AppColors.primaryOrange,
+                          context: context,
+                        )
+                      ],
                     ),
                     SizedBox(height: 20),
 
@@ -82,6 +100,7 @@ class _AccountPageState extends State<AccountPage> {
                     TextFormField(
                       controller: _passwordController,
                       obscureText: true,
+                      style: GoogleFonts.lato(fontSize: 15),
                       decoration: InputDecoration(
                         labelText: 'New Password',
                         border: OutlineInputBorder(),
@@ -99,6 +118,7 @@ class _AccountPageState extends State<AccountPage> {
                     TextFormField(
                       controller: _confirmPasswordController,
                       obscureText: true,
+                      style: GoogleFonts.lato(fontSize: 15),
                       decoration: InputDecoration(
                         labelText: 'Confirm Password',
                         border: OutlineInputBorder(),
@@ -113,19 +133,37 @@ class _AccountPageState extends State<AccountPage> {
                     SizedBox(height: 20),
 
                     // Update Button
-                    ElevatedButton(
+                    AppButtons.defButton(
+                      color: Colors.green,
                       onPressed: _updateAccount,
-                      child: Text('Update Account'),
-                    ),
-                    SizedBox(height: 20),
-
-                    // Delete Account Button
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Update Account',
+                            style: GoogleFonts.lato(fontSize: 15),
+                          ),
+                        ],
                       ),
+                    ),
+                    SizedBox(height: 5),
+
+                    AppButtons.defButton(
+                      color: Colors.red,
                       onPressed: _deleteAccount,
-                      child: Text('Delete Account'),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Delete Account',
+                            style: GoogleFonts.lato(fontSize: 15),
+                          ),
+                          const SizedBox(width: 5),
+                          Icon(Icons.delete_forever_rounded)
+                        ],
+                      ),
                     ),
                   ],
                 ),
