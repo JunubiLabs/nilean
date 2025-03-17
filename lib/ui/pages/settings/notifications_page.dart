@@ -24,7 +24,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppButtons.backButton(onPressed: () {}),
+              AppButtons.backButton(onPressed: () {
+                Navigator.pop(context);
+              }),
               const SizedBox(height: 20),
               AppTexts.sectionTitle(
                 title: 'Notifications',

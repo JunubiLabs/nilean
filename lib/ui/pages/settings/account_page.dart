@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
-import 'package:nilean/ui/widgets/app_texts.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -38,13 +37,10 @@ class _AccountPageState extends State<AccountPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppButtons.backButton(onPressed: () {}),
+              AppButtons.backButton(onPressed: () {
+                Navigator.pop(context);
+              }),
               const SizedBox(height: 20),
-              AppTexts.sectionTitle(
-                title: 'My Account',
-                subtitle: '',
-                context: context,
-              ),
               Form(
                 key: _formKey,
                 child: Column(

@@ -47,7 +47,9 @@ If you have any questions or concerns about this Data and Privacy Statement, ple
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppButtons.backButton(onPressed: () {}),
+              AppButtons.backButton(onPressed: () {
+                Navigator.pop(context);
+              }),
               const SizedBox(height: 20),
               AppTexts.sectionTitle(
                 title: 'Privacy Policy',

@@ -39,7 +39,7 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(height: 20),
               AppButtons.settingItem(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/profile');
+                  Navigator.pushNamed(context, '/settings/account');
                 },
                 context: context,
                 child: Row(
@@ -60,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(height: 5),
               AppButtons.settingItem(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/notifications');
+                  Navigator.pushNamed(context, '/settings/notifications');
                 },
                 context: context,
                 child: Row(
@@ -110,7 +110,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 20),
               AppButtons.settingItem(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/settings/privacy');
+                },
                 context: context,
                 child: Row(
                   children: [
@@ -129,7 +131,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 5),
               AppButtons.settingItem(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/settings/terms');
+                },
                 context: context,
                 child: Row(
                   children: [
