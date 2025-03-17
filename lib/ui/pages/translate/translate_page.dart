@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nilean/blocs/translate/translate_bloc.dart';
 import 'package:nilean/blocs/translate/translate_event.dart';
 import 'package:nilean/blocs/translate/translate_state.dart';
@@ -5,6 +6,7 @@ import 'package:nilean/ui/pages/translate/translate_display.dart';
 import 'package:nilean/ui/pages/translate/translate_input.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
 import 'package:nilean/ui/widgets/app_texts.dart';
+import 'package:nilean/ui/widgets/auth_dialog.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -115,13 +117,22 @@ class _TranslatePageState extends State<TranslatePage> {
                   TranslateInput(
                     inputController: inputController,
                     onSend: () {
-                      context.read<TranslateBloc>().add(
-                            TranslateRequestedEvent(
-                              inputController.value.text,
-                              getLanguageCode(translateFromLanguage),
-                              getLanguageCode(translateToLanguage),
-                            ),
-                          );
+                      if (FirebaseAuth.instance.currentUser != null) {
+                        context.read<TranslateBloc>().add(
+                              TranslateRequestedEvent(
+                                inputController.value.text,
+                                getLanguageCode(translateFromLanguage),
+                                getLanguageCode(translateToLanguage),
+                              ),
+                            );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AuthDialog();
+                          },
+                        );
+                      }
                     },
                     onLanguagePressed: (String ste) {
                       setState(() {
