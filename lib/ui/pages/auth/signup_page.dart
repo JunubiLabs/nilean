@@ -87,6 +87,7 @@ class _SignupPageState extends State<SignupPage> {
                           "Enter Your Email and Password to Sign Up",
                           style: GoogleFonts.kanit(
                             fontSize: 15,
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -99,7 +100,10 @@ class _SignupPageState extends State<SignupPage> {
                               const SizedBox(height: 5),
                               TextFormField(
                                 controller: _emailController,
-                                style: GoogleFonts.lato(fontSize: 15),
+                                style: GoogleFonts.lato(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
                                 validator: (email) {
                                   if (email == null || email.isEmpty) {
                                     return 'Please enter your email';
@@ -116,7 +120,10 @@ class _SignupPageState extends State<SignupPage> {
                               const SizedBox(height: 5),
                               TextFormField(
                                 controller: _passwordController,
-                                style: GoogleFonts.lato(fontSize: 15),
+                                style: GoogleFonts.lato(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
                                 validator: (password) {
                                   if (password == null) {
                                     return 'Please enter your password';

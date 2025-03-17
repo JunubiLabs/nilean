@@ -7,6 +7,7 @@ class AppColors {
   static HexColor primaryWhite = HexColor("#FFFFFF");
   static HexColor secondaryWhite = HexColor('#F5F5F5');
   static HexColor primaryGrey = HexColor("#D9D9D9");
+  static Color secondaryGrey = Colors.grey.shade800;
   static HexColor primaryBlue = HexColor('#77A1DD');
   static HexColor secondaryBlue = HexColor('#1150AB');
   static HexColor primaryOrange = HexColor('#FF7D3C');

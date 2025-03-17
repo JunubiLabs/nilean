@@ -97,7 +97,10 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                               const SizedBox(height: 5),
                               TextFormField(
                                 controller: _nameController,
-                                style: GoogleFonts.lato(fontSize: 15),
+                                style: GoogleFonts.lato(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
                                 decoration: InputThemes.usernameInput(
                                   "Name",
                                   context,

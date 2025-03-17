@@ -69,6 +69,27 @@ class AppButtons {
     );
   }
 
+  static Widget defButton({
+    required VoidCallback onPressed,
+    required Widget child,
+    required Color color,
+  }) {
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        backgroundColor: color,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+      ),
+      child: child,
+    );
+  }
+
   static Widget forwardButton({
     required onPressed,
   }) {
@@ -283,6 +304,24 @@ class AppButtons {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  static Widget settingItem({
+    required VoidCallback onPressed,
+    required BuildContext context,
+    required Widget child,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.onTertiary,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: child,
       ),
     );
   }

@@ -9,6 +9,11 @@ import 'package:nilean/ui/pages/chat/chat_page.dart';
 import 'package:nilean/ui/pages/chat/my_chats.dart';
 import 'package:nilean/ui/pages/news/news_page.dart';
 import 'package:nilean/ui/pages/news/single_news_page.dart';
+import 'package:nilean/ui/pages/settings/account_page.dart';
+import 'package:nilean/ui/pages/settings/notifications_page.dart';
+import 'package:nilean/ui/pages/settings/priacy_policy_page.dart';
+import 'package:nilean/ui/pages/settings/settings_page.dart';
+import 'package:nilean/ui/pages/settings/terms_and_conditions_page.dart';
 import 'package:nilean/ui/pages/translate/translate_page.dart';
 import 'package:nilean/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +54,11 @@ class App extends StatelessWidget {
           '/my-chats': (context) => MyChats(),
           '/translate': (context) => TranslatePage(),
           '/news': (context) => NewsPage(),
+          '/settings': (context) => SettingsPage(),
+          '/settings/account': (context) => AccountPage(),
+          '/settings/notifications': (context) => NotificationsPage(),
+          '/settings/privacy': (context) => PriacyPolicyPage(),
+          '/settings/terms': (context) => TermsAndConditionsPage(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/article') {

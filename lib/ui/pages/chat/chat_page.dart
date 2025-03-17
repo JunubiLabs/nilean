@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nilean/blocs/chat/chat_bloc.dart';
 import 'package:nilean/blocs/chat/chat_event.dart';
 import 'package:nilean/blocs/chat/chat_state.dart';
@@ -7,6 +8,7 @@ import 'package:nilean/ui/pages/chat/chat_input.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
 import 'package:nilean/ui/widgets/app_texts.dart';
 import 'package:nilean/models/chat_model.dart';
+import 'package:nilean/ui/widgets/auth_dialog.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -173,16 +175,26 @@ class _ChatPageState extends State<ChatPage> {
                   ChatInput(
                     inputController: inputController,
                     onSend: () {
-                      setState(() {
-                        prompt = inputController.value.text;
-                      });
-                      inputController.clear();
-                      BlocProvider.of<ChatBloc>(context).add(
-                        SendPromptEvent(prompt, getLanguageCode(chatLanguage)),
-                      );
-                      Future.delayed(const Duration(seconds: 1)).then((x) {
-                        scrollToTheBottom();
-                      });
+                      if (FirebaseAuth.instance.currentUser != null) {
+                        setState(() {
+                          prompt = inputController.value.text;
+                        });
+                        inputController.clear();
+                        BlocProvider.of<ChatBloc>(context).add(
+                          SendPromptEvent(
+                              prompt, getLanguageCode(chatLanguage)),
+                        );
+                        Future.delayed(const Duration(seconds: 1)).then((x) {
+                          scrollToTheBottom();
+                        });
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AuthDialog();
+                          },
+                        );
+                      }
                     },
                     onLanguagePressed: (String language) {
                       setState(() {
