@@ -213,7 +213,7 @@ class _AccountPageState extends State<AccountPage> {
     if (_pickedImage != null) {
       final ref = FirebaseStorage.instance
           .ref()
-          .child('profilePictures/${FirebaseAuth.instance.currentUser?.uid}');
+          .child('profile_pictures/${FirebaseAuth.instance.currentUser?.uid}');
       await ref.putFile(File(_pickedImage!.path));
       final url = await ref.getDownloadURL();
       setState(() {
