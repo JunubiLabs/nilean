@@ -50,7 +50,12 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
 
     if (isEmailVerified) {
       timer?.cancel();
+      toCompleteSngup();
     }
+  }
+
+  toCompleteSngup() {
+    Navigator.pushNamed(context, '/complete-signup');
   }
 
   @override
@@ -67,7 +72,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == AuthStatus.verified) {
-            Navigator.of(context).pushNamed('/complete-registration');
+            Navigator.of(context).pushNamed('/complete-signup');
           }
         },
         child: SafeArea(
