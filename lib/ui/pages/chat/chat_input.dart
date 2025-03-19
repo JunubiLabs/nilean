@@ -1,4 +1,5 @@
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/input_themes.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,7 @@ class ChatInput extends StatelessWidget {
                 items: items,
                 activeItem: activeItem,
                 color: AppColors.primaryBlue,
+                displaySize: DisplaySize.large,
               ),
               const SizedBox(width: 5),
               AppButtons.circularButton(
@@ -62,6 +64,7 @@ class ChatInput extends StatelessWidget {
                 color: AppColors.primaryOrange,
                 context: context,
                 icon: Icons.attach_file_sharp,
+                displaySize: DisplaySize.large,
               ),
               const Spacer(),
               AppButtons.ellipsisButton(
@@ -70,6 +73,7 @@ class ChatInput extends StatelessWidget {
                 context: context,
                 text: 'Send ',
                 icon: Icons.send,
+                displaySize: DisplaySize.large,
               ),
             ],
           )

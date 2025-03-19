@@ -1,4 +1,5 @@
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:card_loading/card_loading.dart';
 import 'package:clipboard/clipboard.dart';
@@ -67,6 +68,7 @@ class TranslateDisplay extends StatelessWidget {
                 items: items,
                 activeItem: activeItem,
                 color: AppColors.primaryBlue,
+                displaySize: DisplaySize.large,
               ),
               const Spacer(),
               AppButtons.circularButton(
@@ -79,6 +81,7 @@ class TranslateDisplay extends StatelessWidget {
                 context: context,
                 color: AppColors.primaryYellow,
                 icon: Icons.copy_sharp,
+                displaySize: DisplaySize.large,
               ),
               const SizedBox(width: 2),
               AppButtons.circularButton(
@@ -86,6 +89,7 @@ class TranslateDisplay extends StatelessWidget {
                 context: context,
                 color: AppColors.primaryBlue,
                 icon: Icons.volume_up,
+                displaySize: DisplaySize.large,
               ),
               const SizedBox(width: 2),
               AppButtons.circularButton(
@@ -95,6 +99,7 @@ class TranslateDisplay extends StatelessWidget {
                 context: context,
                 color: AppColors.primaryGrey,
                 icon: Icons.ios_share,
+                displaySize: DisplaySize.large,
               ),
             ],
           )

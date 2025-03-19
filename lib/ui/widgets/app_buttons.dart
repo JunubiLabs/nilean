@@ -182,6 +182,7 @@ class AppButtons {
     required BuildContext context,
     required Color color,
     required IconData icon,
+    DisplaySize? displaySize,
   }) {
     return TextButton(
       onPressed: onPressed,
@@ -191,15 +192,31 @@ class AppButtons {
         minimumSize: Size.zero,
       ),
       child: Container(
-        width: 25,
-        height: 25,
+        width: displaySize == DisplaySize.large
+            ? 30
+            : displaySize == DisplaySize.small
+                ? 20
+                : 25,
+        height: displaySize == DisplaySize.large
+            ? 30
+            : displaySize == DisplaySize.small
+                ? 20
+                : 25,
         padding: EdgeInsets.all(3),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(50),
           border: Border.all(width: 2),
         ),
-        child: Icon(icon, color: Colors.black, size: 15),
+        child: Icon(
+          icon,
+          color: Colors.black,
+          size: displaySize == DisplaySize.large
+              ? 20
+              : displaySize == DisplaySize.small
+                  ? 12
+                  : 15,
+        ),
       ),
     );
   }

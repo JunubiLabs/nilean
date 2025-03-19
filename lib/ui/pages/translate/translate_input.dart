@@ -1,4 +1,5 @@
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/input_themes.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class TranslateInput extends StatelessWidget {
             onTapOutside: (event) {
               FocusScope.of(context).unfocus();
             },
+            keyboardType: TextInputType.multiline,
           ),
           Row(
             children: [
@@ -54,6 +56,7 @@ class TranslateInput extends StatelessWidget {
                 items: items,
                 activeItem: activeItem,
                 color: AppColors.primaryBlue,
+                displaySize: DisplaySize.large,
               ),
               const SizedBox(width: 5),
               AppButtons.circularButton(
@@ -61,6 +64,7 @@ class TranslateInput extends StatelessWidget {
                 color: AppColors.primaryOrange,
                 context: context,
                 icon: Icons.attach_file_sharp,
+                displaySize: DisplaySize.large,
               ),
               const Spacer(),
               AppButtons.ellipsisButton(
@@ -69,6 +73,7 @@ class TranslateInput extends StatelessWidget {
                 context: context,
                 text: 'Submit ',
                 icon: Icons.send,
+                displaySize: DisplaySize.large,
               ),
             ],
           )

@@ -84,6 +84,7 @@ class _NewsPageState extends State<NewsPage> {
                     items: languages,
                     activeItem: newsLanguage,
                     color: AppColors.primaryBlue,
+                    displaySize: DisplaySize.large,
                   ),
                 ],
               ),

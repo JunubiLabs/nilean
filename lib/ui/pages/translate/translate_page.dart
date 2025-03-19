@@ -51,7 +51,7 @@ class _TranslatePageState extends State<TranslatePage> {
       body: BlocBuilder<TranslateBloc, TranslateState>(
         builder: (context, state) {
           return SafeArea(
-            child: Padding(
+            child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
