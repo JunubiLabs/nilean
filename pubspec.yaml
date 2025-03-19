@@ -66,6 +66,7 @@ dependencies:
   rate_us_on_store: ^0.0.4
   image_picker: ^1.1.2
   firebase_storage: ^12.4.4
+  loader_overlay: ^5.0.0
 
 dev_dependencies:
   build_runner: ^2.4.15
