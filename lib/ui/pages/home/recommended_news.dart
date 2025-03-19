@@ -79,7 +79,7 @@ class _RecommendedNewsState extends State<RecommendedNews> {
                   ],
                 ],
                 if (snapshot.hasData) ...[
-                  for (var news in snapshot.data!.sublist(0, 4)) ...[
+                  for (var news in snapshot.data!.items.sublist(0, 4)) ...[
                     AppCards.curatedNewsCard(
                       context: context,
                       news: newsTitle(news),
@@ -100,7 +100,8 @@ class _RecommendedNewsState extends State<RecommendedNews> {
                           duration: const Duration(milliseconds: 700),
                           delay: Duration(
                               milliseconds:
-                                  (snapshot.data?.indexOf(news) ?? 0) * 100),
+                                  (snapshot.data?.items.indexOf(news) ?? 0) *
+                                      100),
                           begin: 0.5,
                         )
                         .fade(),
