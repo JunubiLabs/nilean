@@ -143,4 +143,25 @@ class InputThemes {
       ),
     );
   }
+
+  static InputDecoration defInput(BuildContext context, String label) {
+    return InputDecoration(
+      contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+      isCollapsed: true,
+      filled: true,
+      fillColor: Colors.transparent,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      labelText: label,
+      labelStyle: GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.bold),
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+      ),
+    );
+  }
 }
