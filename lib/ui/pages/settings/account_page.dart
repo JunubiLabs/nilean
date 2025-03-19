@@ -21,6 +21,7 @@ class _AccountPageState extends State<AccountPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameKey = GlobalKey<FormState>();
   final _passwordKey = GlobalKey<FormState>();
+  final _confirmPasswordKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -34,6 +35,9 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     _nameController.text = FirebaseAuth.instance.currentUser?.displayName ?? '';
+    setState(() {
+      _profilePictureUrl = FirebaseAuth.instance.currentUser?.photoURL;
+    });
   }
 
   @override
@@ -143,7 +147,7 @@ class _AccountPageState extends State<AccountPage> {
 
                       // Confirm Password
                       TextFormField(
-                        key: _passwordKey,
+                        key: _confirmPasswordKey,
                         controller: _confirmPasswordController,
                         obscureText: true,
                         style: GoogleFonts.lato(fontSize: 15),
@@ -247,6 +251,9 @@ class _AccountPageState extends State<AccountPage> {
   Future<void> _uploadProfilePicture() async {
     try {
       if (_pickedImage != null) {
+        setState(() {
+          loadingImage = true;
+        });
         final ref = FirebaseStorage.instance.ref().child(
             'profile_pictures/${FirebaseAuth.instance.currentUser?.uid}');
         await ref.putFile(File(_pickedImage!.path));
@@ -256,33 +263,53 @@ class _AccountPageState extends State<AccountPage> {
         });
         await FirebaseAuth.instance.currentUser?.updatePhotoURL(url);
         snackBar('Updated successfully');
+        setState(() {
+          loadingImage = false;
+        });
       }
     } catch (e) {
       snackBar('Error ${e.toString()}');
+      setState(() {
+        loadingImage = false;
+      });
     }
   }
 
   void _updateAccount() async {
-    if (_nameController.text.isNotEmpty && _passwordController.text.isEmpty) {
-      if (_nameKey.currentState!.validate()) {
-        try {
-          await FirebaseAuth.instance.currentUser
-              ?.updateDisplayName(_nameController.text);
-          snackBar('Account updated successfully');
-        } catch (e) {
-          snackBar('Error updating account: $e');
-        }
+    setState(() {
+      loading = true;
+    });
+    try {
+      if (_nameController.text.isNotEmpty && _passwordController.text.isEmpty) {
+        await FirebaseAuth.instance.currentUser
+            ?.updateDisplayName(_nameController.text);
+        snackBar('Account updated successfully');
       }
-    }
-    if (_nameController.text.isEmpty && _passwordController.text.isNotEmpty) {
-      if (_passwordKey.currentState!.validate()) {
-        try {
+      if (_nameController.text.isEmpty && _passwordController.text.isNotEmpty) {
+        if (_passwordKey.currentState!.validate() &&
+            _confirmPasswordKey.currentState!.validate()) {
           await FirebaseAuth.instance.currentUser
               ?.updatePassword(_passwordController.text);
-        } catch (e) {
-          snackBar('Error updating account: $e');
         }
       }
+      if (_nameController.text.isNotEmpty &&
+          _passwordController.text.isNotEmpty) {
+        if (_formKey.currentState!.validate()) {
+          await FirebaseAuth.instance.currentUser
+              ?.updateDisplayName(_nameController.text);
+          await FirebaseAuth.instance.currentUser
+              ?.updatePassword(_passwordController.text);
+        }
+      }
+
+      setState(() {
+        loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        loading = false;
+      });
+      snackBar('Error updating account: $e');
     }
   }
 
