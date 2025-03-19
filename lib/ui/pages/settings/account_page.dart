@@ -5,8 +5,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
 import 'package:nilean/utils/colors.dart';
+import 'package:nilean/utils/input_themes.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -17,16 +19,25 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   final _formKey = GlobalKey<FormState>();
+  final _nameKey = GlobalKey<FormState>();
+  final _passwordKey = GlobalKey<FormState>();
+  final _confirmPasswordKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   String? _profilePictureUrl;
   XFile? _pickedImage;
 
+  bool loadingImage = false;
+  bool loading = false;
+
   @override
   void initState() {
     super.initState();
     _nameController.text = FirebaseAuth.instance.currentUser?.displayName ?? '';
+    setState(() {
+      _profilePictureUrl = FirebaseAuth.instance.currentUser?.photoURL;
+    });
   }
 
   @override
@@ -50,23 +61,43 @@ class _AccountPageState extends State<AccountPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: _profilePictureUrl != null
-                                ? NetworkImage(_profilePictureUrl ?? '')
-                                : AssetImage('assets/images/avatar.png'),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(60),
-                          border: Border.all(
-                            width: 2,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ),
-                      ),
+                      loadingImage
+                          ? Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(60),
+                                border: Border.all(
+                                  width: 2,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
+                              ),
+                              child: Center(
+                                child: LoadingAnimationWidget.fourRotatingDots(
+                                  color: AppColors.primaryBlue,
+                                  size: 20,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: _profilePictureUrl != null
+                                      ? NetworkImage(_profilePictureUrl ?? '')
+                                      : AssetImage('assets/images/avatar.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(60),
+                                border: Border.all(
+                                  width: 2,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
+                              ),
+                            ),
                       SizedBox(height: 10),
                       Row(
                         children: [
@@ -80,14 +111,11 @@ class _AccountPageState extends State<AccountPage> {
                         ],
                       ),
                       SizedBox(height: 20),
-
-                      // Name
                       TextFormField(
+                        key: _nameKey,
                         controller: _nameController,
-                        decoration: InputDecoration(
-                          labelText: 'Name',
-                          border: OutlineInputBorder(),
-                        ),
+                        cursorColor: Colors.black,
+                        decoration: InputThemes.defInput(context, 'Name'),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your name';
@@ -95,16 +123,18 @@ class _AccountPageState extends State<AccountPage> {
                           return null;
                         },
                       ),
+
                       SizedBox(height: 10),
 
                       // Password
                       TextFormField(
+                        key: _passwordKey,
                         controller: _passwordController,
                         obscureText: true,
                         style: GoogleFonts.lato(fontSize: 15),
-                        decoration: InputDecoration(
-                          labelText: 'New Password',
-                          border: OutlineInputBorder(),
+                        decoration: InputThemes.defInput(
+                          context,
+                          'New Password',
                         ),
                         validator: (value) {
                           if (value == null || value.length < 8) {
@@ -117,12 +147,13 @@ class _AccountPageState extends State<AccountPage> {
 
                       // Confirm Password
                       TextFormField(
+                        key: _confirmPasswordKey,
                         controller: _confirmPasswordController,
                         obscureText: true,
                         style: GoogleFonts.lato(fontSize: 15),
-                        decoration: InputDecoration(
-                          labelText: 'Confirm Password',
-                          border: OutlineInputBorder(),
+                        decoration: InputThemes.defInput(
+                          context,
+                          'Confirm Password',
                         ),
                         validator: (value) {
                           if (value != _passwordController.text) {
@@ -137,16 +168,24 @@ class _AccountPageState extends State<AccountPage> {
                       AppButtons.defButton(
                         color: Colors.green,
                         onPressed: _updateAccount,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Update Account',
-                              style: GoogleFonts.lato(fontSize: 15),
-                            ),
-                          ],
-                        ),
+                        child: loading
+                            ? SizedBox(
+                                width: double.maxFinite,
+                                child: LoadingAnimationWidget.fourRotatingDots(
+                                  color: AppColors.primaryWhite,
+                                  size: 20,
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Update Account',
+                                    style: GoogleFonts.lato(fontSize: 15),
+                                  ),
+                                ],
+                              ),
                       ),
                       SizedBox(height: 5),
 
@@ -212,6 +251,9 @@ class _AccountPageState extends State<AccountPage> {
   Future<void> _uploadProfilePicture() async {
     try {
       if (_pickedImage != null) {
+        setState(() {
+          loadingImage = true;
+        });
         final ref = FirebaseStorage.instance.ref().child(
             'profile_pictures/${FirebaseAuth.instance.currentUser?.uid}');
         await ref.putFile(File(_pickedImage!.path));
@@ -221,28 +263,53 @@ class _AccountPageState extends State<AccountPage> {
         });
         await FirebaseAuth.instance.currentUser?.updatePhotoURL(url);
         snackBar('Updated successfully');
+        setState(() {
+          loadingImage = false;
+        });
       }
     } catch (e) {
       snackBar('Error ${e.toString()}');
+      setState(() {
+        loadingImage = false;
+      });
     }
   }
 
   void _updateAccount() async {
-    if (_formKey.currentState!.validate()) {
-      try {
+    setState(() {
+      loading = true;
+    });
+    try {
+      if (_nameController.text.isNotEmpty && _passwordController.text.isEmpty) {
         await FirebaseAuth.instance.currentUser
             ?.updateDisplayName(_nameController.text);
-        if (_passwordController.text.isNotEmpty) {
+        snackBar('Account updated successfully');
+      }
+      if (_nameController.text.isEmpty && _passwordController.text.isNotEmpty) {
+        if (_passwordKey.currentState!.validate() &&
+            _confirmPasswordKey.currentState!.validate()) {
           await FirebaseAuth.instance.currentUser
               ?.updatePassword(_passwordController.text);
         }
-        if (_pickedImage != null) {
-          await _uploadProfilePicture();
-        }
-        snackBar('Account updated successfully');
-      } catch (e) {
-        snackBar('Error updating account: $e');
       }
+      if (_nameController.text.isNotEmpty &&
+          _passwordController.text.isNotEmpty) {
+        if (_formKey.currentState!.validate()) {
+          await FirebaseAuth.instance.currentUser
+              ?.updateDisplayName(_nameController.text);
+          await FirebaseAuth.instance.currentUser
+              ?.updatePassword(_passwordController.text);
+        }
+      }
+
+      setState(() {
+        loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        loading = false;
+      });
+      snackBar('Error updating account: $e');
     }
   }
 

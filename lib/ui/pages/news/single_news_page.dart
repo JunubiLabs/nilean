@@ -1,5 +1,6 @@
 import 'package:nilean/models/news_article_model.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/app_texts.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -119,6 +120,7 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                     items: languages,
                     activeItem: newsLanguage,
                     color: AppColors.primaryBlue,
+                    displaySize: DisplaySize.large,
                   ),
                 ],
               ),
