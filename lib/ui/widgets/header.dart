@@ -3,6 +3,7 @@ import 'package:nilean/services/date_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nilean/ui/widgets/app_buttons.dart';
 
 class AppHeader extends StatefulWidget {
   const AppHeader({super.key});
@@ -48,27 +49,35 @@ class _AppHeaderState extends State<AppHeader> {
             ),
           ),
         ),
-        RichText(
-          textAlign: TextAlign.right,
-          text: TextSpan(
-            text: DateServices.getMorningOrEvening(),
-            style: GoogleFonts.jockeyOne(
-              fontSize: 15,
-              color: Theme.of(context).colorScheme.secondary,
-              height: 1.1,
-            ),
-            children: [
-              TextSpan(
-                text: '\n${name.isEmpty ? 'Dear User' : name.toTitleCase()} ',
-                style: GoogleFonts.lato(
-                  fontSize: 28,
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontWeight: FontWeight.bold,
+        FirebaseAuth.instance.currentUser != null
+            ? RichText(
+                textAlign: TextAlign.right,
+                text: TextSpan(
+                  text: DateServices.getMorningOrEvening(),
+                  style: GoogleFonts.jockeyOne(
+                    fontSize: 15,
+                    color: Theme.of(context).colorScheme.secondary,
+                    height: 1.1,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: name.toTitleCase(),
+                      style: GoogleFonts.lato(
+                        fontSize: 28,
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
+              )
+            : AppButtons.ellipsisButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/signin');
+                },
+                color: Colors.blue,
+                context: context,
               ),
-            ],
-          ),
-        ),
       ],
     );
   }
