@@ -153,7 +153,7 @@ class AppCards {
             Expanded(
               flex: 2,
               child: Container(
-                height: 100,
+                height: 120,
                 decoration: BoxDecoration(
                   color: AppColors.primaryGrey,
                   image: DecorationImage(
