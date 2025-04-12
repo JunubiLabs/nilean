@@ -77,8 +77,8 @@ class AppCards {
         shape: const RoundedRectangleBorder(),
       ),
       child: Container(
-        width: 200,
-        height: 120,
+        width: double.maxFinite,
+        height: 150,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: AppColors.primaryGrey,
