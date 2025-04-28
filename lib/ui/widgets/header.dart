@@ -53,7 +53,7 @@ class _AppHeaderState extends State<AppHeader> {
             ? RichText(
                 textAlign: TextAlign.right,
                 text: TextSpan(
-                  text: DateServices.getMorningOrEvening(),
+                  text: "${DateServices.getMorningOrEvening()}\n",
                   style: GoogleFonts.jockeyOne(
                     fontSize: 15,
                     color: Theme.of(context).colorScheme.secondary,
@@ -71,12 +71,19 @@ class _AppHeaderState extends State<AppHeader> {
                   ],
                 ),
               )
-            : AppButtons.ellipsisButton(
+            : AppButtons.defButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/signin');
                 },
                 color: Colors.blue,
-                context: context,
+                child: Text(
+                  'Sign In',
+                  style: GoogleFonts.lato(
+                    fontSize: 15,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
       ],
     );
