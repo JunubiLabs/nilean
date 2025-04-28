@@ -49,7 +49,10 @@ class _SplashPageState extends State<SplashPage> {
       if (currentUser != null && user.isEmailVerified && user.name != null) {
         navigator.pushReplacementNamed('/home');
       }
-      if (currentUser != null && (!user.isEmailVerified || user.name == null)) {
+      if (currentUser != null && !user.isEmailVerified) {
+        navigator.pushReplacementNamed('/email-verification');
+      }
+      if (currentUser != null && user.isEmailVerified && user.name == null) {
         navigator.pushReplacementNamed('/complete-signup');
       }
       if (currentUser == null) {
@@ -72,8 +75,12 @@ class _SplashPageState extends State<SplashPage> {
       );
       navigator.pushReplacementNamed('/home');
     }
+    if (currentUser != null && !currentUser.emailVerified) {
+      navigator.pushReplacementNamed('/email-verification');
+    }
     if (currentUser != null &&
-        (!currentUser.emailVerified || currentUser.displayName == null)) {
+        currentUser.emailVerified &&
+        currentUser.displayName == null) {
       navigator.pushReplacementNamed('/complete-signup');
     }
     if (currentUser == null) {
