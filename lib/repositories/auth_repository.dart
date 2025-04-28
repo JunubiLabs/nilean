@@ -1,10 +1,7 @@
-import 'package:nilean/models/user_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
@@ -64,14 +61,5 @@ class AuthRepository {
     if (user != null) {
       await user.updateDisplayName(name);
     }
-  }
-
-  Future<UserModel?> getCurrentUser() async {
-    final user = _firebaseAuth.currentUser;
-    if (user != null) {
-      final doc = await _firestore.collection('users').doc(user.uid).get();
-      return doc.exists ? UserModel.fromFirestore(doc) : null;
-    }
-    return null;
   }
 }

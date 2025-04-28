@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 part 'article_language_model.g.dart';
 
-@HiveType(typeId: 3)
+@HiveType(typeId: 2)
 class ArticleLanguageModel {
   @HiveField(0)
   final String en;

@@ -2,6 +2,7 @@ import 'package:nilean/app.dart';
 import 'package:nilean/gemini_options.dart';
 import 'package:nilean/models/chat_content_model.dart';
 import 'package:nilean/models/chat_model.dart';
+import 'package:nilean/models/user_model.dart';
 import 'package:nilean/repositories/news_repository.dart';
 import 'package:nilean/services/firebase_notification_services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +33,7 @@ void main() async {
 
   Hive.registerAdapter(ChatModelAdapter());
   Hive.registerAdapter(ChatContentModelAdapter());
+  Hive.registerAdapter(UserModelAdapter());
 
   runApp(const App());
 }

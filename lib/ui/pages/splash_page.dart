@@ -1,5 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:nilean/models/user_model.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -35,18 +38,46 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> _navigateBasedOnAuthStatus() async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
+    final navigator = Navigator.of(context);
+    final connectivityResult = await Connectivity().checkConnectivity();
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+
+    final userBox = await Hive.openBox('userBox');
+
+    if (connectivityResult == ConnectivityResult.none) {
+      final UserModel user = userBox.get('user');
+      if (currentUser != null && user.isEmailVerified && user.name != null) {
+        navigator.pushReplacementNamed('/home');
+      }
+      if (currentUser != null && (!user.isEmailVerified || user.name == null)) {
+        navigator.pushReplacementNamed('/complete-signup');
+      }
+      if (currentUser == null) {
+        navigator.pushReplacementNamed('/auth');
+      }
+    }
+
     if (currentUser != null &&
         currentUser.emailVerified &&
         currentUser.displayName != null) {
-      Navigator.of(context).pushReplacementNamed('/home');
+      await userBox.put(
+        'user',
+        UserModel.fromJson({
+          'uid': currentUser.uid,
+          'email': currentUser.email,
+          'name': currentUser.displayName,
+          'registrationComplete': true,
+          'isEmailVerified': true,
+        }),
+      );
+      navigator.pushReplacementNamed('/home');
     }
     if (currentUser != null &&
         (!currentUser.emailVerified || currentUser.displayName == null)) {
-      Navigator.of(context).pushReplacementNamed('/complete-signup');
+      navigator.pushReplacementNamed('/complete-signup');
     }
     if (currentUser == null) {
-      Navigator.of(context).pushReplacementNamed('/auth');
+      navigator.pushReplacementNamed('/auth');
     }
   }
 
