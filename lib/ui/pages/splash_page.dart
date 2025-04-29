@@ -1,7 +1,7 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:nilean/models/user_model.dart';
 
 class SplashPage extends StatefulWidget {
@@ -34,21 +34,18 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _checkAuthenticationStatus() async {
     Future.delayed(Duration(seconds: 2)).then((x) {
-      _navigateBasedOnAuthStatus().onError(
-        (error, stackTrace) {
-          print('Error: $error');
-        },
-      );
+      _navigateBasedOnAuthStatus();
     });
   }
 
   Future<void> _navigateBasedOnAuthStatus() async {
     final navigator = Navigator.of(context);
-    final connectivityResult = await Connectivity().checkConnectivity();
+    final bool isConnected =
+        await InternetConnectionChecker.instance.hasConnection;
     final User? currentUser = FirebaseAuth.instance.currentUser;
     final userBox = await Hive.openBox('user');
 
-    if (connectivityResult == ConnectivityResult.none) {
+    if (!isConnected) {
       final UserModel user = userBox.get('user');
       if (currentUser != null && user.isEmailVerified && user.name != null) {
         navigator.pushReplacementNamed('/home');

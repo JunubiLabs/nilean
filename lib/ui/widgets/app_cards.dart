@@ -67,6 +67,7 @@ class AppCards {
     required BuildContext context,
     required String news,
     required String image,
+    required String source,
     required VoidCallback onPressed,
   }) {
     return TextButton(
@@ -100,8 +101,8 @@ class AppCards {
               children: [
                 AppButtons.ellipsisButton(
                   onPressed: onPressed,
-                  color: AppColors.primaryOrange,
-                  text: Jiffy.now().yMd,
+                  color: AppColors.sourceColors(source),
+                  text: source,
                   context: context,
                   displaySize: DisplaySize.small,
                 ),
