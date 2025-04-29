@@ -46,7 +46,7 @@ class _SplashPageState extends State<SplashPage> {
     final navigator = Navigator.of(context);
     final connectivityResult = await Connectivity().checkConnectivity();
     final User? currentUser = FirebaseAuth.instance.currentUser;
-    final userBox = await Hive.openBox('userBox');
+    final userBox = await Hive.openBox('user');
 
     if (connectivityResult == ConnectivityResult.none) {
       final UserModel user = userBox.get('user');
@@ -60,7 +60,7 @@ class _SplashPageState extends State<SplashPage> {
         navigator.pushReplacementNamed('/complete-signup');
       }
       if (currentUser == null) {
-        if (firstTimeOpen()) {
+        if (await firstTimeOpen()) {
           navigator.pushReplacementNamed('/home');
         } else {
           navigator.pushReplacementNamed('/auth');
@@ -96,10 +96,10 @@ class _SplashPageState extends State<SplashPage> {
     }
   }
 
-  bool firstTimeOpen() {
-    final userBox = Hive.box('userBox');
-    if (userBox.get('firstTimeOpen') == null) {
-      userBox.put('firstTimeOpen', true);
+  Future<bool> firstTimeOpen() async {
+    final firstTime = await Hive.openBox('first_time');
+    if (firstTime.get('first_time') == null) {
+      firstTime.put('first_time', true);
       return true;
     } else {
       return false;

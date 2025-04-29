@@ -34,7 +34,7 @@ class AuthRepository {
         password: password,
       );
 
-      final userBox = await Hive.openBox('userBox');
+      final userBox = await Hive.openBox('user');
       await userBox.put(
         'user',
         UserModel(
@@ -70,7 +70,7 @@ class AuthRepository {
   Future<bool> isEmailVerified() async {
     await _firebaseAuth.currentUser?.reload();
 
-    final userBox = await Hive.openBox('userBox');
+    final userBox = await Hive.openBox('user');
     await userBox.put(
       'user',
       UserModel(
@@ -92,7 +92,7 @@ class AuthRepository {
       await user.updateDisplayName(name);
       await user.reload();
 
-      final userBox = await Hive.openBox('userBox');
+      final userBox = await Hive.openBox('user');
       await userBox.put(
         'user',
         UserModel.fromJson({
