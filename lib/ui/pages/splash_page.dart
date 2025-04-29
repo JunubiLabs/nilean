@@ -46,6 +46,7 @@ class _SplashPageState extends State<SplashPage> {
     final userBox = await Hive.openBox('user');
 
     if (!isConnected) {
+      print('not connected');
       final UserModel? user = userBox.get('user');
       if (user == null) {
         navigator.pushReplacementNamed('/auth');

@@ -25,8 +25,6 @@ void main() async {
     handleMessageNotification: handleMessageNotification,
   );
 
-  await FirebaseMessaging.instance.subscribeToTopic('articles');
-
   Gemini.init(apiKey: GeminiOptions.googleApiKey);
 
   await Hive.initFlutter();
@@ -41,6 +39,7 @@ void main() async {
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
+  await FirebaseMessaging.instance.subscribeToTopic('articles');
 }
 
 onNotificationTap(NotificationResponse notificationResponse) {
