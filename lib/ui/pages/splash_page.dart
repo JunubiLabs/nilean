@@ -33,7 +33,11 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _checkAuthenticationStatus() async {
     Future.delayed(Duration(seconds: 2)).then((x) {
-      _navigateBasedOnAuthStatus();
+      _navigateBasedOnAuthStatus().onError(
+        (error, stackTrace) {
+          print('Error: $error');
+        },
+      );
     });
   }
 
@@ -41,7 +45,6 @@ class _SplashPageState extends State<SplashPage> {
     final navigator = Navigator.of(context);
     final connectivityResult = await Connectivity().checkConnectivity();
     final User? currentUser = FirebaseAuth.instance.currentUser;
-
     final userBox = await Hive.openBox('userBox');
 
     if (connectivityResult == ConnectivityResult.none) {

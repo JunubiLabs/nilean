@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive/hive.dart';
+import 'package:nilean/models/user_model.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final User? currentUser = FirebaseAuth.instance.currentUser;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
@@ -26,10 +29,24 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      return await _firebaseAuth.signInWithEmailAndPassword(
+      final user = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      final userBox = await Hive.openBox('userBox');
+      await userBox.put(
+        'user',
+        UserModel(
+          uid: user.user!.uid,
+          email: user.user!.email.toString(),
+          name: user.user?.displayName,
+          isEmailVerified: user.user?.emailVerified ?? false,
+          registrationComplete: user.user?.displayName != null,
+        ),
+      );
+
+      return user;
     } on FirebaseAuthException catch (e) {
       throw 'Sign In Error: ${e.message}';
     }
@@ -52,6 +69,19 @@ class AuthRepository {
 
   Future<bool> isEmailVerified() async {
     await _firebaseAuth.currentUser?.reload();
+
+    final userBox = await Hive.openBox('userBox');
+    await userBox.put(
+      'user',
+      UserModel.fromJson({
+        'uid': currentUser?.uid,
+        'email': currentUser?.email,
+        'name': currentUser?.displayName,
+        'registrationComplete': false,
+        'isEmailVerified': true,
+      }),
+    );
+
     return _firebaseAuth.currentUser?.emailVerified ?? false;
   }
 
@@ -60,6 +90,19 @@ class AuthRepository {
     final user = _firebaseAuth.currentUser;
     if (user != null) {
       await user.updateDisplayName(name);
+      await user.reload();
+
+      final userBox = await Hive.openBox('userBox');
+      await userBox.put(
+        'user',
+        UserModel.fromJson({
+          'uid': currentUser?.uid,
+          'email': currentUser?.email,
+          'name': currentUser?.displayName,
+          'registrationComplete': true,
+          'isEmailVerified': true,
+        }),
+      );
     }
   }
 }
