@@ -22,13 +22,13 @@ class _MainSectionState extends State<MainSection> {
       children: [
         AppTexts.sectionTitle(
           context: context,
-          title: "Let's talk in",
+          title: "Everything in",
           subtitle: "your mother tongue",
         ),
         const SizedBox(height: 20),
         TextButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('/chat');
+            Navigator.of(context).pushNamed('/news');
           },
           style: TextButton.styleFrom(
             padding: EdgeInsets.all(0),
@@ -55,7 +55,7 @@ class _MainSectionState extends State<MainSection> {
                     AppButtons.forwardButton(onPressed: () {}),
                     RichText(
                       text: TextSpan(
-                        text: "Let's talk in",
+                        text: "Read news in",
                         style: GoogleFonts.lato(
                           fontSize: 21,
                           color: brightness == Brightness.dark
@@ -82,7 +82,7 @@ class _MainSectionState extends State<MainSection> {
                   ],
                 ),
                 Image(
-                  image: AssetImage('assets/images/chat.png'),
+                  image: AssetImage('assets/images/news.png'),
                   height: double.maxFinite,
                 ),
               ],
@@ -95,7 +95,7 @@ class _MainSectionState extends State<MainSection> {
             Expanded(
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/news');
+                  Navigator.of(context).pushNamed('/chat');
                 },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.all(0),
@@ -119,7 +119,7 @@ class _MainSectionState extends State<MainSection> {
                         children: [
                           Expanded(
                             child: Image(
-                              image: AssetImage('assets/images/news.png'),
+                              image: AssetImage('assets/images/chat.png'),
                               height: 80,
                               alignment: Alignment.topLeft,
                             ),
@@ -129,7 +129,7 @@ class _MainSectionState extends State<MainSection> {
                       ),
                       RichText(
                         text: TextSpan(
-                          text: "Read news in",
+                          text: "Let's talk in",
                           style: GoogleFonts.lato(
                             fontSize: 18,
                             color: AppColors.primaryBlack,

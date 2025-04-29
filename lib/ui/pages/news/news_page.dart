@@ -210,6 +210,7 @@ class _NewsPageState extends State<NewsPage> {
                                 context: context,
                                 news: newsTitle(news),
                                 image: news.imageUrl,
+                                source: news.source,
                                 onPressed: () {},
                               ),
                               const SizedBox(width: 10),

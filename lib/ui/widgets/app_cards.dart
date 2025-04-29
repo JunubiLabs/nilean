@@ -67,6 +67,7 @@ class AppCards {
     required BuildContext context,
     required String news,
     required String image,
+    required String source,
     required VoidCallback onPressed,
   }) {
     return TextButton(
@@ -77,8 +78,8 @@ class AppCards {
         shape: const RoundedRectangleBorder(),
       ),
       child: Container(
-        width: double.maxFinite,
-        height: 150,
+        width: 200,
+        height: 120,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: AppColors.primaryGrey,
@@ -100,8 +101,8 @@ class AppCards {
               children: [
                 AppButtons.ellipsisButton(
                   onPressed: onPressed,
-                  color: AppColors.primaryOrange,
-                  text: Jiffy.now().yMd,
+                  color: AppColors.sourceColors(source),
+                  text: source,
                   context: context,
                   displaySize: DisplaySize.small,
                 ),
@@ -153,7 +154,7 @@ class AppCards {
             Expanded(
               flex: 2,
               child: Container(
-                height: 120,
+                height: 100,
                 decoration: BoxDecoration(
                   color: AppColors.primaryGrey,
                   image: DecorationImage(

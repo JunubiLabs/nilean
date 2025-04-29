@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:nilean/models/user_model.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -24,29 +27,87 @@ class _SplashPageState extends State<SplashPage> {
       setState(() {
         _isDarkMode = brightness == Brightness.dark;
       });
+      firstTimeOpen();
       _checkAuthenticationStatus();
     });
   }
 
   Future<void> _checkAuthenticationStatus() async {
-    Future.delayed(Duration(seconds: 3)).then((x) {
+    Future.delayed(Duration(seconds: 2)).then((x) {
       _navigateBasedOnAuthStatus();
     });
   }
 
   Future<void> _navigateBasedOnAuthStatus() async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
+    final navigator = Navigator.of(context);
+    final bool isConnected =
+        await InternetConnectionChecker.instance.hasConnection;
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+    final userBox = await Hive.openBox('user');
+
+    if (!isConnected) {
+      final UserModel? user = userBox.get('user');
+      if (user == null) {
+        navigator.pushReplacementNamed('/auth');
+      }
+
+      if (currentUser != null && user!.isEmailVerified && user.name != null) {
+        navigator.pushReplacementNamed('/home');
+      }
+      if (currentUser != null && !user!.isEmailVerified) {
+        navigator.pushReplacementNamed('/email-verification');
+      }
+      if (currentUser != null && user!.isEmailVerified && user.name == null) {
+        navigator.pushReplacementNamed('/complete-signup');
+      }
+      if (currentUser == null) {
+        if (await firstTimeOpen()) {
+          navigator.pushReplacementNamed('/home');
+        } else {
+          navigator.pushReplacementNamed('/auth');
+        }
+      }
+    }
+
     if (currentUser != null &&
         currentUser.emailVerified &&
         currentUser.displayName != null) {
-      Navigator.of(context).pushReplacementNamed('/home');
+      await userBox.put(
+        'user',
+        UserModel(
+          uid: currentUser.uid,
+          email: currentUser.email.toString(),
+          name: currentUser.displayName,
+          registrationComplete: true,
+          isEmailVerified: true,
+        ),
+      );
+      navigator.pushReplacementNamed('/home');
+    }
+    if (currentUser != null && !currentUser.emailVerified) {
+      navigator.pushReplacementNamed('/email-verification');
     }
     if (currentUser != null &&
-        (!currentUser.emailVerified || currentUser.displayName == null)) {
-      Navigator.of(context).pushReplacementNamed('/complete-signup');
+        currentUser.emailVerified &&
+        currentUser.displayName == null) {
+      navigator.pushReplacementNamed('/complete-signup');
     }
     if (currentUser == null) {
-      Navigator.of(context).pushReplacementNamed('/auth');
+      if (await firstTimeOpen() == false) {
+        navigator.pushReplacementNamed('/home');
+      } else {
+        navigator.pushReplacementNamed('/auth');
+      }
+    }
+  }
+
+  Future<bool> firstTimeOpen() async {
+    final firstTime = await Hive.openBox('first_time');
+    if (firstTime.get('first_time') == null) {
+      firstTime.put('first_time', false);
+      return true;
+    } else {
+      return false;
     }
   }
 

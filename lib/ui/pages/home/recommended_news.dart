@@ -84,6 +84,7 @@ class _RecommendedNewsState extends State<RecommendedNews> {
                       context: context,
                       news: newsTitle(news),
                       image: news.imageUrl,
+                      source: news.source,
                       onPressed: () {
                         Navigator.push(
                           context,

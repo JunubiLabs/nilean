@@ -2,6 +2,7 @@ import 'package:nilean/app.dart';
 import 'package:nilean/gemini_options.dart';
 import 'package:nilean/models/chat_content_model.dart';
 import 'package:nilean/models/chat_model.dart';
+import 'package:nilean/models/user_model.dart';
 import 'package:nilean/repositories/news_repository.dart';
 import 'package:nilean/services/firebase_notification_services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,14 +25,13 @@ void main() async {
     handleMessageNotification: handleMessageNotification,
   );
 
-  await FirebaseMessaging.instance.subscribeToTopic('articles');
-
   Gemini.init(apiKey: GeminiOptions.googleApiKey);
 
   await Hive.initFlutter();
 
   Hive.registerAdapter(ChatModelAdapter());
   Hive.registerAdapter(ChatContentModelAdapter());
+  Hive.registerAdapter(UserModelAdapter());
 
   runApp(const App());
 }
@@ -39,6 +39,7 @@ void main() async {
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
+  await FirebaseMessaging.instance.subscribeToTopic('articles');
 }
 
 onNotificationTap(NotificationResponse notificationResponse) {

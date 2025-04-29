@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 
 part 'news_article_model.g.dart';
 
-@HiveType(typeId: 3)
+@HiveType(typeId: 4)
 class NewsArticleModel {
   @HiveField(0)
   final String id;

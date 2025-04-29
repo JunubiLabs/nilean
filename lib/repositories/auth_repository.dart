@@ -1,10 +1,10 @@
-import 'package:nilean/models/user_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive/hive.dart';
+import 'package:nilean/models/user_model.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final User? currentUser = FirebaseAuth.instance.currentUser;
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
@@ -29,10 +29,24 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      return await _firebaseAuth.signInWithEmailAndPassword(
+      final user = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      final userBox = await Hive.openBox('user');
+      await userBox.put(
+        'user',
+        UserModel(
+          uid: user.user!.uid,
+          email: user.user!.email.toString(),
+          name: user.user?.displayName,
+          isEmailVerified: user.user?.emailVerified ?? false,
+          registrationComplete: user.user?.displayName != null,
+        ),
+      );
+
+      return user;
     } on FirebaseAuthException catch (e) {
       throw 'Sign In Error: ${e.message}';
     }
@@ -40,6 +54,7 @@ class AuthRepository {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+    await Hive.deleteFromDisk();
   }
 
   Future<void> resetPassword(String email) async {
@@ -55,6 +70,19 @@ class AuthRepository {
 
   Future<bool> isEmailVerified() async {
     await _firebaseAuth.currentUser?.reload();
+
+    final userBox = await Hive.openBox('user');
+    await userBox.put(
+      'user',
+      UserModel(
+        uid: currentUser!.uid,
+        email: currentUser!.email.toString(),
+        name: currentUser?.displayName,
+        registrationComplete: false,
+        isEmailVerified: true,
+      ),
+    );
+
     return _firebaseAuth.currentUser?.emailVerified ?? false;
   }
 
@@ -63,15 +91,19 @@ class AuthRepository {
     final user = _firebaseAuth.currentUser;
     if (user != null) {
       await user.updateDisplayName(name);
-    }
-  }
+      await user.reload();
 
-  Future<UserModel?> getCurrentUser() async {
-    final user = _firebaseAuth.currentUser;
-    if (user != null) {
-      final doc = await _firestore.collection('users').doc(user.uid).get();
-      return doc.exists ? UserModel.fromFirestore(doc) : null;
+      final userBox = await Hive.openBox('user');
+      await userBox.put(
+        'user',
+        UserModel.fromJson({
+          'uid': currentUser?.uid,
+          'email': currentUser?.email,
+          'name': currentUser?.displayName,
+          'registrationComplete': true,
+          'isEmailVerified': true,
+        }),
+      );
     }
-    return null;
   }
 }
