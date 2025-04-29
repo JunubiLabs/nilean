@@ -27,6 +27,7 @@ class _SplashPageState extends State<SplashPage> {
       setState(() {
         _isDarkMode = brightness == Brightness.dark;
       });
+      firstTimeOpen();
       _checkAuthenticationStatus();
     });
   }
@@ -59,7 +60,11 @@ class _SplashPageState extends State<SplashPage> {
         navigator.pushReplacementNamed('/complete-signup');
       }
       if (currentUser == null) {
-        navigator.pushReplacementNamed('/auth');
+        if (firstTimeOpen()) {
+          navigator.pushReplacementNamed('/home');
+        } else {
+          navigator.pushReplacementNamed('/auth');
+        }
       }
     }
 
@@ -68,13 +73,13 @@ class _SplashPageState extends State<SplashPage> {
         currentUser.displayName != null) {
       await userBox.put(
         'user',
-        UserModel.fromJson({
-          'uid': currentUser.uid,
-          'email': currentUser.email,
-          'name': currentUser.displayName,
-          'registrationComplete': true,
-          'isEmailVerified': true,
-        }),
+        UserModel(
+          uid: currentUser.uid,
+          email: currentUser.email.toString(),
+          name: currentUser.displayName,
+          registrationComplete: true,
+          isEmailVerified: true,
+        ),
       );
       navigator.pushReplacementNamed('/home');
     }
@@ -88,6 +93,16 @@ class _SplashPageState extends State<SplashPage> {
     }
     if (currentUser == null) {
       navigator.pushReplacementNamed('/auth');
+    }
+  }
+
+  bool firstTimeOpen() {
+    final userBox = Hive.box('userBox');
+    if (userBox.get('firstTimeOpen') == null) {
+      userBox.put('firstTimeOpen', true);
+      return true;
+    } else {
+      return false;
     }
   }
 

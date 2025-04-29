@@ -73,13 +73,13 @@ class AuthRepository {
     final userBox = await Hive.openBox('userBox');
     await userBox.put(
       'user',
-      UserModel.fromJson({
-        'uid': currentUser?.uid,
-        'email': currentUser?.email,
-        'name': currentUser?.displayName,
-        'registrationComplete': false,
-        'isEmailVerified': true,
-      }),
+      UserModel(
+        uid: currentUser!.uid,
+        email: currentUser!.email.toString(),
+        name: currentUser?.displayName,
+        registrationComplete: false,
+        isEmailVerified: true,
+      ),
     );
 
     return _firebaseAuth.currentUser?.emailVerified ?? false;
