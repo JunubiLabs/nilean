@@ -46,14 +46,18 @@ class _SplashPageState extends State<SplashPage> {
     final userBox = await Hive.openBox('user');
 
     if (!isConnected) {
-      final UserModel user = userBox.get('user');
-      if (currentUser != null && user.isEmailVerified && user.name != null) {
+      final UserModel? user = userBox.get('user');
+      if (user == null) {
+        navigator.pushReplacementNamed('/auth');
+      }
+
+      if (currentUser != null && user!.isEmailVerified && user.name != null) {
         navigator.pushReplacementNamed('/home');
       }
-      if (currentUser != null && !user.isEmailVerified) {
+      if (currentUser != null && !user!.isEmailVerified) {
         navigator.pushReplacementNamed('/email-verification');
       }
-      if (currentUser != null && user.isEmailVerified && user.name == null) {
+      if (currentUser != null && user!.isEmailVerified && user.name == null) {
         navigator.pushReplacementNamed('/complete-signup');
       }
       if (currentUser == null) {
@@ -89,14 +93,18 @@ class _SplashPageState extends State<SplashPage> {
       navigator.pushReplacementNamed('/complete-signup');
     }
     if (currentUser == null) {
-      navigator.pushReplacementNamed('/auth');
+      if (await firstTimeOpen() == false) {
+        navigator.pushReplacementNamed('/home');
+      } else {
+        navigator.pushReplacementNamed('/auth');
+      }
     }
   }
 
   Future<bool> firstTimeOpen() async {
     final firstTime = await Hive.openBox('first_time');
     if (firstTime.get('first_time') == null) {
-      firstTime.put('first_time', true);
+      firstTime.put('first_time', false);
       return true;
     } else {
       return false;

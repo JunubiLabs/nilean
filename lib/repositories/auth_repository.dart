@@ -54,6 +54,7 @@ class AuthRepository {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+    await Hive.deleteFromDisk();
   }
 
   Future<void> resetPassword(String email) async {
