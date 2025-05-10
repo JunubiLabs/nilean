@@ -1,4 +1,3 @@
-import 'package:nilean/models/article_language_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 
@@ -10,7 +9,7 @@ class NewsArticleModel {
   final String id;
 
   @HiveField(1)
-  final ArticleLanguageModel title;
+  final String titleEn;
 
   @HiveField(2)
   final String author;
@@ -25,54 +24,60 @@ class NewsArticleModel {
   final String description;
 
   @HiveField(6)
-  final ArticleLanguageModel content;
-
-  @HiveField(7)
   final DateTime publishedAt;
 
-  @HiveField(8)
+  @HiveField(7)
   final String? category;
 
-  @HiveField(9)
+  @HiveField(8)
   final String source;
+
+  @HiveField(9)
+  final String? titleNus;
+
+  @HiveField(10)
+  final String? titleDin;
 
   NewsArticleModel({
     required this.id,
-    required this.title,
     required this.author,
     required this.url,
     required this.imageUrl,
     required this.description,
-    required this.content,
     required this.publishedAt,
     this.category,
     required this.source,
+    required this.titleEn,
+    required this.titleDin,
+    required this.titleNus,
   });
 
   factory NewsArticleModel.fromJson(Map<String, dynamic> json) {
     return NewsArticleModel(
       id: json['id'],
-      title: ArticleLanguageModel.fromJson(json['title']),
       author: json['author'],
       url: json['url'],
       imageUrl: json['imageUrl'],
       description: json['description'],
-      content: ArticleLanguageModel.fromJson(json['content']),
       publishedAt: json['publishedAt'],
       category: json['category'],
       source: json['source'],
+      titleEn: json['title_en'],
+      titleDin: json['title_din'],
+      titleNus: json['title_nus'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
-      'title': title.toJson(),
+      'title_en': titleEn,
+      'title_din': titleDin,
+      'title_nus': titleNus,
       'author': author,
       'url': url,
       'imageUrl': imageUrl,
       'description': description,
-      'content': content.toJson(),
       'publishedAt': publishedAt,
       'category': category,
       'source': source,
@@ -85,12 +90,13 @@ class NewsArticleModel {
     final data = doc.data()!;
     return NewsArticleModel(
       id: doc.id,
-      title: ArticleLanguageModel.fromJson(data['title']),
+      titleEn: data['title_en'],
+      titleDin: data['title_din'],
+      titleNus: data['title_nus'],
       author: data['author'],
       url: data['url'],
       imageUrl: data['imageUrl'],
       description: data['description'],
-      content: ArticleLanguageModel.fromJson(data['content']),
       publishedAt: DateTime.parse(data['publishedAt']),
       category: data['category'],
       source: data['source'],
@@ -100,12 +106,13 @@ class NewsArticleModel {
   Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
       'id': id,
-      'title': title.toJson(),
+      'title_en': titleEn,
+      'title_din': titleDin,
+      'title_nus': titleNus,
       'author': author,
       'url': url,
       'imageUrl': imageUrl,
       'description': description,
-      'content': content.toJson(),
       'publishedAt': publishedAt,
       'category': category,
       'source': source,

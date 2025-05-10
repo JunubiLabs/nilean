@@ -1,3 +1,4 @@
+import 'package:nilean/models/news_article_content_model.dart';
 import 'package:nilean/models/news_article_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -12,7 +13,7 @@ class NewsRepository {
     try {
       // Start with the base query
       Query<Map<String, dynamic>> query = _firestore
-          .collection('articles')
+          .collection('news_titles')
           .orderBy('publishedAt', descending: true)
           .limit(limit);
 
@@ -53,20 +54,30 @@ class NewsRepository {
   }
 
   Future<NewsArticleModel> fetchNewsById(String id) async {
-    final doc = await _firestore.collection('articles').doc(id).get();
+    final doc = await _firestore.collection('news_titles').doc(id).get();
     return NewsArticleModel.fromFirestore(doc);
   }
 
   Future<NewsArticleModel> fetchNewsByUrl({required String url}) async {
-    final doc = await _firestore
-        .collection('articles')
-        .where('url', isEqualTo: url)
-        .get();
-    return NewsArticleModel.fromFirestore(doc.docs.first);
+    try {
+      final doc = await _firestore
+          .collection('news_titles')
+          .where('url', isEqualTo: url)
+          .get();
+      return NewsArticleModel.fromFirestore(doc.docs.first);
+    } catch (e) {
+      throw Error();
+    }
+  }
+
+  Future<NewsArticleContentModel> fetchNewsContent(
+      {required String newsId}) async {
+    final doc = await _firestore.collection('news_content').doc(newsId).get();
+    return NewsArticleContentModel.fromFirestore(doc);
   }
 
   Future<NewsArticleModel> saveArticle(NewsArticleModel news) async {
-    final articleStorage = Hive.box<NewsArticleModel>('articles');
+    final articleStorage = Hive.box<NewsArticleModel>('news_titles');
     await articleStorage.put(news.id, news);
     return news;
   }

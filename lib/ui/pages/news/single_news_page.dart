@@ -1,4 +1,7 @@
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:nilean/models/news_article_content_model.dart';
 import 'package:nilean/models/news_article_model.dart';
+import 'package:nilean/repositories/news_repository.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
 import 'package:nilean/ui/widgets/app_texts.dart';
 import 'package:nilean/utils/colors.dart';
@@ -23,6 +26,9 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
   String newsLanguage = 'English';
   List<String> languages = AppConstants.languages.map((l) => l.name).toList();
 
+  late NewsArticleContentModel newsContent;
+  bool loading = true;
+
   getLanguageCode(String language) {
     return AppConstants.languages.firstWhere((l) => l.name == language).code;
   }
@@ -37,6 +43,17 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
     });
   }
 
+  loadNewsContent() async {
+    final content = await NewsRepository().fetchNewsContent(
+      newsId: widget.news.id,
+    );
+
+    setState(() {
+      newsContent = content;
+      loading = false;
+    });
+  }
+
   setLanguage(String language) {
     Hive.openBox('settings').then((box) {
       box.put('language', language);
@@ -45,27 +62,28 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
 
   String newsData() {
     if (getLanguageCode(newsLanguage) == 'en') {
-      return widget.news.content.en;
+      return newsContent.contentEn;
     } else if (getLanguageCode(newsLanguage) == 'nus') {
-      return widget.news.content.nus ?? widget.news.content.en;
+      return newsContent.contentNus ?? newsContent.contentEn;
     } else {
-      return widget.news.content.din ?? widget.news.content.en;
+      return newsContent.contentDin ?? newsContent.contentEn;
     }
   }
 
   String newsTitle(NewsArticleModel news) {
     if (getLanguageCode(newsLanguage) == 'en') {
-      return news.title.en;
+      return news.titleEn;
     } else if (getLanguageCode(newsLanguage) == 'nus') {
-      return news.title.nus ?? news.title.en;
+      return news.titleNus ?? news.titleEn;
     } else {
-      return news.title.din ?? news.title.en;
+      return news.titleDin ?? news.titleEn;
     }
   }
 
   @override
   void initState() {
     loadInitialLanguage();
+    loadNewsContent();
     super.initState();
   }
 
@@ -171,11 +189,20 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    MarkdownBody(
-                      data: newsData(),
-                      selectable: true,
-                      shrinkWrap: true,
-                    ),
+                    if (loading) ...[
+                      Center(
+                        child: LoadingAnimationWidget.fourRotatingDots(
+                          color: Colors.blue,
+                          size: 30,
+                        ),
+                      ),
+                    ] else ...[
+                      MarkdownBody(
+                        data: newsData(),
+                        selectable: true,
+                        shrinkWrap: true,
+                      ),
+                    ],
                   ],
                 ),
               ),
