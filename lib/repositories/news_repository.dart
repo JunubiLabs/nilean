@@ -1,3 +1,4 @@
+import 'package:nilean/models/news_article_content_model.dart';
 import 'package:nilean/models/news_article_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -63,6 +64,12 @@ class NewsRepository {
         .where('url', isEqualTo: url)
         .get();
     return NewsArticleModel.fromFirestore(doc.docs.first);
+  }
+
+  Future<NewsArticleContentModel> fetchNewsContent(
+      {required String newsId}) async {
+    final doc = await _firestore.collection('news_content').doc(newsId).get();
+    return NewsArticleContentModel.fromFirestore(doc);
   }
 
   Future<NewsArticleModel> saveArticle(NewsArticleModel news) async {

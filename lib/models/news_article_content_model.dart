@@ -13,7 +13,7 @@ class NewsArticleContentModel {
   @HiveField(2)
   final String? contentDin;
 
-  @HiveField(2)
+  @HiveField(3)
   final String newsId;
 
   NewsArticleContentModel({
@@ -46,10 +46,10 @@ class NewsArticleContentModel {
   ) {
     final data = doc.data()!;
     return NewsArticleContentModel(
-      newsid: 'newsId',
-      contentEn: 'contentEn',
-      contentDin: 'contentDin',
-      contentNus: 'contentNus',
+      newsId: doc.id,
+      contentEn: data['contentEn'],
+      contentDin: data['contentDin'],
+      contentNus: data['contentNus'],
     );
   }
 

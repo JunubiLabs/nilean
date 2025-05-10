@@ -1,5 +1,6 @@
 import 'package:nilean/models/news_article_content_model.dart';
 import 'package:nilean/models/news_article_model.dart';
+import 'package:nilean/repositories/news_repository.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
 import 'package:nilean/ui/widgets/app_texts.dart';
 import 'package:nilean/utils/colors.dart';
@@ -41,7 +42,16 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
     });
   }
 
-  loadNewsContent() {}
+  loadNewsContent() async {
+    final content = await NewsRepository().fetchNewsContent(
+      newsId: widget.news.id,
+    );
+
+    setState(() {
+      newsContent = content;
+      loading = false;
+    });
+  }
 
   setLanguage(String language) {
     Hive.openBox('settings').then((box) {
@@ -72,6 +82,7 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
   @override
   void initState() {
     loadInitialLanguage();
+    loadNewsContent();
     super.initState();
   }
 
