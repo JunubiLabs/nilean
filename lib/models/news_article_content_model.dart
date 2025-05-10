@@ -47,18 +47,18 @@ class NewsArticleContentModel {
     final data = doc.data()!;
     return NewsArticleContentModel(
       newsId: doc.id,
-      contentEn: data['contentEn'],
-      contentDin: data['contentDin'],
-      contentNus: data['contentNus'],
+      contentEn: data['content_en'],
+      contentDin: data['content_din'],
+      contentNus: data['content_nus'],
     );
   }
 
   Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
       'newsid': newsId,
-      'contentEn': contentEn,
-      'contentDin': contentDin,
-      'contentNus': contentNus,
+      'content_en': contentEn,
+      'content_din': contentDin,
+      'content_nus': contentNus,
     };
   }
 }
