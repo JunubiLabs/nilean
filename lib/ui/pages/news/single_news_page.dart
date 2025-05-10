@@ -1,3 +1,4 @@
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:nilean/models/news_article_content_model.dart';
 import 'package:nilean/models/news_article_model.dart';
 import 'package:nilean/repositories/news_repository.dart';
@@ -188,11 +189,20 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    MarkdownBody(
-                      data: newsData(),
-                      selectable: true,
-                      shrinkWrap: true,
-                    ),
+                    if (loading) ...[
+                      Center(
+                        child: LoadingAnimationWidget.fourRotatingDots(
+                          color: Colors.blue,
+                          size: 30,
+                        ),
+                      ),
+                    ] else ...[
+                      MarkdownBody(
+                        data: newsData(),
+                        selectable: true,
+                        shrinkWrap: true,
+                      ),
+                    ],
                   ],
                 ),
               ),

@@ -13,7 +13,7 @@ class NewsRepository {
     try {
       // Start with the base query
       Query<Map<String, dynamic>> query = _firestore
-          .collection('articles')
+          .collection('news_titles')
           .orderBy('publishedAt', descending: true)
           .limit(limit);
 
@@ -59,11 +59,15 @@ class NewsRepository {
   }
 
   Future<NewsArticleModel> fetchNewsByUrl({required String url}) async {
-    final doc = await _firestore
-        .collection('news_titles')
-        .where('url', isEqualTo: url)
-        .get();
-    return NewsArticleModel.fromFirestore(doc.docs.first);
+    try {
+      final doc = await _firestore
+          .collection('news_titles')
+          .where('url', isEqualTo: url)
+          .get();
+      return NewsArticleModel.fromFirestore(doc.docs.first);
+    } catch (e) {
+      throw Error();
+    }
   }
 
   Future<NewsArticleContentModel> fetchNewsContent(
