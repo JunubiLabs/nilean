@@ -53,20 +53,20 @@ class NewsRepository {
   }
 
   Future<NewsArticleModel> fetchNewsById(String id) async {
-    final doc = await _firestore.collection('articles').doc(id).get();
+    final doc = await _firestore.collection('news_titles').doc(id).get();
     return NewsArticleModel.fromFirestore(doc);
   }
 
   Future<NewsArticleModel> fetchNewsByUrl({required String url}) async {
     final doc = await _firestore
-        .collection('articles')
+        .collection('news_titles')
         .where('url', isEqualTo: url)
         .get();
     return NewsArticleModel.fromFirestore(doc.docs.first);
   }
 
   Future<NewsArticleModel> saveArticle(NewsArticleModel news) async {
-    final articleStorage = Hive.box<NewsArticleModel>('articles');
+    final articleStorage = Hive.box<NewsArticleModel>('news_titles');
     await articleStorage.put(news.id, news);
     return news;
   }

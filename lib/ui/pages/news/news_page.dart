@@ -54,11 +54,11 @@ class _NewsPageState extends State<NewsPage> {
 
   String newsTitle(NewsArticleModel news) {
     if (getLanguageCode(newsLanguage) == 'en') {
-      return news.title.en;
+      return news.titleEn;
     } else if (getLanguageCode(newsLanguage) == 'nus') {
-      return news.title.nus ?? news.title.en;
+      return news.titleNus ?? news.titleEn;
     } else {
-      return news.title.din ?? news.title.en;
+      return news.titleDin ?? news.titleEn;
     }
   }
 
