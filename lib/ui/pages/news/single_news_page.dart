@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:card_loading/card_loading.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:nilean/models/news_article_content_model.dart';
 import 'package:nilean/models/news_article_model.dart';
@@ -177,16 +179,36 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryGrey,
-                        image: DecorationImage(
-                          image: NetworkImage(widget.news.imageUrl),
-                          fit: BoxFit.cover,
+                    CachedNetworkImage(
+                      imageUrl: widget.news.imageUrl,
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryGrey,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
                         ),
+                      ),
+                      placeholder: (context, url) => CardLoading(
+                        height: 200,
                         borderRadius: BorderRadius.circular(5),
                       ),
+                      errorWidget: (context, url, error) {
+                        return Container(
+                          height: 200,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child:
+                                Icon(Icons.error_outline, color: Colors.white),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 20),
                     if (loading) ...[
