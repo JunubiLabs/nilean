@@ -212,10 +212,13 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
                     ),
                     const SizedBox(height: 20),
                     if (loading) ...[
-                      Center(
-                        child: LoadingAnimationWidget.fourRotatingDots(
-                          color: Colors.blue,
-                          size: 30,
+                      SizedBox(
+                        height: 200,
+                        child: Center(
+                          child: LoadingAnimationWidget.inkDrop(
+                            color: AppColors.primaryOrange,
+                            size: 40,
+                          ),
                         ),
                       ),
                     ] else ...[
