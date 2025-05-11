@@ -71,6 +71,7 @@ class AppCards {
     required String image,
     required String source,
     required VoidCallback onPressed,
+    double? width,
   }) {
     return TextButton(
       onPressed: onPressed,
@@ -83,48 +84,55 @@ class AppCards {
         imageUrl: image,
         imageBuilder: (context, imageProvider) => Container(
           height: 120,
-          padding: const EdgeInsets.all(10),
+          width: width,
           decoration: BoxDecoration(
             color: AppColors.primaryGrey,
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Colors.black.withAlpha(75),
-                BlendMode.darken,
-              ),
-            ),
             borderRadius: BorderRadius.circular(5),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
+          child: Stack(
             children: [
-              Row(
-                children: [
-                  AppButtons.ellipsisButton(
-                    onPressed: onPressed,
-                    color: AppColors.sourceColors(source),
-                    text: source,
-                    context: context,
-                    displaySize: DisplaySize.small,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 5),
-              RichText(
-                maxLines: 3,
-                text: TextSpan(
-                  text: news,
-                  style: GoogleFonts.inter(
-                    height: 1.0,
-                    fontSize: 13,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+              Positioned.fill(
+                child: Image(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                  color: Colors.black.withAlpha(75),
+                  colorBlendMode: BlendMode.darken,
                 ),
               ),
-              const SizedBox(height: 5),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        AppButtons.ellipsisButton(
+                          onPressed: onPressed,
+                          color: AppColors.sourceColors(source),
+                          text: source,
+                          context: context,
+                          displaySize: DisplaySize.small,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    RichText(
+                      maxLines: 3,
+                      text: TextSpan(
+                        text: news,
+                        style: GoogleFonts.inter(
+                          height: 1.0,
+                          fontSize: 13,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

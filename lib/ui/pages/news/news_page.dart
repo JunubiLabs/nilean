@@ -211,7 +211,17 @@ class _NewsPageState extends State<NewsPage> {
                                 news: newsTitle(news),
                                 image: news.imageUrl,
                                 source: news.source,
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SingleNewsPage(
+                                        news: news,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                width: 200,
                               ),
                               const SizedBox(width: 10),
                             ],
