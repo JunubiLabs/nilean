@@ -79,53 +79,108 @@ class AppCards {
         padding: EdgeInsets.zero,
         shape: const RoundedRectangleBorder(),
       ),
-      child: Container(
-        width: 200,
-        height: 120,
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: AppColors.primaryGrey,
-          image: DecorationImage(
-            image: NetworkImage(image),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              Colors.black.withAlpha(75),
-              BlendMode.darken,
-            ),
-          ),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Row(
-              children: [
-                AppButtons.ellipsisButton(
-                  onPressed: onPressed,
-                  color: AppColors.sourceColors(source),
-                  text: source,
-                  context: context,
-                  displaySize: DisplaySize.small,
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            RichText(
-              maxLines: 3,
-              text: TextSpan(
-                text: news,
-                style: GoogleFonts.inter(
-                  height: 1.0,
-                  fontSize: 13,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
+      child: CachedNetworkImage(
+        imageUrl: image,
+        imageBuilder: (context, imageProvider) => Container(
+          height: 120,
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: AppColors.primaryGrey,
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                Colors.black.withAlpha(75),
+                BlendMode.darken,
               ),
             ),
-            const SizedBox(height: 5),
-          ],
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Row(
+                children: [
+                  AppButtons.ellipsisButton(
+                    onPressed: onPressed,
+                    color: AppColors.sourceColors(source),
+                    text: source,
+                    context: context,
+                    displaySize: DisplaySize.small,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 5),
+              RichText(
+                maxLines: 3,
+                text: TextSpan(
+                  text: news,
+                  style: GoogleFonts.inter(
+                    height: 1.0,
+                    fontSize: 13,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 5),
+            ],
+          ),
         ),
+        placeholder: (context, url) => CardLoading(
+          height: 120,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        errorWidget: (context, url, error) {
+          return Container(
+            height: 120,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.redAccent.shade100,
+              image: DecorationImage(
+                image: NetworkImage(image),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withAlpha(75),
+                  BlendMode.darken,
+                ),
+              ),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  children: [
+                    AppButtons.ellipsisButton(
+                      onPressed: onPressed,
+                      color: AppColors.sourceColors(source),
+                      text: source,
+                      context: context,
+                      displaySize: DisplaySize.small,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                RichText(
+                  maxLines: 3,
+                  text: TextSpan(
+                    text: news,
+                    style: GoogleFonts.inter(
+                      height: 1.0,
+                      fontSize: 13,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -173,7 +228,6 @@ class AppCards {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 errorWidget: (context, url, error) {
-                  print(error);
                   return Container(
                     height: 100,
                     decoration: BoxDecoration(
