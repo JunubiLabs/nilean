@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:card_loading/card_loading.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
 import 'package:nilean/ui/widgets/app_texts.dart';
 import 'package:nilean/utils/colors.dart';
@@ -153,16 +155,36 @@ class AppCards {
           children: [
             Expanded(
               flex: 2,
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryGrey,
-                  image: DecorationImage(
-                    image: NetworkImage(image),
-                    fit: BoxFit.cover,
+              child: CachedNetworkImage(
+                imageUrl: image,
+                imageBuilder: (context, imageProvider) => Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryGrey,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
                   ),
+                ),
+                placeholder: (context, url) => CardLoading(
+                  height: 100,
                   borderRadius: BorderRadius.circular(5),
                 ),
+                errorWidget: (context, url, error) {
+                  print(error);
+                  return Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Center(
+                      child: Icon(Icons.error_outline, color: Colors.white),
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(width: 10),
@@ -175,7 +197,7 @@ class AppCards {
                   RichText(
                     maxLines: 3,
                     text: TextSpan(
-                      text: 'by $author | ${Jiffy.parse(date).MMMEd}',
+                      text: '$author | ${Jiffy.parse(date).MMMEd}',
                       style: GoogleFonts.inter(
                         height: 1.0,
                         fontSize: 10,
