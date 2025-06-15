@@ -126,11 +126,28 @@ class _SigninPageState extends State<SigninPage> {
                             color: Colors.black,
                           ),
                         ),
-                        Text(
-                          "To continue you need to sign in",
-                          style: GoogleFonts.kanit(
-                            fontSize: 15,
-                            color: Colors.black,
+                        RichText(
+                          text: TextSpan(
+                            text: "forgot your password?",
+                            style: GoogleFonts.kanit(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context)
+                                        .pushNamed('/reset-password');
+                                  },
+                                text: " Click Here",
+                                style: GoogleFonts.kanit(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -185,31 +202,6 @@ class _SigninPageState extends State<SigninPage> {
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              RichText(
-                                text: TextSpan(
-                                  text: "forgot your password?",
-                                  style: GoogleFonts.kanit(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.of(context)
-                                              .pushNamed('/reset-password');
-                                        },
-                                      text: " CLICK HERE",
-                                      style: GoogleFonts.kanit(
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 5),
                               AppButtons.blueButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
@@ -231,10 +223,35 @@ class _SigninPageState extends State<SigninPage> {
                                       : Text(
                                           "Sign In",
                                           style: GoogleFonts.kanit(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                ),
+                              ),
+                              AppButtons.defButton(
+                                onPressed: () {
+                                  context
+                                      .read<AuthBloc>()
+                                      .add(SignInWithGoogleRequested());
+                                },
+                                color: Colors.blue.shade600,
+                                child: SizedBox(
+                                  width: double.maxFinite,
+                                  child: state.status == AuthStatus.loading
+                                      ? LoadingAnimationWidget.fourRotatingDots(
+                                          color: AppColors.primaryWhite,
+                                          size: 20,
+                                        )
+                                      : Text(
+                                          "Sign In With Google",
+                                          style: GoogleFonts.kanit(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
+                                            color: Colors.black,
                                           ),
-                                          textAlign: TextAlign.center,
+                                          textAlign: TextAlign.left,
                                         ),
                                 ),
                               ),

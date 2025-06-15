@@ -204,12 +204,38 @@ class _SignupPageState extends State<SignupPage> {
                                           style: GoogleFonts.kanit(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
+                                            color: Colors.white,
                                           ),
-                                          textAlign: TextAlign.center,
+                                          textAlign: TextAlign.left,
                                         ),
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                        AppButtons.defButton(
+                          onPressed: () {
+                            context
+                                .read<AuthBloc>()
+                                .add(SignInWithGoogleRequested());
+                          },
+                          color: Colors.blue.shade600,
+                          child: SizedBox(
+                            width: double.maxFinite,
+                            child: state.status == AuthStatus.loading
+                                ? LoadingAnimationWidget.fourRotatingDots(
+                                    color: AppColors.primaryWhite,
+                                    size: 20,
+                                  )
+                                : Text(
+                                    "Sign In With Google",
+                                    style: GoogleFonts.kanit(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
                           ),
                         ),
                         const SizedBox(height: 5),

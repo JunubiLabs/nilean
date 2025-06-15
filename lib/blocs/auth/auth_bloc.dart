@@ -15,6 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthStateChanged>(_onAuthStateChanged);
     on<SignUpRequested>(_onSignUp);
     on<SignInRequested>(_onSignIn);
+    on<SignInWithGoogleRequested>(_onSignInWithGoogle);
     on<SignOutRequested>(_onSignOut);
     on<ResetPasswordRequested>(_onResetPassword);
     on<SendVerificationEmailRequested>(_onSendVerificationEmailRequested);
@@ -63,6 +64,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(
         status: AuthStatus.authenticated,
         user: user?.user,
+      ));
+    } on FirebaseAuthException catch (e) {
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: e.code,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: e.toString(),
+      ));
+    }
+  }
+
+  Future<void> _onSignInWithGoogle(
+    SignInWithGoogleRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(status: AuthStatus.loading));
+      final user = await authRepository.signInWithGoogle();
+      emit(state.copyWith(
+        status: AuthStatus.authenticated,
+        user: user.user,
       ));
     } on FirebaseAuthException catch (e) {
       emit(state.copyWith(
