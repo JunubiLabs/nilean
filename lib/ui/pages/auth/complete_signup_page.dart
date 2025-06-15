@@ -21,9 +21,6 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
 
-  bool isLoading = false;
-  Timer? timer;
-
   @override
   void initState() {
     super.initState();
@@ -31,7 +28,6 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
 
   @override
   void dispose() {
-    timer?.cancel();
     _nameController.dispose();
     super.dispose();
   }
@@ -41,7 +37,8 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
     return Scaffold(
       backgroundColor: AppColors.primaryBlue,
       body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
+        listener: (context, state) async {
+          Future.delayed(const Duration(milliseconds: 1000));
           if (state.status == AuthStatus.registrationComplete) {
             Navigator.of(context).pushNamed('/home');
           }
@@ -106,6 +103,12 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                                   fontSize: 15,
                                   color: Colors.black,
                                 ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your name';
+                                  }
+                                  return null;
+                                },
                                 decoration: InputThemes.usernameInput(
                                   "Name",
                                   context,
@@ -122,7 +125,7 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                               context
                                   .read<AuthBloc>()
                                   .add(CompleteRegistrationRequested(
-                                    _nameController.text,
+                                    _nameController.value.text,
                                   ));
                             }
                           },

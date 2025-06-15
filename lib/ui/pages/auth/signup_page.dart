@@ -1,5 +1,6 @@
 import 'package:nilean/blocs/auth/auth_bloc.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/snack_bar.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/input_themes.dart';
 import 'package:flutter/gestures.dart';
@@ -45,10 +46,11 @@ class _SignupPageState extends State<SignupPage> {
             Navigator.of(context).pushNamed('/email-verification');
           }
           if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error.toString()),
-              ),
+            showSnackBar(
+              context,
+              SnackMessageType.error,
+              'Signup Error',
+              state.error.toString(),
             );
           }
         },

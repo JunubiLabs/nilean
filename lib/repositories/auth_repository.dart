@@ -88,22 +88,29 @@ class AuthRepository {
 
   User? get currentFirebaseUser => _firebaseAuth.currentUser;
   Future<void> completeRegistration(String name) async {
-    final user = _firebaseAuth.currentUser;
-    if (user != null) {
-      await user.updateDisplayName(name);
-      await user.reload();
+    try {
+      print(name);
+      Future.delayed(const Duration(seconds: 2));
+      final user = _firebaseAuth.currentUser;
+      if (user != null) {
+        await user.updateDisplayName(name);
+        await user.reload();
 
-      final userBox = await Hive.openBox('user');
-      await userBox.put(
-        'user',
-        UserModel.fromJson({
-          'uid': currentUser?.uid,
-          'email': currentUser?.email,
-          'name': currentUser?.displayName,
-          'registrationComplete': true,
-          'isEmailVerified': true,
-        }),
-      );
+        final userBox = await Hive.openBox('user');
+        await userBox.put(
+          'user',
+          UserModel.fromJson({
+            'uid': currentUser?.uid,
+            'email': currentUser?.email,
+            'name': currentUser?.displayName,
+            'registrationComplete': true,
+            'isEmailVerified': true,
+          }),
+        );
+      }
+    } on FirebaseException catch (e) {
+      print(e);
+      throw 'Error completing registration: ${e.message}';
     }
   }
 }

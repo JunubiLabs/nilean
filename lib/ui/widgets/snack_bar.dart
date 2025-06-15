@@ -102,6 +102,7 @@ void showSnackBar(
         message: message,
         onClose: () => scaffoldMessenger.hideCurrentSnackBar(),
       ),
+      width: double.maxFinite,
       duration: const Duration(seconds: 5),
     ),
   );

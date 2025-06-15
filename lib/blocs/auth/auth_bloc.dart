@@ -32,11 +32,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     try {
       emit(state.copyWith(status: AuthStatus.loading));
-      await authRepository.signUp(
+      final user = await authRepository.signUp(
         email: event.email,
         password: event.password,
       );
-      emit(state.copyWith(status: AuthStatus.unverified));
+      emit(state.copyWith(status: AuthStatus.unverified, user: user?.user));
     } on FirebaseAuthException catch (e) {
       emit(state.copyWith(
         status: AuthStatus.unauthenticated,
@@ -107,7 +107,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     SendVerificationEmailRequested event,
     Emitter<AuthState> emit,
   ) async {
-    await authRepository.sendVerificationEmail();
+    try {
+      emit(state.copyWith(status: AuthStatus.loading));
+      await authRepository.sendVerificationEmail();
+    } catch (e) {
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: e.toString(),
+      ));
+    }
   }
 
   Future<void> checkEmailVerified(
@@ -123,11 +131,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     try {
+      print(event.name);
       emit(state.copyWith(status: AuthStatus.loading));
       await authRepository.completeRegistration(event.name);
       emit(state.copyWith(status: AuthStatus.registrationComplete));
     } catch (e) {
-      print(e);
+      print('Error completing here: $e');
       emit(state.copyWith(
         status: AuthStatus.registrationIncomplete,
         error: 'Something Went Wrong. Please try again.',
