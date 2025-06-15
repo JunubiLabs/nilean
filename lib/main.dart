@@ -1,3 +1,4 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:nilean/app.dart';
 import 'package:nilean/gemini_options.dart';
 import 'package:nilean/models/chat_content_model.dart';
@@ -23,6 +24,11 @@ void main() async {
     handler: firebaseMessagingBackgroundHandler,
     onNotificationTap: onNotificationTap,
     handleMessageNotification: handleMessageNotification,
+  );
+
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+    appleProvider: AppleProvider.debug,
   );
 
   Gemini.init(apiKey: GeminiOptions.googleApiKey);

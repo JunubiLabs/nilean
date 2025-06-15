@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:nilean/blocs/auth/auth_bloc.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/snack_bar.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/input_themes.dart';
 import 'package:flutter/gestures.dart';
@@ -19,6 +22,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    timer = Timer.periodic(Duration(seconds: 3), (_) {});
+  }
+
+  Timer? timer;
 
   bool isObsecure = true;
 
@@ -41,8 +53,16 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       backgroundColor: AppColors.primaryYellow,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state.status == AuthStatus.authenticated) {
-            Navigator.of(context).pushNamed('/home');
+          if (state.status == AuthStatus.unauthenticated) {
+            if (state.error == 'Password Reset Email Sent') {
+              showSnackBar(
+                context,
+                SnackMessageType.info,
+                'Password Reset',
+                'Password Reset Email Sent',
+              );
+            }
+            Navigator.of(context).pushNamed('/signin');
           }
           if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -74,6 +94,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        AppButtons.backButton(onPressed: () {
+                          Navigator.pop(context);
+                        }),
+                        const Spacer(),
                         Text(
                           "Forgot Password",
                           style: GoogleFonts.jockeyOne(
@@ -86,6 +110,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           "Enter your email to get password reset email",
                           style: GoogleFonts.kanit(
                             fontSize: 15,
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -117,7 +142,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               ),
                               const SizedBox(height: 5),
                               AppButtons.blueButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    context
+                                        .read<AuthBloc>()
+                                        .add(ResetPasswordRequested(
+                                          _emailController.text,
+                                        ));
+                                  }
+                                },
                                 child: SizedBox(
                                   width: double.maxFinite,
                                   child: state.status == AuthStatus.loading
@@ -149,8 +182,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             children: [
                               TextSpan(
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () {},
-                                text: "RESEND",
+                                  ..onTap = () {
+                                    context
+                                        .read<AuthBloc>()
+                                        .add(ResetPasswordRequested(
+                                          _emailController.text,
+                                        ));
+                                  },
+                                text: "Resend Email",
                                 style: GoogleFonts.kanit(
                                   fontSize: 15,
                                   color: Colors.black,

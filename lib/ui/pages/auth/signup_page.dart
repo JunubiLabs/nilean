@@ -75,6 +75,16 @@ class _SignupPageState extends State<SignupPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            AppButtons.backButton(onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                          ],
+                        ),
+                        const Spacer(),
                         Text(
                           "Sign Up",
                           style: GoogleFonts.jockeyOne(

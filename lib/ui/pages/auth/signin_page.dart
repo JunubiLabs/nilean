@@ -1,5 +1,7 @@
 import 'package:nilean/blocs/auth/auth_bloc.dart';
+import 'package:nilean/main.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/snack_bar.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/input_themes.dart';
 import 'package:flutter/gestures.dart';
@@ -35,27 +37,58 @@ class _SigninPageState extends State<SigninPage> {
     });
   }
 
+  errorHandling(String code) {
+    if (code == 'user-not-found') {
+      snackBarMessage('No user found for that email.');
+    } else if (code == 'wrong-password') {
+      snackBarMessage('Wrong password provided for that user.');
+    }
+    if (code == 'invalid-email') {
+      snackBarMessage('Invalid email.');
+    }
+    if (code == 'user-disabled') {
+      snackBarMessage('User is disabled.');
+    }
+    if (code == 'too-many-requests') {
+      snackBarMessage('Too Many Requests. Try Again Later.');
+    }
+    if (code ==
+        'Sign In Error: The supplied auth credential is incorrect, malformed or has expired.') {
+      snackBarMessage(
+          'The supplied email/password credential is incorrect, malformed or has expired.');
+    } else {
+      snackBarMessage(code);
+    }
+  }
+
+  snackBarMessage(String message) {
+    return showSnackBar(
+      context,
+      SnackMessageType.error,
+      'Authentication Error',
+      message,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryYellow,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state.status == AuthStatus.authenticated &&
-              state.user!.emailVerified &&
-              state.user!.displayName != null) {
+          var user = state.user;
+          if (user != null &&
+              state.status == AuthStatus.authenticated &&
+              user.emailVerified &&
+              user.displayName != null) {
             Navigator.of(context).pushNamed('/home');
           }
-          if (state.user!.emailVerified == false ||
-              state.user!.displayName == null) {
+          if (user != null &&
+              (user.emailVerified == false || user.displayName == null)) {
             Navigator.of(context).pushNamed('/complete-signup');
           }
           if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error.toString()),
-              ),
-            );
+            errorHandling(state.error!);
           }
         },
         child: SafeArea(
@@ -81,6 +114,10 @@ class _SigninPageState extends State<SigninPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        AppButtons.backButton(onPressed: () {
+                          navigatorKey.currentState!.pop();
+                        }),
+                        const Spacer(),
                         Text(
                           "Sign In",
                           style: GoogleFonts.jockeyOne(
@@ -147,33 +184,31 @@ class _SigninPageState extends State<SigninPage> {
                                   hidePassword,
                                 ),
                               ),
-                              if (state.error != null) ...[
-                                const SizedBox(height: 5),
-                                RichText(
-                                  text: TextSpan(
-                                    text: "forgot your password?",
-                                    style: GoogleFonts.kanit(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            Navigator.of(context)
-                                                .pushNamed('/reset-password');
-                                          },
-                                        text: " CLICK HERE",
-                                        style: GoogleFonts.kanit(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    ],
+                              const SizedBox(height: 5),
+                              RichText(
+                                text: TextSpan(
+                                  text: "forgot your password?",
+                                  style: GoogleFonts.kanit(
+                                    fontSize: 15,
+                                    color: Colors.black,
                                   ),
+                                  children: [
+                                    TextSpan(
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.of(context)
+                                              .pushNamed('/reset-password');
+                                        },
+                                      text: " CLICK HERE",
+                                      style: GoogleFonts.kanit(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              ],
+                              ),
                               const SizedBox(height: 5),
                               AppButtons.blueButton(
                                 onPressed: () {

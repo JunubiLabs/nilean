@@ -122,6 +122,10 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                                   .add(CompleteRegistrationRequested(
                                     _nameController.text,
                                   ));
+
+                              setState(() {
+                                isLoading = false;
+                              });
                             }
                           },
                           child: SizedBox(

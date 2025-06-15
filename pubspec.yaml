@@ -70,6 +70,7 @@ dependencies:
   connectivity_plus: ^6.1.4
   internet_connection_checker: ^3.0.1
   cached_network_image: ^3.4.1
+  firebase_app_check: ^0.3.2+7
 
 dev_dependencies:
   build_runner: ^2.4.15

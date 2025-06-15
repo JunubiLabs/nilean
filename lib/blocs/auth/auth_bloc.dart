@@ -16,6 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignUpRequested>(_onSignUp);
     on<SignInRequested>(_onSignIn);
     on<SignOutRequested>(_onSignOut);
+    on<ResetPasswordRequested>(_onResetPassword);
     on<SendVerificationEmailRequested>(_onSendVerificationEmailRequested);
     on<CompleteRegistrationRequested>(completeRegistration);
   }
@@ -71,7 +72,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(state.copyWith(
         status: AuthStatus.unauthenticated,
-        error: 'Signup failed. Please try again.',
+        error: e.toString(),
+      ));
+    }
+  }
+
+  Future<void> _onResetPassword(
+    ResetPasswordRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(status: AuthStatus.loading));
+      await authRepository.resetPassword(event.email);
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: 'Password Reset Email Sent',
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: e.toString(),
       ));
     }
   }
@@ -108,7 +128,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(state.copyWith(
         status: AuthStatus.registrationIncomplete,
-        error: 'Registration failed. Please try again.',
+        error: 'Something Went Wrong. Please try again.',
       ));
     }
   }
