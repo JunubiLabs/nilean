@@ -144,7 +144,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                           },
                           child: SizedBox(
                             width: double.maxFinite,
-                            child: isLoading
+                            child: state.status == AuthStatus.loading
                                 ? LoadingAnimationWidget.fourRotatingDots(
                                     color: AppColors.primaryWhite,
                                     size: 20,

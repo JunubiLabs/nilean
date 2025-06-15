@@ -118,6 +118,7 @@ class InputThemes {
         onPressed: toggleObsecure,
         icon: Icon(
           isObsecure ? IconsaxPlusLinear.eye : IconsaxPlusLinear.eye_slash,
+          color: Colors.black,
         ),
       ),
     );

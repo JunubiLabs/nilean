@@ -15,7 +15,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthStateChanged>(_onAuthStateChanged);
     on<SignUpRequested>(_onSignUp);
     on<SignInRequested>(_onSignIn);
+    on<SignInWithGoogleRequested>(_onSignInWithGoogle);
     on<SignOutRequested>(_onSignOut);
+    on<ResetPasswordRequested>(_onResetPassword);
     on<SendVerificationEmailRequested>(_onSendVerificationEmailRequested);
     on<CompleteRegistrationRequested>(completeRegistration);
   }
@@ -31,11 +33,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     try {
       emit(state.copyWith(status: AuthStatus.loading));
-      await authRepository.signUp(
+      final user = await authRepository.signUp(
         email: event.email,
         password: event.password,
       );
-      emit(state.copyWith(status: AuthStatus.unverified));
+      emit(state.copyWith(status: AuthStatus.unverified, user: user?.user));
     } on FirebaseAuthException catch (e) {
       emit(state.copyWith(
         status: AuthStatus.unauthenticated,
@@ -71,7 +73,50 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(state.copyWith(
         status: AuthStatus.unauthenticated,
-        error: 'Signup failed. Please try again.',
+        error: e.toString(),
+      ));
+    }
+  }
+
+  Future<void> _onSignInWithGoogle(
+    SignInWithGoogleRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(status: AuthStatus.loading));
+      final user = await authRepository.signInWithGoogle();
+      emit(state.copyWith(
+        status: AuthStatus.authenticated,
+        user: user.user,
+      ));
+    } on FirebaseAuthException catch (e) {
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: e.code,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: e.toString(),
+      ));
+    }
+  }
+
+  Future<void> _onResetPassword(
+    ResetPasswordRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(status: AuthStatus.loading));
+      await authRepository.resetPassword(event.email);
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: 'Password Reset Email Sent',
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: e.toString(),
       ));
     }
   }
@@ -87,7 +132,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     SendVerificationEmailRequested event,
     Emitter<AuthState> emit,
   ) async {
-    await authRepository.sendVerificationEmail();
+    try {
+      emit(state.copyWith(status: AuthStatus.loading));
+      await authRepository.sendVerificationEmail();
+    } catch (e) {
+      emit(state.copyWith(
+        status: AuthStatus.unauthenticated,
+        error: e.toString(),
+      ));
+    }
   }
 
   Future<void> checkEmailVerified(
@@ -103,12 +156,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     try {
+      emit(state.copyWith(status: AuthStatus.loading));
       await authRepository.completeRegistration(event.name);
       emit(state.copyWith(status: AuthStatus.registrationComplete));
     } catch (e) {
       emit(state.copyWith(
         status: AuthStatus.registrationIncomplete,
-        error: 'Registration failed. Please try again.',
+        error: 'Something Went Wrong. Please try again.',
       ));
     }
   }

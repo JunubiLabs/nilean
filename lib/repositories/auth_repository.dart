@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:nilean/models/user_model.dart';
 
@@ -21,6 +22,42 @@ class AuthRepository {
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw 'Sign Up Error: ${e.message}';
+    }
+  }
+
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  Future<UserCredential> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        throw Exception('Sign in aborted by user');
+      }
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      final user = await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final userBox = await Hive.openBox('user');
+      await userBox.put(
+        'user',
+        UserModel(
+          uid: user.user!.uid,
+          email: user.user!.email.toString(),
+          name: user.user?.displayName,
+          isEmailVerified: user.user?.emailVerified ?? false,
+          registrationComplete: user.user?.displayName != null,
+        ),
+      );
+
+      return user;
+    } on FirebaseAuthException catch (e) {
+      throw 'Sign In Error: ${e.message}';
+    } catch (e) {
+      throw 'Sign In Error: $e';
     }
   }
 
@@ -49,6 +86,8 @@ class AuthRepository {
       return user;
     } on FirebaseAuthException catch (e) {
       throw 'Sign In Error: ${e.message}';
+    } catch (e) {
+      throw 'Sign In Error: $e';
     }
   }
 
@@ -88,22 +127,27 @@ class AuthRepository {
 
   User? get currentFirebaseUser => _firebaseAuth.currentUser;
   Future<void> completeRegistration(String name) async {
-    final user = _firebaseAuth.currentUser;
-    if (user != null) {
-      await user.updateDisplayName(name);
-      await user.reload();
+    try {
+      Future.delayed(const Duration(seconds: 2));
+      final user = _firebaseAuth.currentUser;
+      if (user != null) {
+        await user.updateDisplayName(name);
+        await user.reload();
 
-      final userBox = await Hive.openBox('user');
-      await userBox.put(
-        'user',
-        UserModel.fromJson({
-          'uid': currentUser?.uid,
-          'email': currentUser?.email,
-          'name': currentUser?.displayName,
-          'registrationComplete': true,
-          'isEmailVerified': true,
-        }),
-      );
+        final userBox = await Hive.openBox('user');
+        await userBox.put(
+          'user',
+          UserModel.fromJson({
+            'uid': currentUser?.uid,
+            'email': currentUser?.email,
+            'name': currentUser?.displayName,
+            'registrationComplete': true,
+            'isEmailVerified': true,
+          }),
+        );
+      }
+    } on FirebaseException catch (e) {
+      throw 'Error completing registration: ${e.message}';
     }
   }
 }

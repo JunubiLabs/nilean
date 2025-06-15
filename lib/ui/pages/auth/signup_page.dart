@@ -1,5 +1,6 @@
 import 'package:nilean/blocs/auth/auth_bloc.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/snack_bar.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/input_themes.dart';
 import 'package:flutter/gestures.dart';
@@ -45,10 +46,11 @@ class _SignupPageState extends State<SignupPage> {
             Navigator.of(context).pushNamed('/email-verification');
           }
           if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error.toString()),
-              ),
+            showSnackBar(
+              context,
+              SnackMessageType.error,
+              'Signup Error',
+              state.error.toString(),
             );
           }
         },
@@ -75,6 +77,16 @@ class _SignupPageState extends State<SignupPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            AppButtons.backButton(onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                          ],
+                        ),
+                        const Spacer(),
                         Text(
                           "Sign Up",
                           style: GoogleFonts.jockeyOne(
@@ -192,12 +204,38 @@ class _SignupPageState extends State<SignupPage> {
                                           style: GoogleFonts.kanit(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
+                                            color: Colors.white,
                                           ),
-                                          textAlign: TextAlign.center,
+                                          textAlign: TextAlign.left,
                                         ),
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                        AppButtons.defButton(
+                          onPressed: () {
+                            context
+                                .read<AuthBloc>()
+                                .add(SignInWithGoogleRequested());
+                          },
+                          color: Colors.blue.shade600,
+                          child: SizedBox(
+                            width: double.maxFinite,
+                            child: state.status == AuthStatus.loading
+                                ? LoadingAnimationWidget.fourRotatingDots(
+                                    color: AppColors.primaryWhite,
+                                    size: 20,
+                                  )
+                                : Text(
+                                    "Sign In With Google",
+                                    style: GoogleFonts.kanit(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
                           ),
                         ),
                         const SizedBox(height: 5),

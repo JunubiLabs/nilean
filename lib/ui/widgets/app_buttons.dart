@@ -84,6 +84,7 @@ class AppButtons {
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
+          side: const BorderSide(color: Colors.black, width: 2),
         ),
       ),
       child: child,
