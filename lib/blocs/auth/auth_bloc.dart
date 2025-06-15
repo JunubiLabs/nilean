@@ -123,9 +123,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     try {
+      emit(state.copyWith(status: AuthStatus.loading));
       await authRepository.completeRegistration(event.name);
       emit(state.copyWith(status: AuthStatus.registrationComplete));
     } catch (e) {
+      print(e);
       emit(state.copyWith(
         status: AuthStatus.registrationIncomplete,
         error: 'Something Went Wrong. Please try again.',

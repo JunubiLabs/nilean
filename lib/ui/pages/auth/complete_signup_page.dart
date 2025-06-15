@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:nilean/blocs/auth/auth_bloc.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/snack_bar.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/input_themes.dart';
 import 'package:flutter/material.dart';
@@ -44,11 +45,15 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
           if (state.status == AuthStatus.registrationComplete) {
             Navigator.of(context).pushNamed('/home');
           }
+          if (state.user != null && state.user?.displayName != null) {
+            Navigator.of(context).pushNamed('/home');
+          }
           if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error.toString()),
-              ),
+            showSnackBar(
+              context,
+              SnackMessageType.error,
+              'Registration Error',
+              state.error.toString(),
             );
           }
         },
@@ -114,23 +119,16 @@ class _CompleteSignupPageState extends State<CompleteSignupPage> {
                         AppButtons.blueButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              setState(() {
-                                isLoading = true;
-                              });
                               context
                                   .read<AuthBloc>()
                                   .add(CompleteRegistrationRequested(
                                     _nameController.text,
                                   ));
-
-                              setState(() {
-                                isLoading = false;
-                              });
                             }
                           },
                           child: SizedBox(
                             width: double.maxFinite,
-                            child: isLoading
+                            child: state.status == AuthStatus.loading
                                 ? LoadingAnimationWidget.fourRotatingDots(
                                     color: AppColors.primaryWhite,
                                     size: 20,

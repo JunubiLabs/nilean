@@ -64,11 +64,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             }
             Navigator.of(context).pushNamed('/signin');
           }
-          if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error.toString()),
-              ),
+          if (state.error != 'Password Reset Email Sent') {
+            showSnackBar(
+              context,
+              SnackMessageType.error,
+              "Reset Password Failed",
+              state.error.toString(),
             );
           }
         },
