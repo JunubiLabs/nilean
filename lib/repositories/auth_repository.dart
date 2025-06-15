@@ -89,7 +89,6 @@ class AuthRepository {
   User? get currentFirebaseUser => _firebaseAuth.currentUser;
   Future<void> completeRegistration(String name) async {
     try {
-      print(name);
       Future.delayed(const Duration(seconds: 2));
       final user = _firebaseAuth.currentUser;
       if (user != null) {
@@ -109,7 +108,6 @@ class AuthRepository {
         );
       }
     } on FirebaseException catch (e) {
-      print(e);
       throw 'Error completing registration: ${e.message}';
     }
   }
