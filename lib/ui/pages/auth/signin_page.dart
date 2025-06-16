@@ -79,8 +79,7 @@ class _SigninPageState extends State<SigninPage> {
           var user = state.user;
           if (user != null &&
               state.status == AuthStatus.authenticated &&
-              user.emailVerified &&
-              user.displayName != null) {
+              user.emailVerified) {
             Navigator.of(context).pushNamed('/home');
             showSnackBar(
               context,

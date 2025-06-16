@@ -41,7 +41,7 @@ class ChatBubble extends StatelessWidget {
             const SizedBox(width: 4),
             Expanded(
               child: Text(
-                user.displayName?.toTitleCase() ?? '',
+                user.email?.split('@')[0].toTitleCase() ?? '',
                 style: GoogleFonts.lato(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
