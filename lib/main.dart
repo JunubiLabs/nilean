@@ -1,5 +1,6 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:nilean/app.dart';
 import 'package:nilean/gemini_options.dart';
 import 'package:nilean/models/chat_content_model.dart';
@@ -20,6 +21,10 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  if (await InternetConnectionChecker.instance.hasConnection) {
+    await FirebaseMessaging.instance.subscribeToTopic('news_titles');
+  }
 
   await firebaseNotificationServices.initializeNotifications(
     handler: firebaseMessagingBackgroundHandler,
@@ -77,7 +82,7 @@ onNotificationTap(NotificationResponse notificationResponse) {
 handleMessageNotification(RemoteMessage message) async {
   if (message.notification != null) {
     final news = await NewsRepository().fetchNewsByUrl(
-      url: message.data['url'],
+      url: message.notification?.android?.imageUrl ?? '',
     );
     await Future.delayed(const Duration(milliseconds: 500));
     if (!App.navigatorKey.currentState!.mounted) return;

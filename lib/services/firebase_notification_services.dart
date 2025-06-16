@@ -54,7 +54,7 @@ class FirebaseNotificationServices {
         NotificationDetails(
           android: AndroidNotificationDetails(
             'channel_id',
-            'New Articles',
+            'News Articles',
             channelDescription: 'Channel for new article notifications',
             importance: Importance.max,
             priority: Priority.high,
