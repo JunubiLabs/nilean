@@ -45,7 +45,7 @@ void main() async {
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  await FirebaseMessaging.instance.subscribeToTopic('articles');
+  await FirebaseMessaging.instance.subscribeToTopic('news_titles');
 }
 
 onNotificationTap(NotificationResponse notificationResponse) {

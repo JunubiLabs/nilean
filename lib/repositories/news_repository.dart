@@ -62,11 +62,11 @@ class NewsRepository {
     try {
       final doc = await _firestore
           .collection('news_titles')
-          .where('url', isEqualTo: url)
+          .where('imageUrl', isEqualTo: url)
           .get();
       return NewsArticleModel.fromFirestore(doc.docs.first);
     } catch (e) {
-      throw Error();
+      throw e.toString();
     }
   }
 
