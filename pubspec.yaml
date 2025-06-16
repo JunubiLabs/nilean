@@ -71,6 +71,7 @@ dependencies:
   internet_connection_checker: ^3.0.1
   cached_network_image: ^3.4.1
   firebase_app_check: ^0.3.2+7
+  in_app_update: ^4.2.3
 
 dev_dependencies:
   build_runner: ^2.4.15

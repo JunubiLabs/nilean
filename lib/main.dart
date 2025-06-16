@@ -1,4 +1,5 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:nilean/app.dart';
 import 'package:nilean/gemini_options.dart';
 import 'package:nilean/models/chat_content_model.dart';
@@ -31,6 +32,7 @@ void main() async {
     appleProvider: AppleProvider.appAttest,
   );
 
+  checkForUpdate();
   Gemini.init(apiKey: GeminiOptions.googleApiKey);
 
   await Hive.initFlutter();
@@ -40,6 +42,18 @@ void main() async {
   Hive.registerAdapter(UserModelAdapter());
 
   runApp(const App());
+}
+
+void checkForUpdate() async {
+  try {
+    final updateInfo = await InAppUpdate.checkForUpdate();
+    if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
+      await InAppUpdate.startFlexibleUpdate();
+      // Optionally, call InAppUpdate.completeFlexibleUpdate() later
+    }
+  } catch (e) {
+    // Handle error if needed
+  }
 }
 
 @pragma('vm:entry-point')
