@@ -58,6 +58,8 @@ class FirebaseNotificationServices {
             channelDescription: 'Channel for new article notifications',
             importance: Importance.max,
             priority: Priority.high,
+            icon: '@mipmap/ic_launcher',
+            subText: message.notification?.body,
           ),
           iOS: const DarwinNotificationDetails(),
         ),
