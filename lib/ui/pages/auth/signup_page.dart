@@ -36,6 +36,39 @@ class _SignupPageState extends State<SignupPage> {
     });
   }
 
+  errorHandling(String code) {
+    if (code == 'user-not-found') {
+      snackBarMessage('No user found for that email.');
+    } else if (code == 'wrong-password') {
+      snackBarMessage('Wrong password provided for that user.');
+    }
+    if (code == 'invalid-email') {
+      snackBarMessage('Invalid email.');
+    }
+    if (code == 'user-disabled') {
+      snackBarMessage('User is disabled.');
+    }
+    if (code == 'too-many-requests') {
+      snackBarMessage('Too Many Requests. Try Again Later.');
+    }
+    if (code ==
+        'Sign In Error: The supplied auth credential is incorrect, malformed or has expired.') {
+      snackBarMessage(
+          'The supplied email/password credential is incorrect, malformed or has expired.');
+    } else {
+      snackBarMessage(code);
+    }
+  }
+
+  snackBarMessage(String message) {
+    return showSnackBar(
+      context,
+      SnackMessageType.error,
+      'Authentication Error',
+      message,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,12 +79,7 @@ class _SignupPageState extends State<SignupPage> {
             Navigator.of(context).pushNamed('/email-verification');
           }
           if (state.error != null) {
-            showSnackBar(
-              context,
-              SnackMessageType.error,
-              'Signup Error',
-              state.error.toString(),
-            );
+            errorHandling(state.error!);
           }
         },
         child: SafeArea(
