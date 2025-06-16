@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:nilean/blocs/auth/auth_bloc.dart';
 import 'package:nilean/ui/widgets/app_buttons.dart';
+import 'package:nilean/ui/widgets/snack_bar.dart';
 import 'package:nilean/utils/colors.dart';
 import 'package:nilean/utils/input_themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -50,12 +51,12 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
 
     if (isEmailVerified) {
       timer?.cancel();
-      toCompleteSngup();
+      toHome();
     }
   }
 
-  toCompleteSngup() {
-    Navigator.pushNamed(context, '/complete-signup');
+  toHome() {
+    Navigator.pushNamed(context, '/home');
   }
 
   @override
@@ -72,7 +73,22 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state.status == AuthStatus.verified) {
-            Navigator.of(context).pushNamed('/complete-signup');
+            Navigator.of(context).pushNamed('/home');
+            showSnackBar(
+              context,
+              SnackMessageType.success,
+              'Verified',
+              'Welcome To Nilean',
+            );
+          }
+          if (state.status == AuthStatus.registrationComplete) {
+            Navigator.of(context).pushNamed('/home');
+            showSnackBar(
+              context,
+              SnackMessageType.success,
+              'Verified',
+              'Welcome To Nilean',
+            );
           }
         },
         child: SafeArea(

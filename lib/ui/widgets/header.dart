@@ -13,7 +13,7 @@ class AppHeader extends StatefulWidget {
 }
 
 class _AppHeaderState extends State<AppHeader> {
-  String name = FirebaseAuth.instance.currentUser?.displayName ?? '';
+  String name = FirebaseAuth.instance.currentUser?.email?.split('@')[0] ?? '';
   String? photoUrl = FirebaseAuth.instance.currentUser?.photoURL;
 
   @override

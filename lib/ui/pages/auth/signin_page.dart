@@ -82,10 +82,15 @@ class _SigninPageState extends State<SigninPage> {
               user.emailVerified &&
               user.displayName != null) {
             Navigator.of(context).pushNamed('/home');
+            showSnackBar(
+              context,
+              SnackMessageType.success,
+              'Verified',
+              'Welcome To Back',
+            );
           }
-          if (user != null &&
-              (user.emailVerified == false || user.displayName == null)) {
-            Navigator.of(context).pushNamed('/complete-signup');
+          if (user != null && (user.emailVerified == false)) {
+            Navigator.of(context).pushNamed('/email-verification');
           }
           if (state.error != null) {
             errorHandling(state.error!);

@@ -7,6 +7,10 @@ class DateServices {
 
   static String getMorningOrEvening() {
     final hour = Jiffy.now().hour;
-    return hour < 12 ? 'Good Morning 👋🏿' : 'Good Evening 👋🏿';
+    return hour < 12
+        ? 'Good Morning 👋🏿'
+        : hour > 5
+            ? 'Good Afternoon 👋🏿'
+            : 'Good Evening 👋🏿';
   }
 }

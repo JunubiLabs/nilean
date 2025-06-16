@@ -148,7 +148,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final bool isEmailVerified = await authRepository.isEmailVerified();
-    if (isEmailVerified) emit(state.copyWith(status: AuthStatus.verified));
+    if (isEmailVerified) {
+      emit(state.copyWith(status: AuthStatus.registrationComplete));
+    }
   }
 
   Future<void> completeRegistration(
