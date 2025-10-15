@@ -66,52 +66,52 @@ class _RecommendedNewsState extends State<RecommendedNews> {
         FutureBuilder(
           future: NewsRepository().fetchNews(),
           builder: (context, snapshot) {
+            List newsList = snapshot.hasData && snapshot.data!.items.length > 4
+                ? snapshot.data!.items.sublist(0, 4)
+                : snapshot.data!.items;
+
             return StaggeredGrid.count(
               crossAxisCount: 2,
               mainAxisSpacing: 15,
               crossAxisSpacing: 10,
               children: [
                 if (snapshot.connectionState == ConnectionState.waiting) ...[
-                  for (var i = 0; i < 4; i++) ...[
-                    CardLoading(
-                      height: 120,
-                    ),
-                  ],
+                  for (var i = 0; i < 4; i++) ...[CardLoading(height: 120)],
                 ],
                 if (snapshot.hasData) ...[
-                  for (var news in snapshot.data!.items.sublist(0, 4)) ...[
+                  for (var news in newsList) ...[
                     AppCards.curatedNewsCard(
-                      context: context,
-                      news: newsTitle(news),
-                      image: news.imageUrl,
-                      source: news.source,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) =>
-                                SingleNewsPage(news: news),
-                          ),
-                        );
-                      },
-                    )
+                          context: context,
+                          news: newsTitle(news),
+                          image: news.imageUrl,
+                          source: news.source,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) =>
+                                    SingleNewsPage(news: news),
+                              ),
+                            );
+                          },
+                        )
                         .animate()
                         .slideY(
                           curve: Curves.ease,
                           duration: const Duration(milliseconds: 700),
                           delay: Duration(
-                              milliseconds:
-                                  (snapshot.data?.items.indexOf(news) ?? 0) *
-                                      100),
+                            milliseconds:
+                                (snapshot.data?.items.indexOf(news) ?? 0) * 100,
+                          ),
                           begin: 0.5,
                         )
                         .fade(),
                   ],
-                ]
+                ],
               ],
             );
           },
-        )
+        ),
       ],
     );
   }
