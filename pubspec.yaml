@@ -2,7 +2,7 @@ name: nilean
 description: "Everything in your mother tongue"
 publish_to: 'none'
 
-version: 1.1.0+10
+version: 1.1.6+11
 
 environment:
   sdk: ^3.9.2
