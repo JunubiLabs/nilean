@@ -25,18 +25,16 @@ class AuthRepository {
     }
   }
 
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final GoogleSignIn googleSignIn = GoogleSignIn.instance;
 
   Future<UserCredential> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      if (googleUser == null) {
-        throw Exception('Sign in aborted by user');
-      }
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      await googleSignIn.initialize();
+      final GoogleSignInAccount googleUser = await googleSignIn.authenticate();
+
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
+        accessToken: googleAuth.idToken,
         idToken: googleAuth.idToken,
       );
       final user = await FirebaseAuth.instance.signInWithCredential(credential);

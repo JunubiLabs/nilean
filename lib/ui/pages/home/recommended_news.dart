@@ -21,7 +21,7 @@ class _RecommendedNewsState extends State<RecommendedNews> {
   String newsLanguage = 'English';
   List<String> languages = AppConstants.languages.map((l) => l.name).toList();
 
-  getLanguageCode(String language) {
+  String getLanguageCode(String language) {
     return AppConstants.languages.firstWhere((l) => l.name == language).code;
   }
 
@@ -35,7 +35,7 @@ class _RecommendedNewsState extends State<RecommendedNews> {
     }
   }
 
-  loadInitialLanguage() {
+  void loadInitialLanguage() {
     Hive.openBox('settings').then((box) {
       if (box.get('language') != null) {
         setState(() {

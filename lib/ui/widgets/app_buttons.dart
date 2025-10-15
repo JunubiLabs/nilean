@@ -12,10 +12,7 @@ class AppButtons {
       onPressed: onPressed,
       style: TextButton.styleFrom(
         backgroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
           side: const BorderSide(color: Colors.black, width: 2),
@@ -25,9 +22,7 @@ class AppButtons {
     );
   }
 
-  static Widget backButton({
-    required onPressed,
-  }) {
+  static Widget backButton({required VoidCallback onPressed}) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
@@ -39,11 +34,7 @@ class AppButtons {
           borderRadius: BorderRadius.circular(50),
           border: Border.all(width: 2),
         ),
-        child: const Icon(
-          Icons.arrow_back,
-          color: Colors.black,
-          size: 20,
-        ),
+        child: const Icon(Icons.arrow_back, color: Colors.black, size: 20),
       ),
     );
   }
@@ -56,10 +47,7 @@ class AppButtons {
       onPressed: onPressed,
       style: TextButton.styleFrom(
         backgroundColor: AppColors.secondaryBlue,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
           side: const BorderSide(color: Colors.black, width: 2),
@@ -78,10 +66,7 @@ class AppButtons {
       onPressed: onPressed,
       style: TextButton.styleFrom(
         backgroundColor: color,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
           side: const BorderSide(color: Colors.black, width: 2),
@@ -91,9 +76,7 @@ class AppButtons {
     );
   }
 
-  static Widget forwardButton({
-    required onPressed,
-  }) {
+  static Widget forwardButton({required VoidCallback onPressed}) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
@@ -105,11 +88,7 @@ class AppButtons {
           borderRadius: BorderRadius.circular(50),
           border: Border.all(width: 2),
         ),
-        child: const Icon(
-          Icons.arrow_forward,
-          color: Colors.black,
-          size: 18,
-        ),
+        child: const Icon(Icons.arrow_forward, color: Colors.black, size: 18),
       ),
     );
   }
@@ -135,8 +114,8 @@ class AppButtons {
           vertical: displaySize == DisplaySize.large
               ? 4
               : displaySize == DisplaySize.medium
-                  ? 3
-                  : 2,
+              ? 3
+              : 2,
         ),
         decoration: BoxDecoration(
           color: color,
@@ -155,8 +134,8 @@ class AppButtons {
                     fontSize: displaySize == DisplaySize.large
                         ? 15
                         : displaySize == DisplaySize.small
-                            ? 8
-                            : 12,
+                        ? 8
+                        : 12,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -164,14 +143,16 @@ class AppButtons {
               ),
             ],
             if (icon != null) ...[
-              Icon(icon,
-                  size: displaySize == DisplaySize.large
-                      ? 20
-                      : displaySize == DisplaySize.small
-                          ? 12
-                          : 16,
-                  color: Colors.black)
-            ]
+              Icon(
+                icon,
+                size: displaySize == DisplaySize.large
+                    ? 20
+                    : displaySize == DisplaySize.small
+                    ? 12
+                    : 16,
+                color: Colors.black,
+              ),
+            ],
           ],
         ),
       ),
@@ -196,13 +177,13 @@ class AppButtons {
         width: displaySize == DisplaySize.large
             ? 30
             : displaySize == DisplaySize.small
-                ? 20
-                : 25,
+            ? 20
+            : 25,
         height: displaySize == DisplaySize.large
             ? 30
             : displaySize == DisplaySize.small
-                ? 20
-                : 25,
+            ? 20
+            : 25,
         padding: EdgeInsets.all(3),
         decoration: BoxDecoration(
           color: color,
@@ -215,8 +196,8 @@ class AppButtons {
           size: displaySize == DisplaySize.large
               ? 20
               : displaySize == DisplaySize.small
-                  ? 12
-                  : 15,
+              ? 12
+              : 15,
         ),
       ),
     );
@@ -249,10 +230,7 @@ class AppButtons {
           menuPadding: EdgeInsets.all(2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
-            side: BorderSide(
-              color: AppColors.primaryBlue,
-              width: 0.5,
-            ),
+            side: BorderSide(color: AppColors.primaryBlue, width: 0.5),
           ),
           items: [
             for (var item in items) ...[
@@ -285,8 +263,8 @@ class AppButtons {
             vertical: displaySize == DisplaySize.large
                 ? 4
                 : displaySize == DisplaySize.medium
-                    ? 2
-                    : 1,
+                ? 2
+                : 1,
           ),
           decoration: BoxDecoration(
             color: color,
@@ -303,8 +281,8 @@ class AppButtons {
                   fontSize: displaySize == DisplaySize.large
                       ? 15
                       : displaySize == DisplaySize.small
-                          ? 8
-                          : 12,
+                      ? 8
+                      : 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
@@ -315,10 +293,10 @@ class AppButtons {
                 size: displaySize == DisplaySize.large
                     ? 20
                     : displaySize == DisplaySize.small
-                        ? 12
-                        : 16,
+                    ? 12
+                    : 16,
                 color: Colors.black,
-              )
+              ),
             ],
           ),
         ),

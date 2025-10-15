@@ -1,5 +1,5 @@
 class InputValidator {
-  static isValidEmail(String? email) {
+  static String? isValidEmail(String? email) {
     if (email == null || email.isEmpty) {
       return 'Please enter your email';
     }
@@ -9,7 +9,7 @@ class InputValidator {
     return null;
   }
 
-  static isValidPassword(String? password) {
+  static String? isValidPassword(String? password) {
     if (password == null) {
       return 'Please enter your password';
     }

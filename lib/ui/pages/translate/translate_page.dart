@@ -22,7 +22,7 @@ class TranslatePage extends StatefulWidget {
 class _TranslatePageState extends State<TranslatePage> {
   List<String> languages = AppConstants.languages.map((l) => l.name).toList();
 
-  getLanguageCode(String language) {
+  String getLanguageCode(String language) {
     return AppConstants.languages
         .firstWhere((element) => element.name == language)
         .code;

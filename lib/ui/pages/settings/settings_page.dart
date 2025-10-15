@@ -48,9 +48,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 10),
                     Text(
                       'Account Settings',
-                      style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_sharp),
@@ -69,9 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 10),
                     Text(
                       'Notifications',
-                      style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_sharp),
@@ -91,9 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 10),
                     Text(
                       'Logout',
-                      style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_sharp),
@@ -120,9 +114,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 10),
                     Text(
                       'Privacy Policy',
-                      style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_sharp),
@@ -141,9 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 10),
                     Text(
                       'Terms & Conditions',
-                      style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_sharp),
@@ -168,9 +158,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 10),
                     Text(
                       'Donate & Support Us',
-                      style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_sharp),
@@ -180,10 +168,13 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(height: 5),
               AppButtons.settingItem(
                 onPressed: () {
-                  Share.share(
-                    'Check out: https://play.google.com/store/apps/details?id=com.neurollect.nlean',
-                    subject:
-                        'Nilean: Connect, Communicate, and Stay Informed—Naturally.',
+                  SharePlus.instance.share(
+                    ShareParams(
+                      text:
+                          'Check out: https://play.google.com/store/apps/details?id=com.neurollect.nlean',
+                      subject:
+                          'Nilean: Connect, Communicate, and Stay Informed—Naturally.',
+                    ),
                   );
                 },
                 context: context,
@@ -193,9 +184,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 10),
                     Text(
                       'Share App',
-                      style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_sharp),
@@ -217,9 +206,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 10),
                     Text(
                       'Rate Us',
-                      style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios_sharp),
@@ -233,7 +220,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  logout() {
+  void logout() {
     Navigator.pushNamed(context, '/');
   }
 }

@@ -32,11 +32,11 @@ class _NewsPageState extends State<NewsPage> {
   String newsLanguage = 'English';
   List<String> languages = AppConstants.languages.map((l) => l.name).toList();
 
-  getLanguageCode(String language) {
+  String getLanguageCode(String language) {
     return AppConstants.languages.firstWhere((l) => l.name == language).code;
   }
 
-  loadInitialLanguage() {
+  void loadInitialLanguage() {
     Hive.openBox('settings').then((box) {
       if (box.get('language') != null) {
         setState(() {
@@ -46,7 +46,7 @@ class _NewsPageState extends State<NewsPage> {
     });
   }
 
-  setLanguage(String language) {
+  void setLanguage(String language) {
     Hive.openBox('settings').then((box) {
       box.put('language', language);
     });

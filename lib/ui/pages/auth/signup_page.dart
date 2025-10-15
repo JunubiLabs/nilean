@@ -30,13 +30,13 @@ class _SignupPageState extends State<SignupPage> {
     super.dispose();
   }
 
-  hidePassword() {
+  void hidePassword() {
     setState(() {
       isObsecure = !isObsecure;
     });
   }
 
-  errorHandling(String code) {
+  void errorHandling(String code) {
     if (code == 'user-not-found') {
       snackBarMessage('No user found for that email.');
     } else if (code == 'wrong-password') {
@@ -60,7 +60,7 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
-  snackBarMessage(String message) {
+  void snackBarMessage(String message) {
     return showSnackBar(
       context,
       SnackMessageType.error,

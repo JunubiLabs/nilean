@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "junubai" "\0"
+            VALUE "CompanyName", "com.neurollect" "\0"
+            VALUE "FileDescription", "nilean" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "junubai" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "junubai.exe" "\0"
-            VALUE "ProductName", "junubai" "\0"
+            VALUE "InternalName", "nilean" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 com.neurollect. All rights reserved." "\0"
+            VALUE "OriginalFilename", "nilean.exe" "\0"
+            VALUE "ProductName", "nilean" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

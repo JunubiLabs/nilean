@@ -322,7 +322,7 @@ class _AccountPageState extends State<AccountPage> {
     }
   }
 
-  snackBar(String message) {
+  void snackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
     );

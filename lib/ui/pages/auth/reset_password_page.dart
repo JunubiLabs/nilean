@@ -41,7 +41,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     super.dispose();
   }
 
-  hidePassword() {
+  void hidePassword() {
     setState(() {
       isObsecure = !isObsecure;
     });
