@@ -32,11 +32,11 @@ class _ChatPageState extends State<ChatPage> {
   String chatLanguage = 'English';
   List<String> languages = AppConstants.languages.map((l) => l.name).toList();
 
-  getLanguageCode(String language) {
+  String getLanguageCode(String language) {
     return AppConstants.languages.firstWhere((l) => l.name == language).code;
   }
 
-  scrollToTheBottom() {
+  void scrollToTheBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(

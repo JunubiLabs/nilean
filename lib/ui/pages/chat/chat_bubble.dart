@@ -59,8 +59,9 @@ class ChatBubble extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color:
-                isError ? Colors.red : Theme.of(context).colorScheme.tertiary,
+            color: isError
+                ? Colors.red
+                : Theme.of(context).colorScheme.tertiary,
             borderRadius: BorderRadius.circular(5),
           ),
           child: Column(
@@ -97,10 +98,7 @@ class ChatBubble extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              MarkdownBody(
-                data: chat.response ?? '',
-                selectable: true,
-              ),
+              MarkdownBody(data: chat.response ?? '', selectable: true),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -127,14 +125,16 @@ class ChatBubble extends StatelessWidget {
                   const SizedBox(width: 2),
                   AppButtons.circularButton(
                     onPressed: () {
-                      Share.share(chat.response ?? '');
+                      SharePlus.instance.share(
+                        ShareParams(text: chat.response ?? ''),
+                      );
                     },
                     context: context,
                     color: AppColors.primaryGrey,
                     icon: Icons.ios_share,
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

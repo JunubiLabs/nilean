@@ -55,7 +55,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
     }
   }
 
-  toHome() {
+  void toHome() {
     Navigator.pushNamed(context, '/home');
   }
 

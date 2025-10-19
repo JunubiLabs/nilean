@@ -39,7 +39,7 @@ class TranslateDisplay extends StatelessWidget {
             Text(
               displayText,
               style: GoogleFonts.inter(color: Colors.black, fontSize: 16),
-            )
+            ),
           ],
           if (isLoading) ...[
             Column(
@@ -56,9 +56,9 @@ class TranslateDisplay extends StatelessWidget {
                 CardLoading(
                   height: 13,
                   width: MediaQuery.of(context).size.width * 0.4,
-                )
+                ),
               ],
-            )
+            ),
           ],
           Row(
             children: [
@@ -94,7 +94,7 @@ class TranslateDisplay extends StatelessWidget {
               const SizedBox(width: 2),
               AppButtons.circularButton(
                 onPressed: () {
-                  Share.share(displayText);
+                  SharePlus.instance.share(ShareParams(text: displayText));
                 },
                 context: context,
                 color: AppColors.primaryGrey,
@@ -102,7 +102,7 @@ class TranslateDisplay extends StatelessWidget {
                 displaySize: DisplaySize.large,
               ),
             ],
-          )
+          ),
         ],
       ),
     );

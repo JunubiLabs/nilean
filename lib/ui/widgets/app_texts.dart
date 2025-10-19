@@ -45,7 +45,7 @@ class AppTexts {
     );
   }
 
-  static newsTitle({
+  static RichText newsTitle({
     required String title,
     required BuildContext context,
     DisplaySize? size,

@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 
 class AppCards {
-  static String encodeText(rawText) {
+  static String encodeText(String rawText) {
     return utf8.decode(utf8.encode(rawText));
   }
 
@@ -136,10 +136,8 @@ class AppCards {
             ],
           ),
         ),
-        placeholder: (context, url) => CardLoading(
-          height: 120,
-          borderRadius: BorderRadius.circular(5),
-        ),
+        placeholder: (context, url) =>
+            CardLoading(height: 120, borderRadius: BorderRadius.circular(5)),
         errorWidget: (context, url, error) {
           return Container(
             height: 120,

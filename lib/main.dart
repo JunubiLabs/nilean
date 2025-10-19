@@ -32,10 +32,7 @@ void main() async {
     handleMessageNotification: handleMessageNotification,
   );
 
-  await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.playIntegrity,
-    appleProvider: AppleProvider.appAttest,
-  );
+  await FirebaseAppCheck.instance.activate();
 
   checkForUpdate();
   Gemini.init(apiKey: GeminiOptions.googleApiKey);
@@ -67,28 +64,22 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await FirebaseMessaging.instance.subscribeToTopic('news_titles');
 }
 
-onNotificationTap(NotificationResponse notificationResponse) {
+void onNotificationTap(NotificationResponse notificationResponse) {
   if (notificationResponse.payload != null) {
     final payload = notificationResponse.payload!;
     NewsRepository().fetchNewsByUrl(url: payload).then((news) {
-      App.navigatorKey.currentState!.pushNamed(
-        '/article',
-        arguments: news,
-      );
+      App.navigatorKey.currentState!.pushNamed('/article', arguments: news);
     });
   }
 }
 
-handleMessageNotification(RemoteMessage message) async {
+Future<void> handleMessageNotification(RemoteMessage message) async {
   if (message.notification != null) {
     final news = await NewsRepository().fetchNewsByUrl(
       url: message.notification?.android?.imageUrl ?? '',
     );
     await Future.delayed(const Duration(milliseconds: 500));
     if (!App.navigatorKey.currentState!.mounted) return;
-    App.navigatorKey.currentState!.pushNamed(
-      '/article',
-      arguments: news,
-    );
+    App.navigatorKey.currentState!.pushNamed('/article', arguments: news);
   }
 }

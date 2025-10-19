@@ -31,11 +31,11 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
   late NewsArticleContentModel newsContent;
   bool loading = true;
 
-  getLanguageCode(String language) {
+  String getLanguageCode(String language) {
     return AppConstants.languages.firstWhere((l) => l.name == language).code;
   }
 
-  loadInitialLanguage() {
+  void loadInitialLanguage() {
     Hive.openBox('settings').then((box) {
       if (box.get('language') != null) {
         setState(() {
@@ -45,7 +45,7 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
     });
   }
 
-  loadNewsContent() async {
+  Future<void> loadNewsContent() async {
     final content = await NewsRepository().fetchNewsContent(
       newsId: widget.news.id,
     );
@@ -56,7 +56,7 @@ class _SingleNewsPageState extends State<SingleNewsPage> {
     });
   }
 
-  setLanguage(String language) {
+  void setLanguage(String language) {
     Hive.openBox('settings').then((box) {
       box.put('language', language);
     });

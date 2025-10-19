@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     handleMessage();
   }
 
-  handleMessage() async {
+  Future<void> handleMessage() async {
     final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
       showOerlay(true); // Show the loading overlay
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  showOerlay(bool show) {
+  void showOerlay(bool show) {
     show ? context.loaderOverlay.show() : context.loaderOverlay.hide();
   }
 
