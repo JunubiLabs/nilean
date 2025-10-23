@@ -66,9 +66,10 @@ class _RecommendedNewsState extends State<RecommendedNews> {
         FutureBuilder(
           future: NewsRepository().fetchNews(),
           builder: (context, snapshot) {
-            List newsList = snapshot.hasData && snapshot.data!.items.length > 4
+            List newsList =
+                snapshot.hasData && (snapshot.data?.items ?? []).length > 4
                 ? snapshot.data!.items.sublist(0, 4)
-                : snapshot.data!.items;
+                : snapshot.data?.items ?? [];
 
             return StaggeredGrid.count(
               crossAxisCount: 2,
