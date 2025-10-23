@@ -58,11 +58,7 @@ class SnackMessage extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: _borderColors[type],
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 const SizedBox(height: 2),
                 Text(message, style: const TextStyle(fontSize: 14)),
@@ -89,8 +85,9 @@ void showSnackBar(
   String title,
   String message,
 ) {
-  final scaffoldMessenger =
-      ScaffoldMessenger.of(context); // See [6] for correct usage
+  final scaffoldMessenger = ScaffoldMessenger.of(
+    context,
+  ); // See [6] for correct usage
   scaffoldMessenger.showSnackBar(
     SnackBar(
       backgroundColor: Colors.transparent,

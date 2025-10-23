@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
+import 'package:nilean/config.dart';
 import 'package:nilean/models/user_model.dart';
 
 class AuthRepository {
@@ -25,11 +27,15 @@ class AuthRepository {
     }
   }
 
-  final GoogleSignIn googleSignIn = GoogleSignIn.instance;
-
   Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+
     try {
-      await googleSignIn.initialize();
+      await googleSignIn.initialize(
+        clientId: Config.googleAuthClientId,
+        serverClientId: Config.googleServerClientId,
+      );
+
       final GoogleSignInAccount googleUser = await googleSignIn.authenticate();
 
       final GoogleSignInAuthentication googleAuth = googleUser.authentication;
@@ -53,8 +59,10 @@ class AuthRepository {
 
       return user;
     } on FirebaseAuthException catch (e) {
+      debugPrint('Google Sign-In Error: ${e.message}');
       throw 'Sign In Error: ${e.message}';
     } catch (e) {
+      debugPrint('Google Sign-In Error: $e');
       throw 'Sign In Error: $e';
     }
   }
