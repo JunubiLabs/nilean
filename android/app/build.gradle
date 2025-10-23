@@ -27,8 +27,8 @@ android {
         applicationId = "com.neurollect.nilean"
         minSdk = 24
         targetSdk = flutter.targetSdkVersion
-        versionCode = 11
-        versionName = "1.1.6"
+        versionCode = 12
+        versionName = "1.1.7"
     }
 
     signingConfigs {
