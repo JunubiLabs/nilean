@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.neurollect.nilean"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = "29.0.13113456 rc1"
 
     compileOptions {
@@ -26,7 +26,7 @@ android {
     defaultConfig {
         applicationId = "com.neurollect.nilean"
         minSdk = 24
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
         versionCode = 12
         versionName = "1.1.7"
     }
