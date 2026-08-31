@@ -2,7 +2,7 @@ name: nilean
 description: "News in your mother tongue"
 publish_to: 'none'
 
-version: 1.1.7+12
+version: 1.1.8+13
 
 environment:
   sdk: ^3.9.2

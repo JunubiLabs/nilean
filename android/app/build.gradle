@@ -27,15 +27,15 @@ android {
         applicationId = "com.neurollect.nilean"
         minSdk = 24
         targetSdk = 36
-        versionCode = 12
-        versionName = "1.1.7"
+        versionCode = 13
+        versionName = "1.1.8"
     }
 
     signingConfigs {
         release {
             keyAlias 'upload'
             keyPassword 'Jumamos123'
-            storeFile file('/home/gakah/Projects/junubai/android/upload-keystore.jks')
+            storeFile file('/home/gakah/Organizations/Nilean/nilean/android/upload-keystore.jks')
             storePassword 'Jumamos123'
         }
     }
